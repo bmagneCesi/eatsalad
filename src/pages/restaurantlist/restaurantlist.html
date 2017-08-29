@@ -1,0 +1,37 @@
+<ion-header no-border>
+    <ion-toolbar class="toolbar">
+        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Déconnexion</button>
+        <ion-col col-4 offset-4>
+            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+        </ion-col>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-container">
+    <ion-grid>
+
+        <ion-row>
+            <h3 class="title" id="restaurant-title">RESTAURANTS</h3>
+        </ion-row>
+
+        <ion-row *ngIf="restaurants">
+            <ion-col col-8 offset-2>
+                <ion-list>
+                    <ion-item-sliding *ngFor="let restaurant of restaurants" class="slide-restaurants-container">
+                        <ion-item color="light" class="button-restaurants" (tap)="showRestaurantAction(restaurant.id_restaurant)">
+                            {{ restaurant.name | uppercase }}
+                        </ion-item>
+                        <ion-item-options side="right" class="remove-restaurant" >
+                            <button ion-button color="danger" (click)="deleteRestaurantAction(restaurant)">Supprimer</button>
+                        </ion-item-options>
+                    </ion-item-sliding>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-icon id="restaurant-add"  (tap)="addRestaurantAction()" name="ios-add-circle"></ion-icon>                    
+        </ion-row>
+        
+    </ion-grid>
+</ion-content>

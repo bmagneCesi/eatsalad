@@ -1,0 +1,58 @@
+<ion-header no-border>
+    <ion-toolbar class="toolbar">
+        <button offset-1 col-3 class="button-back" color="light" ion-button (tap)="cancelResponses(subcategory.name)">Menu questions</button>
+        <ion-col col-4 offset-4>
+            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+        </ion-col>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-scroll">
+    <ion-grid class="main-container">
+
+        <ion-row>
+            <h1 class="title">{{ subcategory.name | uppercase }}</h1>
+        </ion-row>
+
+        <ion-row>
+            <ion-slides>
+                <ion-slide *ngFor="let question of questions; let i=index">
+                    <ion-row><h1 class="subtitle">{{ question.question }}</h1></ion-row>
+                    <ion-row col-10 offset-1 radio-group>
+                        <ion-item text-wrap class="response-button" no-lines col-3 *ngFor="let response of responses">
+                            <ion-label>{{ response.response}}</ion-label>
+                            <ion-radio (ionSelect)="onSelectionChange(question, response)" value="{{response.id_response}}"></ion-radio>
+                        </ion-item>
+                    </ion-row>
+                    <ion-row col-10 offset-1>
+                        <ion-col col-5>
+                            <h1 class="subtitle-left">Commentaire</h1>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row col-10 offset-1>
+                        <ion-col col-10>
+                            <ion-textarea class="response-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
+                        </ion-col>
+                        <ion-col col-2>
+                            <button color="light" class="camera-button" ion-button icon-only>
+                                <ion-icon name="ios-camera"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row col-10 offset-1>
+                        <ion-col col-6 *ngIf="!isBeginning() && question.id_question">
+                            <button (tap)="prevQuestion()" ion-button class="button-light" color="light">Précédent</button>
+                        </ion-col>
+                        <ion-col [attr.offset-6]="isBeginning()? true: null" col-6 *ngIf="!isEnd() && !isEmpty(questionHasResponse)">
+                            <button (tap)="nextQuestion()" ion-button class="button-light" color="light">Suivant</button>
+                        </ion-col>
+                        <ion-col col-6 *ngIf="isEnd() && !isEmpty(questionHasResponse)">
+                            <button (tap)="validateForm()" ion-button class="button-light" color="light">Valider</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-slide>
+            </ion-slides>
+        </ion-row>
+        
+    </ion-grid>
+</ion-content>

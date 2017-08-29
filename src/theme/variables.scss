@@ -21,8 +21,7 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
-
-
+$text-color: #ffffff;
 
 
 // Named Color Variables
@@ -32,21 +31,23 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-
 $colors: (
   primary:    #488aff,
-  secondary:  #32db64,
+  secondary:  #6a962f,
   danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
+  light:      #d9eaba,
+  white:    #ffffff,
+  dark:       #222,
+  eatsalad:   #89BD2A,
 );
 
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
-
+$action-sheet-ios-button-border-color: rgba(255,255,255,0.5);
+$toolbar-background: #ffffff;
+$item-ios-sliding-content-background: transparent;
 
 
 // App Material Design Variables
@@ -86,3 +87,40 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+@font-face {
+  font-family: "SourceSansPro";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../assets/fonts/sourcesanspro/SourceSansPro-ExtraLight.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SourceSansPro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/sourcesanspro/SourceSansPro-Light.ttf");
+}
+
+@font-face {
+  font-family: "SourceSansPro";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../assets/fonts/sourcesanspro/SourceSansPro-Regular.ttf");
+}
+
+@font-face {
+  font-family: "SourceSansPro";
+  font-style: bold;
+  font-weight: 600;
+  src: url("../assets/fonts/sourcesanspro/SourceSansPro-Bold.ttf");
+}
+
+@font-face {
+  font-family: "SourceSansPro";
+  font-style: bold;
+  font-weight: 700;
+  src: url("../assets/fonts/sourcesanspro/SourceSansPro-Black.ttf");
+}
+
+$font-family-base: "SourceSansPro";

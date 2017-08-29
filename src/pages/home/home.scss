@@ -1,3 +1,43 @@
 page-home {
 
+    .no-scroll .scroll-content{
+        overflow: hidden;
+    }
+
+    ion-grid{
+        height: 50vh;
+        justify-content: center;
+    }
+
+    #header{
+        background-color: #ffffff;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.20);
+        position: relative;
+        height: 50vh;
+    }
+
+    #header #logo-home{
+        display: table-cell;
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    #login-container{
+        background-color: #89BD2A;
+    }
+
+    #login-container ion-item{
+        background: none;
+    }
+
+    #login-container  ion-label{
+        min-width: 50px;
+        font-size: 20px;
+    }
+
+    #login-container ion-item ion-input{
+        border-radius: 7px;
+        height: 35px;
+        background-color: #bdd88c;
+    }
 }

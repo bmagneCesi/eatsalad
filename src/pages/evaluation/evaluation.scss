@@ -1,0 +1,32 @@
+page-evaluation {
+
+    .response-button{
+        border-radius: 8px;
+        background-color: #bdd88c;
+        color: #6a962f;
+        text-align: center;
+        height:130px;
+    }
+
+    .response-comment{
+        background-color:#bdd88c;
+        border-radius: 8px;
+        color: #6a962f;
+        height: 50px;
+        vertical-align: middle;
+        display: inline-block;
+        padding: 0px 10px;
+    }
+
+    .camera-button{
+        background-color:#bdd88c;
+        color: #6a962f;
+        height: 50px;
+        vertical-align: middle;
+        display: inline-block;
+        width: 50px;
+        border-radius: 50px;
+        padding: 0px 10px;
+    }
+
+}

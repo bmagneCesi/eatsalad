@@ -1,0 +1,25 @@
+<ion-header no-border>
+    <ion-toolbar class="toolbar">
+        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Retour</button>
+        <ion-col col-4 offset-4>
+            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+        </ion-col>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-scroll">
+    <ion-grid *ngIf="categories" class="main-container">
+        <ng-container *ngFor="let category of categories">
+            <ion-row>
+                <h1 class="title">{{ category.name }}</h1>
+            </ion-row>
+            <ion-row>
+                <ng-container *ngFor="let subcategory of subcategories">
+                    <button (tap)="evaluateAction(category, subcategory)" class="subcategory-button" ion-button color="light" *ngIf="subcategory.question_category_id == category.id_question_category">
+                        {{ subcategory.name }}
+                    </button>
+                </ng-container>
+            </ion-row>
+        </ng-container>
+    </ion-grid>
+</ion-content>

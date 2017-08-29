@@ -1,14 +1,41 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content class="no-scroll">
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-grid id="header">
+
+    <ion-row>
+      <ion-col>
+        <img id="logo-home" src="assets/img/logo-app-home.png" alt="">
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+    
+  <ion-grid id="login-container">
+
+    <ion-row>
+      <ion-col col-xs-12 col-sm-8 offset-sm-2>
+        <ion-list>
+          
+          <ion-item no-lines>
+            <ion-label col-4>Utilisateur</ion-label>
+            <ion-input [(ngModel)]="user" type="text"></ion-input>
+          </ion-item>
+          
+          <ion-item no-lines>
+            <ion-label col-4>Mot de passe</ion-label>
+            <ion-input [(ngModel)]="password" type="password"></ion-input>
+          </ion-item>
+      
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-xs-8 offset-xs-2 col-sm-2 offset-sm-5>
+        <button (tap)="loginAction()" ion-button color="eatsalad" class="button-light" full>Connexion</button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
 </ion-content>

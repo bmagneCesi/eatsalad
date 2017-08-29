@@ -1,0 +1,36 @@
+page-restaurantlist{
+
+    #restaurant-title{
+        margin: 80px auto 40px;
+    }
+
+    .list-restaurants{
+        margin-bottom: 30px;
+    }
+
+    .button-restaurants{
+        text-align: center;
+        background-color: #bdd88c;
+        border-radius: 6px;
+        height:45px;
+        line-height: 35px;
+        color: #6a962f;
+        margin:0 auto;
+        font-size: 20px;
+    }
+
+    .slide-restaurants-container{
+        margin-bottom: 20px;
+    }
+
+    #restaurant-add{
+        color: #bdd88c;
+        font-size: 65px;
+        margin: 0 auto;
+    }
+
+    .remove-restaurant{
+        border-radius: 6px;
+    }
+
+}
