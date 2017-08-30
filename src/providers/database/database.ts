@@ -378,7 +378,7 @@ export class DatabaseProvider {
   }
 
   getResponseByIdEvaluation(id_evaluation) {
-    return this.database.executeSql("SELECT * FROM `question_has_response` WHERE evaluation_id = " + id_evaluation, {}).then((data) => {
+    return this.database.executeSql("SELECT * FROM `question_has_response` JOIN `question_has_response_image` ON `question_has_response`.id_question_has_response = `question_has_response_image`.question_has_response_id WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
       let responses = [];
       if(data == null) 
       {
@@ -404,14 +404,54 @@ export class DatabaseProvider {
   }
 
   addResponses(id_evaluation, responses) {        
-    responses.forEach(element => {
-        this.database.executeSql('INSERT INTO `question_has_response`(image, comment, question_id, response_id, evaluation_id) VALUES(\'' + element.data.image + '\', \'' + element.data.comment + '\', \'' + element.data.question.id_question + '\', \'' + element.data.response.id_response + '\', \'' + id_evaluation + '\')', {}).then(() => {
+    
+    for (var i = 0; i < responses.length; i++) {
+      let response = responses.rows.item(i);
+      this.database.executeSql('INSERT INTO `question_has_response`(comment, question_id, response_id, evaluation_id) VALUES(\'' + response.data.comment + '\', \'' + response.data.question.id_question + '\', \'' + responses.rows.item(i).data.response.id_response + '\', \'' + id_evaluation + '\')', {}).then(() => {
+        return;
+      }, err => {
+        console.log('Error: ', JSON.stringify(err));
+        return [];
+      });
+
+      this.database.executeSql('select seq from sqlite_sequence where name="question_has_response"', {}).then(data => {
+        
+        let id_qhr;
+        
+        if(data == null) 
+        {
           return;
-        }, err => {
-          console.log('Error: ', JSON.stringify(err));
-          return [];
-        });
-    });
+        }
+  
+        if(data.rows) 
+        {
+          if(data.rows.length > 0) 
+          {
+            id_qhr = data.rows.item(0).seq;
+          }
+        }
+        console.log('new qhr_id: '+id_qhr);
+
+        for (var j = 0; j < response.images.length; j++) {
+          let image = response.images.rows.item(j);
+
+          console.log('image path: ' + image.image);
+          this.database.executeSql('INSERT INTO `question_has_response_image`(path, question_has_response_id) VALUES(\'' + image.image + '\', ' + id_qhr + ')', {}).then(() => {
+            return;
+          }, err => {
+            console.log('Error: ', JSON.stringify(err));
+            return [];
+          });
+        
+        }
+        
+      }, err => {
+        console.log('Error: ', JSON.stringify(err));
+        return [];
+      });
+
+    }
+    
   }
 
   getDatabaseState() {

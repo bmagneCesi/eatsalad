@@ -34,6 +34,7 @@ export class EvaluationPage {
   responsesArray = [];
   subcategoriesDone = [];
   comment:string;
+  imagesArray = [];
   lastImage: string = null;
 
   constructor(private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, private camera: Camera, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, private nativeStorage: NativeStorage) {
@@ -98,7 +99,7 @@ export class EvaluationPage {
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-      this.lastImage = newFileName;
+      this.imagesArray.push({'image': this.pathForImage(newFileName)});
     }, error => {
       this.presentToast('Erreur durant l\'enregistrement de l\'image.');
     });
@@ -113,6 +114,11 @@ export class EvaluationPage {
     toast.present();
   }
   
+  deletePhoto(image){
+    this.file.removeFile(cordova.file.dataDirectory, image);
+    this.removeByAttr(this.imagesArray, 'image', image);
+  }
+
   // Always get the accurate path to your apps folder
   public pathForImage(img) {
     if (img === null) {
@@ -140,12 +146,12 @@ export class EvaluationPage {
       this.slides.lockSwipes(true);
       this.questionHasResponse['comment'] = this.comment;
       if (this.lastImage != '')
-        this.questionHasResponse['image'] = this.pathForImage(this.lastImage);
+        this.questionHasResponse['images'] = this.imagesArray;
       else
-        this.questionHasResponse['image'] = '';  
+        this.questionHasResponse['images'] = [];  
       
       this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
-      this.lastImage = '';
+      this.imagesArray = [];
       this.comment = '';
       this.questionHasResponse = {};
   }
@@ -174,17 +180,19 @@ export class EvaluationPage {
   validateForm():void {
     this.questionHasResponse['comment'] = this.comment;
     if (this.lastImage != '')
-      this.questionHasResponse['image'] = this.pathForImage(this.lastImage);
+      this.questionHasResponse['images'] = this.imagesArray;
     else
-      this.questionHasResponse['image'] = '';  
+      this.questionHasResponse['images'] = [];  
 
     this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
+    this.imagesArray = [];
     this.comment = '';
-    this.lastImage = '';
     this.questionHasResponse = {};
-
+    console.log(JSON.stringify(this.responsesArray));
     this.databaseprovider.addResponses(this.id_evaluation, this.responsesArray);
-
+    this.databaseprovider.getResponseByIdEvaluation(this.id_evaluation).then((data) => {
+      console.log('responses added: ' + JSON.stringify(data));
+    })
     this.subcategoriesDone.push(this.navParams.get('subcategory').id_question_subcategory);
     this.nativeStorage.setItem('subcategories-done', this.subcategoriesDone);
     this.navCtrl.popTo(EvaluationCategoryPage);

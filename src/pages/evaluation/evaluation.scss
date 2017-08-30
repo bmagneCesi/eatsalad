@@ -29,4 +29,24 @@ page-evaluation {
         padding: 0px 10px;
     }
 
+    .photo-container{
+        position: relative;
+        width: 150px;
+        height: 150px;
+    }
+
+    .delete-photo{
+        color:#ffffff;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 30px;
+    }
+
+    .evaluation-photo{
+        border-radius: 8px;
+        width: 150px;
+        height: 150px;
+    }
+
 }
