@@ -10,6 +10,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // Pages
 import { EvaluationCategoryPage } from '../evaluationcategory/evaluationcategory';
+import { SignaturePage } from '../signature/signature';
 
 
 @Component({
@@ -29,9 +30,8 @@ export class EvaluationCommentairePage {
 
   validate(comment){
       this.databaseprovider.addEvaluationComment(this.id_evaluation, comment).then(() => {
-        //   this.navCtrl.push(SignaturePage);
+        this.navCtrl.push(SignaturePage, {'id_evaluation': this.id_evaluation});
       });
-
   }
 
 }

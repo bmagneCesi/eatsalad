@@ -1,16 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
-import { Slides, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
-
+import { Slides, NavController, NavParams, AlertController, Platform, ActionSheetController, ToastController } from 'ionic-angular';
+import { File } from '@ionic-native/file';
+import { Transfer, TransferObject } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 // Native components
 import { NativeStorage } from '@ionic-native/native-storage';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // Pages
 import { EvaluationCategoryPage } from '../evaluationcategory/evaluationcategory';
 
+declare var cordova: any;
 
 @Component({
   selector: 'page-evaluation',
@@ -31,9 +34,9 @@ export class EvaluationPage {
   responsesArray = [];
   subcategoriesDone = [];
   comment:string;
-  image:string;
-  
-  constructor(private camera: Camera, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, private nativeStorage: NativeStorage) {
+  lastImage: string = null;
+
+  constructor(private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, private camera: Camera, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, private nativeStorage: NativeStorage) {
     this.platform.ready().then(() => {
       this.navCtrl.swipeBackEnabled = false;
       this.id_restaurant = this.navParams.get('id_restaurant');
@@ -69,21 +72,54 @@ export class EvaluationPage {
     
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      targetWidth: 1000,
-      targetHeight: 1000
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      saveToPhotoAlbum: false,
+      correctOrientation: true
     }
     
-    this.camera.getPicture(options).then((imageData) => {
-     // imageData is either a base64 encoded string or a file URI
-     // If it's base64:
-      this.image = 'data:image/jpeg;base64,' + imageData;
+    this.camera.getPicture(options).then((imagePath) => {
+      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
     }, (err) => {
      // Handle error
     });
     
+  }
+
+  // Create a new name for the image
+  private createFileName() {
+    var d = new Date(),
+    n = d.getTime(),
+    newFileName =  n + ".jpg";
+    return newFileName;
+  }
+  
+  // Copy the image to a local folder
+  private copyFileToLocalDir(namePath, currentName, newFileName) {
+    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+      this.lastImage = newFileName;
+    }, error => {
+      this.presentToast('Erreur durant l\'enregistrement de l\'image.');
+    });
+  }
+  
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+  
+  // Always get the accurate path to your apps folder
+  public pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      return cordova.file.dataDirectory + img;
+    }
   }
 
   onSelectionChange(question, response):void {
@@ -103,9 +139,13 @@ export class EvaluationPage {
       this.slides.slideNext();
       this.slides.lockSwipes(true);
       this.questionHasResponse['comment'] = this.comment;
-      this.questionHasResponse['image'] = this.image;
+      if (this.lastImage != '')
+        this.questionHasResponse['image'] = this.pathForImage(this.lastImage);
+      else
+        this.questionHasResponse['image'] = '';  
+      
       this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
-      this.image = '';
+      this.lastImage = '';
       this.comment = '';
       this.questionHasResponse = {};
   }
@@ -133,14 +173,18 @@ export class EvaluationPage {
   
   validateForm():void {
     this.questionHasResponse['comment'] = this.comment;
-    this.questionHasResponse['image'] = this.image;
-    this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
+    if (this.lastImage != '')
+      this.questionHasResponse['image'] = this.pathForImage(this.lastImage);
+    else
+      this.questionHasResponse['image'] = '';  
 
-    this.image = '';
+    this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
     this.comment = '';
+    this.lastImage = '';
     this.questionHasResponse = {};
 
     this.databaseprovider.addResponses(this.id_evaluation, this.responsesArray);
+
     this.subcategoriesDone.push(this.navParams.get('subcategory').id_question_subcategory);
     this.nativeStorage.setItem('subcategories-done', this.subcategoriesDone);
     this.navCtrl.popTo(EvaluationCategoryPage);

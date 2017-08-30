@@ -57,7 +57,7 @@ export class DatabaseProvider {
     return this.database.executeSql('INSERT INTO `restaurant`(name) VALUES(\'' + name + '\')', []).then(data => {
       return data;
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return err;
     });
   }
@@ -66,7 +66,7 @@ export class DatabaseProvider {
     return this.database.executeSql("DELETE FROM `restaurant` WHERE id_restaurant = " + id_restaurant, []).then(data => {
       return data;
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return err;
     });
   }
@@ -91,7 +91,7 @@ export class DatabaseProvider {
       return restaurant;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -117,7 +117,7 @@ export class DatabaseProvider {
       return restaurants;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -143,7 +143,7 @@ export class DatabaseProvider {
     return categories;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -170,25 +170,7 @@ export class DatabaseProvider {
             sub_category_tmp = data.rows.item(i);
 
             subcategories.push(data.rows.item(i));
-            // this.getNumberOfQuestionsBySubCategory(id_subcategory_tmp).then((res1) => {
-            //   nbQuestionsSubcategory = res1;
-            //   console.log(JSON.stringify('q: ' + nbQuestionsSubcategory));
-              
-            // });
-            // this.getNumberOfResponseInSubCategory(id_evaluation, id_subcategory_tmp).then((res2) => {
-            //   nbResponsesSubcategory = res2;
-            //   console.log(JSON.stringify('r: ' + nbResponsesSubcategory));              
-            // });
 
-            // if (nbQuestionsSubcategory == nbResponsesSubcategory)
-            // {
-              
-            //   subcategories.push({'done': 1, 'data': sub_category_tmp}); 
-            // }
-            // else
-            // {
-            //   subcategories.push({'done': 0, 'data': sub_category_tmp}); 
-            // }
           }
         }
       }
@@ -196,7 +178,7 @@ export class DatabaseProvider {
       return subcategories;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -220,7 +202,7 @@ export class DatabaseProvider {
         return nb;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
     
@@ -243,7 +225,7 @@ export class DatabaseProvider {
         }
         return nb;
       }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
 
@@ -271,7 +253,7 @@ export class DatabaseProvider {
       return questions;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -280,7 +262,7 @@ export class DatabaseProvider {
     return this.database.executeSql('INSERT INTO `evaluation`(comment) VALUES(\'' + comment + '\') WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
       return data;
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -307,7 +289,7 @@ export class DatabaseProvider {
       return responses;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -316,7 +298,7 @@ export class DatabaseProvider {
     return this.database.executeSql('DELETE FROM question_has_response WHERE question_has_response.evaluation_id = ' + id_evaluation + ' AND question_has_response.question_id in (SELECT id_question FROM question WHERE question.question_subcategory_id = ' + id_question_subcategory +')', {}).then((data) => {;
       return data;
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -346,7 +328,7 @@ export class DatabaseProvider {
       return id_evaluation;
       
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
 
@@ -354,8 +336,18 @@ export class DatabaseProvider {
 
   cancelEvaluation(id_evaluation) {
 
-    this.database.executeSql('DELETE FROM `evaluation` WHERE id_evaluation = ' +  id_evaluation, {});
-    this.database.executeSql('DELETE FROM `question_has_response` WHERE evaluation_id = ' +  id_evaluation, {});
+    this.database.executeSql('DELETE FROM `evaluation` WHERE id_evaluation = ' +  id_evaluation, {}).then((data) => {
+      return;
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });;
+    this.database.executeSql('DELETE FROM `question_has_response` WHERE evaluation_id = ' +  id_evaluation, {}).then((data) => {
+      return;
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });
     
   }
 
@@ -380,7 +372,7 @@ export class DatabaseProvider {
       return evaluations;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
@@ -406,35 +398,20 @@ export class DatabaseProvider {
       return responses;
 
     }, err => {
-      console.log('Error: ', err);
+      console.log('Error: ', JSON.stringify(err));
       return [];
     });
   }
 
-  addResponses(id_evaluation, responses) {
-         
+  addResponses(id_evaluation, responses) {        
     responses.forEach(element => {
-        this.database.executeSql('INSERT INTO `question_has_response`(image, comment, question_id, response_id, evaluation_id) VALUES(\'' + element.data.image + '\', \'' + element.data.comment + '\', \'' + element.data.question.id_question + '\', \'' + element.data.response.id_response + '\', \'' + id_evaluation + '\')', {});
-    });
-
-    this.database.executeSql('SELECT * FROM `question_has_response` WHERE evaluation_id = ' + id_evaluation,{}).then(data => {
-      let questions_responses = [];
-      if(data == null) 
-        {
+        this.database.executeSql('INSERT INTO `question_has_response`(image, comment, question_id, response_id, evaluation_id) VALUES(\'' + element.data.image + '\', \'' + element.data.comment + '\', \'' + element.data.question.id_question + '\', \'' + element.data.response.id_response + '\', \'' + id_evaluation + '\')', {}).then(() => {
           return;
-        }
-  
-        if(data.rows) 
-        {
-          if(data.rows.length > 0) 
-          {
-            for(var i = 0; i < data.rows.length; i++) {
-              questions_responses.push(data.rows.item(i));
-            }
-          }
-        }
+        }, err => {
+          console.log('Error: ', JSON.stringify(err));
+          return [];
+        });
     });
-  
   }
 
   getDatabaseState() {

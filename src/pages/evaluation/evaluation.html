@@ -39,11 +39,6 @@
                             </button>
                         </ion-col>
                     </ion-row>
-                    <ion-row *ngIf="image">
-                        <ion-col col-6 offset-3>
-                            <img [src]="image"/>
-                        </ion-col>
-                    </ion-row>
                     <ion-row col-10 offset-1>
                         <ion-col col-6 *ngIf="!isBeginning() && question.id_question">
                             <button (tap)="prevQuestion()" ion-button class="button-light" color="light">Précédent</button>

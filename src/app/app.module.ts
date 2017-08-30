@@ -7,7 +7,9 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { SQLite } from '@ionic-native/sqlite';
 import { SQLitePorter } from '@ionic-native/sqlite-porter';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
 
 import { MyApp } from './app.component';
 
@@ -19,6 +21,7 @@ import { RestaurantDetailPage } from '../pages/restaurantdetail/restaurantdetail
 import { ArchivesPage } from '../pages/archivespage/archivespage';
 import { EvaluationPage } from '../pages/evaluation/evaluation';
 import { EvaluationCommentairePage } from '../pages/evaluationcommentaire/evaluationcommentaire';
+import { SignaturePage } from '../pages/signature/signature';
 
 // Providers
 import { DatabaseProvider } from '../providers/database/database';
@@ -35,7 +38,8 @@ import { HttpModule } from '@angular/http'
     RestaurantDetailPage,
     EvaluationPage,
     ArchivesPage,
-    EvaluationCommentairePage
+    EvaluationCommentairePage,
+    SignaturePage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ import { HttpModule } from '@angular/http'
     RestaurantDetailPage,
     EvaluationPage,
     ArchivesPage,
-    EvaluationCommentairePage
+    EvaluationCommentairePage,
+    SignaturePage
   ],
   providers: [
     StatusBar,
@@ -62,7 +67,10 @@ import { HttpModule } from '@angular/http'
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DatabaseProvider,
     SQLitePorter,
-    SQLite
+    SQLite,
+    File,
+    Transfer,
+    FilePath
   ]
 })
 export class AppModule {}
