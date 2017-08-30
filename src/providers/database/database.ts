@@ -276,6 +276,15 @@ export class DatabaseProvider {
     });
   }
 
+  addEvaluationComment(id_evaluation, comment){
+    return this.database.executeSql('INSERT INTO `evaluation`(comment) VALUES(\'' + comment + '\') WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
+      return data;
+    }, err => {
+      console.log('Error: ', err);
+      return [];
+    });
+  }
+
   getAllResponses() {
     
     return this.database.executeSql("SELECT * FROM `response`", {}).then((data) => {
@@ -405,7 +414,7 @@ export class DatabaseProvider {
   addResponses(id_evaluation, responses) {
          
     responses.forEach(element => {
-        this.database.executeSql('INSERT INTO `question_has_response`(comment, question_id, response_id, evaluation_id) VALUES(\'' + element.data.comment + '\', \'' + element.data.question.id_question + '\', \'' + element.data.response.id_response + '\', \'' + id_evaluation + '\')', {});
+        this.database.executeSql('INSERT INTO `question_has_response`(image, comment, question_id, response_id, evaluation_id) VALUES(\'' + element.data.image + '\', \'' + element.data.comment + '\', \'' + element.data.question.id_question + '\', \'' + element.data.response.id_response + '\', \'' + id_evaluation + '\')', {});
     });
 
     this.database.executeSql('SELECT * FROM `question_has_response` WHERE evaluation_id = ' + id_evaluation,{}).then(data => {

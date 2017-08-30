@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, Platform } from 'ionic-angul
 // Pages
 import { EvaluationPage } from '../evaluation/evaluation';
 import { RestaurantDetailPage } from '../restaurantdetail/restaurantdetail';
+import { EvaluationCommentairePage } from '../evaluationcommentaire/evaluationcommentaire';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
@@ -23,7 +24,7 @@ export class EvaluationCategoryPage {
 
   constructor(private nativeStorage: NativeStorage, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, public platform: Platform) {
     this.platform.ready().then(() => {
-      
+      this.navCtrl.swipeBackEnabled = false;
       this.id_restaurant = this.navParams.get('id_restaurant');
       this.id_evaluation = this.navParams.get('id_evaluation');
 
@@ -89,6 +90,10 @@ export class EvaluationCategoryPage {
     {
       this.navCtrl.push(EvaluationPage, {'category': category, 'subcategory':subcategory, 'id_restaurant': this.id_restaurant, 'id_evaluation': this.id_evaluation});
     }
+  }
+
+  validateEvaluation(){
+    this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation});
   }
 
   cancelEvaluation():void {

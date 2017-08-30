@@ -1,0 +1,29 @@
+<ion-header no-border>
+    <ion-toolbar class="toolbar">
+        <button offset-1 col-3 class="button-back" color="light" ion-button (tap)="cancelResponses(subcategory.name)">Menu questions</button>
+        <ion-col col-4 offset-4>
+            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+        </ion-col>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-scroll">
+    <ion-grid class="main-container">
+
+        <ion-row>
+            <h1 class="title">COMMENTAIRE GÉNÉRAL</h1>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-textarea col-6 offset-3 text-center class="evaluation-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
+            </ion-col>
+        </ion-row>
+        <br>
+        <br>
+        <ion-row>
+            <ion-col text-center>
+                <button ion-button (tap)="validate(comment)" color="eatsalad" class="button-light">Signature</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

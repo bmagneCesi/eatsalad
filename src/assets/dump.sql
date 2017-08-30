@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `question` ( `id_question` INTEGER NOT NULL PRIMARY K
 CREATE TABLE IF NOT EXISTS `response` ( `id_response` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `response` INTEGER , `score` INTEGER);
 CREATE TABLE IF NOT EXISTS `evaluation` ( `id_evaluation` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `date` TEXT NOT NULL, `comment` TEXT, `restaurant_id` INTEGER, FOREIGN KEY(`restaurant_id`) REFERENCES `restaurant`(`id_restaurant`) );
 CREATE TABLE IF NOT EXISTS `question_has_response` (
+	`image`       TEXT,
 	`comment`       TEXT,
 	`response_id`	INTEGER,
 	`question_id`	INTEGER,

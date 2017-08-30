@@ -6,6 +6,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // Pages
 import { EvaluationCategoryPage } from '../evaluationcategory/evaluationcategory';
@@ -30,9 +31,11 @@ export class EvaluationPage {
   responsesArray = [];
   subcategoriesDone = [];
   comment:string;
-
-  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, private nativeStorage: NativeStorage) {
+  image:string;
+  
+  constructor(private camera: Camera, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, private nativeStorage: NativeStorage) {
     this.platform.ready().then(() => {
+      this.navCtrl.swipeBackEnabled = false;
       this.id_restaurant = this.navParams.get('id_restaurant');
       this.id_evaluation = this.navParams.get('id_evaluation');
       this.category = this.navParams.get('category');
@@ -62,6 +65,27 @@ export class EvaluationPage {
     return true;
   };
 
+  addPicture(){
+    
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 1000,
+      targetHeight: 1000
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64:
+      this.image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     // Handle error
+    });
+    
+  }
+
   onSelectionChange(question, response):void {
     this.questionHasResponse = {'question': question, 'response': response};
   }
@@ -79,7 +103,9 @@ export class EvaluationPage {
       this.slides.slideNext();
       this.slides.lockSwipes(true);
       this.questionHasResponse['comment'] = this.comment;
+      this.questionHasResponse['image'] = this.image;
       this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
+      this.image = '';
       this.comment = '';
       this.questionHasResponse = {};
   }
@@ -107,7 +133,13 @@ export class EvaluationPage {
   
   validateForm():void {
     this.questionHasResponse['comment'] = this.comment;
+    this.questionHasResponse['image'] = this.image;
     this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
+
+    this.image = '';
+    this.comment = '';
+    this.questionHasResponse = {};
+
     this.databaseprovider.addResponses(this.id_evaluation, this.responsesArray);
     this.subcategoriesDone.push(this.navParams.get('subcategory').id_question_subcategory);
     this.nativeStorage.setItem('subcategories-done', this.subcategoriesDone);
