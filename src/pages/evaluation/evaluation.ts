@@ -70,21 +70,20 @@ export class EvaluationPage {
 
   addPicture(){
     
-    this.imagesArray.push({'image': 'test.img'});
-    // const options: CameraOptions = {
-    //   quality: 100,
-    //   sourceType: this.camera.PictureSourceType.CAMERA,
-    //   saveToPhotoAlbum: false,
-    //   correctOrientation: true
-    // }
+    const options: CameraOptions = {
+      quality: 100,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      saveToPhotoAlbum: false,
+      correctOrientation: true
+    }
     
-    // this.camera.getPicture(options).then((imagePath) => {
-    //   var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-    //   var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-    //   this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    // }, (err) => {
-    //  // Handle error
-    // });
+    this.camera.getPicture(options).then((imagePath) => {
+      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+    }, (err) => {
+     // Handle error
+    });
     
   }
 
