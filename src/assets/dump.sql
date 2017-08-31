@@ -5,15 +5,21 @@ CREATE TABLE IF NOT EXISTS `question_subcategory` ( `id_question_subcategory` IN
 CREATE TABLE IF NOT EXISTS `question` ( `id_question` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `question` TEXT, `question_subcategory_id` INTEGER );
 CREATE TABLE IF NOT EXISTS `response` ( `id_response` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `response` INTEGER , `score` INTEGER);
 CREATE TABLE IF NOT EXISTS `evaluation` ( `id_evaluation` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `date` TEXT NOT NULL, `comment` TEXT, `restaurant_id` INTEGER, FOREIGN KEY(`restaurant_id`) REFERENCES `restaurant`(`id_restaurant`) );
-CREATE TABLE IF NOT EXISTS `question_has_response` (
-	`comment`       TEXT,
+CREATE TABLE `question_has_response` (
+	`id_question_has_response`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`comment`	TEXT,
 	`response_id`	INTEGER,
 	`question_id`	INTEGER,
 	`evaluation_id`	INTEGER,
-	CONSTRAINT fk_response FOREIGN KEY(`response_id`) REFERENCES `response`(`id_response`) ON DELETE CASCADE,
-	CONSTRAINT fk_question FOREIGN KEY(`question_id`) REFERENCES `question`(`id_question`) ON DELETE CASCADE,
-	CONSTRAINT fk_departments FOREIGN KEY(`evaluation_id`) REFERENCES `evaluation`(`id_evaluation`) ON DELETE CASCADE
-
+	FOREIGN KEY(`evaluation_id`) REFERENCES `evaluation`(`id_evaluation`) ON DELETE CASCADE,
+	FOREIGN KEY(`response_id`) REFERENCES `question_subcategory` ON DELETE CASCADE,
+	FOREIGN KEY(`question_id`) REFERENCES `question`(`id_question`) ON DELETE CASCADE
+);
+CREATE TABLE `question_has_response_image` (
+	`id_question_has_response_image`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`path`	TEXT NOT NULL,
+	`question_has_response_id`	INTEGER NOT NULL,
+	FOREIGN KEY(`question_has_response_id`) REFERENCES `question_has_response`(`id_question_has_response`) ON DELETE CASCADE
 );
 INSERT OR IGNORE INTO `response` VALUES (1,"CONFORME",4), (2,"SATISFAISANT MAIS À AMÉLIORER",3), (3,"PEU SATISFAISANT",2), (4,"TRÈS PEU SATISFAISANT",1);
 INSERT OR IGNORE INTO `question_subcategory` VALUES (1,"Extérieur",1), (2,"Salle",1), (3,"Espace sanitaire",1), (4,"Sécurité",1), (5,"Cuisine",2), (6,"Chambre Froide",2), (7,"Gestion produits",2), (8,"Accueil clientelle",3), (9,"Départ clientelle",3), (10,"Prise de commande et encaissement",3), (11,"Emporter",3), (12,"Gestion produits",3);

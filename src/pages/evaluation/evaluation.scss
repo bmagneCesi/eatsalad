@@ -20,13 +20,33 @@ page-evaluation {
 
     .camera-button{
         background-color:#bdd88c;
-        color: #6a962f;
+        color: #89BD29;
         height: 50px;
         vertical-align: middle;
         display: inline-block;
         width: 50px;
         border-radius: 50px;
         padding: 0px 10px;
+    }
+
+    .photo-container{
+        position: relative;
+        width: 150px;
+        height: 150px;
+    }
+
+    .delete-photo{
+        color:#ffffff;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 30px;
+    }
+
+    .evaluation-photo{
+        border-radius: 8px;
+        width: 150px;
+        height: 150px;
     }
 
 }

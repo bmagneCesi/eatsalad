@@ -24,9 +24,14 @@
         <br>
         <br>
         <br>
+        <ion-row *ngIf="subcategoriesDone.length == subcategories.length">
+            <ion-col text-center>
+                <button ion-button (tap)="validateEvaluation()" color="eatsalad" class="button-light">Valider l'évaluation</button>
+            </ion-col>
+        </ion-row>
         <ion-row>
-            <ion-col col-sm-4 offset-4>
-                <button ion-button color="eatsalad" class="button-light"  full>Valider l'évaluation</button>
+            <ion-col text-center>
+                <button ion-button (tap)="validateEvaluation()" color="eatsalad" class="button-light">Valider l'évaluation</button>
             </ion-col>
         </ion-row>
     </ion-grid>
