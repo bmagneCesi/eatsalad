@@ -44,8 +44,8 @@ export class EvaluationCategoryPage {
       this.subcategoriesDone = data;
     });
     this.databaseprovider.getResponseByIdEvaluation(this.id_evaluation).then((data) => {
-      console.log('Responses for current evaluation : ' + JSON.stringify(data));
-    });
+      console.log('responses added: ' + JSON.stringify(data));
+    })
   }
 
   evaluateAction(category, subcategory, eraseAlert):void {

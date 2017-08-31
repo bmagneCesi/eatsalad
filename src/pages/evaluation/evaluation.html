@@ -34,7 +34,7 @@
                             <ion-textarea class="response-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
                         </ion-col>
                         <ion-col col-2>
-                            <button color="light" (tap)="addPicture()" *ngIf="imagesArray.length <= 4" class="camera-button" ion-button icon-only>
+                            <button color="light" (tap)="addPicture()" *ngIf="imagesArray.length < 4" class="camera-button" ion-button icon-only>
                                 <ion-icon name="ios-camera"></ion-icon>
                             </button>
                         </ion-col>

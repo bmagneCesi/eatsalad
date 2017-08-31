@@ -33,9 +33,8 @@ export class EvaluationPage {
   questionHasResponse = {};
   responsesArray = [];
   subcategoriesDone = [];
-  comment:string;
+  comment:string = '';
   imagesArray = [];
-  lastImage: string = null;
 
   constructor(private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, private camera: Camera, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, private nativeStorage: NativeStorage) {
     this.platform.ready().then(() => {
@@ -71,20 +70,21 @@ export class EvaluationPage {
 
   addPicture(){
     
-    const options: CameraOptions = {
-      quality: 100,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    }
+    this.imagesArray.push({'image': 'test.img'});
+    // const options: CameraOptions = {
+    //   quality: 100,
+    //   sourceType: this.camera.PictureSourceType.CAMERA,
+    //   saveToPhotoAlbum: false,
+    //   correctOrientation: true
+    // }
     
-    this.camera.getPicture(options).then((imagePath) => {
-      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    }, (err) => {
-     // Handle error
-    });
+    // this.camera.getPicture(options).then((imagePath) => {
+    //   var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+    //   var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+    //   this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+    // }, (err) => {
+    //  // Handle error
+    // });
     
   }
 
@@ -145,10 +145,8 @@ export class EvaluationPage {
       this.slides.slideNext();
       this.slides.lockSwipes(true);
       this.questionHasResponse['comment'] = this.comment;
-      if (this.lastImage != '')
+      if  (this.imagesArray.length > 0)
         this.questionHasResponse['images'] = this.imagesArray;
-      else
-        this.questionHasResponse['images'] = [];  
       
       this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
       this.imagesArray = [];
@@ -177,22 +175,17 @@ export class EvaluationPage {
     return arr;
   }
   
-  validateForm():void {
+  validateForm() {
     this.questionHasResponse['comment'] = this.comment;
-    if (this.lastImage != '')
+    if (this.imagesArray.length > 0)
       this.questionHasResponse['images'] = this.imagesArray;
-    else
-      this.questionHasResponse['images'] = [];  
 
     this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
     this.imagesArray = [];
     this.comment = '';
     this.questionHasResponse = {};
-    console.log(JSON.stringify(this.responsesArray));
     this.databaseprovider.addResponses(this.id_evaluation, this.responsesArray);
-    this.databaseprovider.getResponseByIdEvaluation(this.id_evaluation).then((data) => {
-      console.log('responses added: ' + JSON.stringify(data));
-    })
+
     this.subcategoriesDone.push(this.navParams.get('subcategory').id_question_subcategory);
     this.nativeStorage.setItem('subcategories-done', this.subcategoriesDone);
     this.navCtrl.popTo(EvaluationCategoryPage);

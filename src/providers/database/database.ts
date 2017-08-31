@@ -405,52 +405,35 @@ export class DatabaseProvider {
 
   addResponses(id_evaluation, responses) {        
     
-    for (var i = 0; i < responses.length; i++) {
-      let response = responses.rows.item(i);
-      this.database.executeSql('INSERT INTO `question_has_response`(comment, question_id, response_id, evaluation_id) VALUES(\'' + response.data.comment + '\', \'' + response.data.question.id_question + '\', \'' + responses.rows.item(i).data.response.id_response + '\', \'' + id_evaluation + '\')', {}).then(() => {
-        return;
-      }, err => {
-        console.log('Error: ', JSON.stringify(err));
-        return [];
-      });
-
-      this.database.executeSql('select seq from sqlite_sequence where name="question_has_response"', {}).then(data => {
-        
-        let id_qhr;
-        
-        if(data == null) 
+    responses.forEach(response => {
+      
+      
+      this.database.executeSql('INSERT INTO `question_has_response`(comment, question_id, response_id, evaluation_id) VALUES(\'' + response.data.comment + '\', \'' + response.data.question.id_question + '\', \'' + response.data.response.id_response + '\', \'' + id_evaluation + '\')', {}).then((id_qhr) => {
+        let last_id_question_has_response = id_qhr.insertId;
+                
+        if('images' in response.data)
         {
-          return;
-        }
-  
-        if(data.rows) 
-        {
-          if(data.rows.length > 0) 
-          {
-            id_qhr = data.rows.item(0).seq;
-          }
-        }
-        console.log('new qhr_id: '+id_qhr);
+          let images = response.data.images;
+          images.forEach(image => {
 
-        for (var j = 0; j < response.images.length; j++) {
-          let image = response.images.rows.item(j);
+            this.database.executeSql('INSERT INTO `question_has_response_image`(path, question_has_response_id) VALUES(\'' + image.image + '\', ' + last_id_question_has_response + ')', {}).then((data) => {
+              return data;
+            }, err => {
+              console.log('Error insert image: ', JSON.stringify(err));
+              return [];
+            }); 
 
-          console.log('image path: ' + image.image);
-          this.database.executeSql('INSERT INTO `question_has_response_image`(path, question_has_response_id) VALUES(\'' + image.image + '\', ' + id_qhr + ')', {}).then(() => {
-            return;
-          }, err => {
-            console.log('Error: ', JSON.stringify(err));
-            return [];
           });
-        
-        }
-        
+        }        
+
       }, err => {
         console.log('Error: ', JSON.stringify(err));
         return [];
       });
 
-    }
+      
+
+    });
     
   }
 
@@ -481,5 +464,6 @@ export class DatabaseProvider {
 
     return date;
   }
+
 
 }
