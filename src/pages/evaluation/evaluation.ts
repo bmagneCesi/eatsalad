@@ -78,8 +78,11 @@ export class EvaluationPage {
     }
     
     this.camera.getPicture(options).then((imagePath) => {
+      console.log('imagePath: ' + imagePath);
       var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
       var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+      console.log('currentName: ' + currentName);
+      console.log('currentName: ' + currentName);
       this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
     }, (err) => {
      // Handle error

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `question_category` ( `id_question_category` INTEGER 
 CREATE TABLE IF NOT EXISTS `question_subcategory` ( `id_question_subcategory` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `question_category_id` INTEGER, FOREIGN KEY(`question_category_id`) REFERENCES `question_category`(`id_question_category`) );
 CREATE TABLE IF NOT EXISTS `question` ( `id_question` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `question` TEXT, `question_subcategory_id` INTEGER );
 CREATE TABLE IF NOT EXISTS `response` ( `id_response` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `response` INTEGER , `score` INTEGER);
-CREATE TABLE IF NOT EXISTS `evaluation` ( `id_evaluation` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `date` TEXT NOT NULL, `comment` TEXT, `restaurant_id` INTEGER, FOREIGN KEY(`restaurant_id`) REFERENCES `restaurant`(`id_restaurant`) );
+CREATE TABLE IF NOT EXISTS `evaluation` ( `id_evaluation` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `date` TEXT NOT NULL, `comment` TEXT NOT NULL, `controller_name` TEXT NOT NULL, `controller_signature` TEXT NOT NULL, `franchised_signature` TEXT NOT NULL, `restaurant_id` INTEGER NOT NULL, FOREIGN KEY(`restaurant_id`) REFERENCES `restaurant`(`id_restaurant`) );
 CREATE TABLE `question_has_response` (
 	`id_question_has_response`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`comment`	TEXT,

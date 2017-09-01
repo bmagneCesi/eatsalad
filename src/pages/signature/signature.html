@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Menu questions</button>
+        <button offset-1 col-3 class="button-back" color="light" ion-button (tap)="cancelEvaluation()">Menu questions</button>
         <ion-col col-4 offset-4>
             <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
         </ion-col>
@@ -8,11 +8,46 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid class="main-container">
+    <ion-grid text-center class="main-container">
+
+        <ion-row col-8 offset-2>
+            <img src="assets/barat-logo.png" text-center alt="">
+        </ion-row>
 
         <ion-row>
-            <h1 class="title">SIGNATURE</h1>
+            <ion-label>Visite de conformité effectuée par</ion-label>
+            <ion-input placeholder="Text Input"></ion-input>
         </ion-row>
+            
+        <ion-row>
+            <ion-label>Dans le restaurant Eatsalad</ion-label>
+            <ion-input placeholder="Text Input"></ion-input>
+        </ion-row>
+            
+            
+        <ion-row>
+            <ion-label>Le</ion-label>
+            <ion-input placeholder="Text Input"></ion-input>
+        </ion-row>
+            
+        <ion-row>
+            <ion-col col-6>
+                <img [src]="signatureController" *ngIf="signatureController" />
+                <button (tap)="signatureControllerAction()" *ngIf="!signatureController" class="signature-button" ion-button color="light">
+                    Signature du controlleur
+                    <span>Mention lu et approuvé</span>
+                </button>
+            </ion-col>
+            <ion-col col-6>
+                <img [src]="signatureFranchised" *ngIf="signatureFranchised" />                    
+                <button (tap)="signatureFranchisedAction()" *ngIf="!signatureFranchised" class="signature-button" ion-button color="light">
+                    Signature du franchisé ou responsable
+                    <span>Mention lu et approuvé</span>
+                </button>
+            </ion-col>
+            
+        </ion-row>
+            
         <br>
         <br>
         <ion-row>

@@ -1,3 +1,20 @@
 page-signature{
-    
+
+    .signature-button{
+        width: 120px;
+        height: 120px;
+        border-radius: 8px;
+        background-color: #bdd88c;
+        color: #6a962f;
+        white-space: normal;
+        margin: 0 auto;
+        text-align: center
+    }
+
+    .signature-done{
+        background-color: #89BD29!important;
+        border: 1px solid #ffffff;
+        color: #ffffff;
+    }
+
 }

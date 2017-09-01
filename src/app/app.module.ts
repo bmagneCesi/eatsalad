@@ -10,6 +10,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { MyApp } from './app.component';
 
@@ -22,6 +23,7 @@ import { ArchivesPage } from '../pages/archivespage/archivespage';
 import { EvaluationPage } from '../pages/evaluation/evaluation';
 import { EvaluationCommentairePage } from '../pages/evaluationcommentaire/evaluationcommentaire';
 import { SignaturePage } from '../pages/signature/signature';
+import { SignaturepopoverPage } from '../pages/signaturepopover/signaturepopover';
 
 // Providers
 import { DatabaseProvider } from '../providers/database/database';
@@ -39,11 +41,13 @@ import { HttpModule } from '@angular/http'
     EvaluationPage,
     ArchivesPage,
     EvaluationCommentairePage,
-    SignaturePage
+    SignaturePage,
+    SignaturepopoverPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    SignaturePadModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
@@ -57,7 +61,8 @@ import { HttpModule } from '@angular/http'
     EvaluationPage,
     ArchivesPage,
     EvaluationCommentairePage,
-    SignaturePage
+    SignaturePage,
+    SignaturepopoverPage
   ],
   providers: [
     StatusBar,
