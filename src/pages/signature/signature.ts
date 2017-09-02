@@ -1,3 +1,4 @@
+import { FilePath } from '@ionic-native/file-path';
 import { Component, ViewChild } from '@angular/core';
 import { Slides, NavController, NavParams, AlertController, Platform, ModalController, ToastController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
@@ -26,7 +27,8 @@ declare var cordova: any;
 export class SignaturePage {
 
     id_evaluation:number;
-    signatureArray = [];
+    signatureController:string;
+    signatureFranchised:string;
 
     constructor(public toastCtrl: ToastController, public file: File, public modalController:ModalController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, private nativeStorage: NativeStorage) {
         this.platform.ready().then(() => {
@@ -36,11 +38,11 @@ export class SignaturePage {
     }
 
     cancelEvaluation(){
-        let signatureArr = this.signatureArray;
-        for (var i = 0; i < signatureArr.length; i++) {
-            this.file.removeFile(cordova.file.dataDirectory, signatureArr[i].path);         
-            console.log('getImagePath: ' + JSON.stringify(this.pathForImage(name)));   
-        }
+
+        if(this.signatureFranchised != '')
+            this.file.removeFile(this.file.dataDirectory, this.signatureFranchised);                   
+        if(this.signatureController != '')
+            this.file.removeFile(this.file.dataDirectory, this.signatureController);               
         
         this.navCtrl.pop();
     }
@@ -49,30 +51,19 @@ export class SignaturePage {
         let modal = this.modalController.create(SignaturepopoverPage);
         modal.onDidDismiss(data => {
             
-            var realData = data.signature.split(",")[1];
-            let base64Blob = this.b64toBlob(realData, 'image/png');
+            let realData = data.signature.split(",")[1];
+            let typeData = data.signature.trim().split(";")[0].split(":")[1];
 
-            this.file.writeFile(cordova.file.externalDataDirectory, this.id_evaluation+'-control-signature.png', base64Blob).then(
-              function(success){
-                console.log('success');
-                console.log(JSON.stringify(success));
-              },
-              function(error){
-                console.log('error');
-                console.log('erreur: ' + JSON.stringify(error));
-                console.log('path: ' + JSON.stringify(cordova.file.externalDataDirectory));
-                console.log('name: ' + JSON.stringify(this.id_evaluation+'-control-signature.png'));
-                console.log('b64blob: ' + JSON.stringify(base64Blob));
-              }
-            )
+            var base64Blob = new Blob([realData], {type: typeData});
 
-            // let imagePath = data.signature.substr(22);
-            // console.log('imagePath: ' + imagePath);
-            // var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-            // var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-            // console.log('currentName: ' + currentName);
-            // console.log('currentName: ' + currentName);
-            // this.copyFileToLocalDir(correctPath, currentName, this.createFileName(), 'controller');
+            this.file.writeFile(this.file.dataDirectory, this.id_evaluation + '-controller-signature.png', base64Blob).then((image) => {
+                this.signatureController = image.nativeURL;
+            }, (error) => {
+                console.log('Error: ' + JSON.stringify(error));
+            });
+            
+
+            
         });
         modal.present();
     }
@@ -80,33 +71,22 @@ export class SignaturePage {
     signatureFranchisedAction(){
         let modal = this.modalController.create(SignaturepopoverPage);
         modal.onDidDismiss(data => {
-            let imagePath = data.signature.substr(22);
-            var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-            var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName(), 'franchised');
+            let realData = data.signature.split(",")[1];
+            let typeData = data.signature.trim().split(";")[0].split(":")[1];
+
+            var base64Blob = new Blob([realData], {type: typeData});
+
+            this.file.writeFile(this.file.dataDirectory, this.id_evaluation + '-franchised-signature.png', base64Blob).then((image) => {
+                this.signatureFranchised = image.nativeURL;
+
+            }, (error) => {
+                console.log('Error: ' + JSON.stringify(error));
+            });
+     
         });
         modal.present();
     }
 
-    // Create a new name for the image
-    private createFileName() {
-        var d = new Date(),
-        n = d.getTime(),
-        newFileName =  n + ".jpg";
-        return newFileName;
-    }
-    
-    // Copy the image to a local folder
-    private copyFileToLocalDir(namePath, currentName, newFileName, signatureType) {
-        this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-            this.signatureArray.push({'signatureType': signatureType, 'path': this.pathForImage(newFileName), 'name': newFileName});
-            console.log(JSON.stringify(this.signatureArray));
-        }, error => {
-            console.log(JSON.stringify(error));
-        this.presentToast('Erreur durant l\'enregistrement de l\'image: ');
-        });
-    }
-    
     private presentToast(text) {
         let toast = this.toastCtrl.create({
         message: text,
@@ -115,18 +95,9 @@ export class SignaturePage {
         });
         toast.present();
     }
-
-    // Always get the accurate path to your apps folder
-    public pathForImage(img) {
-        if (img === null) {
-        return '';
-        } else {
-        return cordova.file.dataDirectory + img;
-        }
-    }
-
-
+    
     b64toBlob(b64Data, contentType) {
+        console.log('into blob function');
         contentType = contentType || '';
         var sliceSize = 512;
         var byteCharacters = atob(b64Data);
@@ -145,6 +116,7 @@ export class SignaturePage {
             byteArrays.push(byteArray);
         }
 
+        console.log('byteArrays: ' + byteArrays);
         var blob = new Blob(byteArrays, {type: contentType});
         return blob;
     }  
