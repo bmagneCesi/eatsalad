@@ -34,6 +34,7 @@
         "@ionic/storage": "2.0.1",
         "angular2-signaturepad": "^2.6.1",
         "cordova-ios": "^4.4.0",
+        "cordova-pdf-generator": "file:node_modules/cordova-pdf-generator",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
@@ -78,7 +79,8 @@
             },
             "cordova-plugin-file": {},
             "cordova-plugin-file-transfer": {},
-            "cordova-plugin-filepath": {}
+            "cordova-plugin-filepath": {},
+            "cordova-pdf-generator": {}
         },
         "platforms": [
             "ios"

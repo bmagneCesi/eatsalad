@@ -7,47 +7,49 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-grid text-center class="main-container">
+<ion-content class="main-container no-scroll">
+    <ion-grid text-center padding>
 
-        <ion-row col-8 offset-2>
-            <img src="assets/barat-logo.png" text-center alt="">
-        </ion-row>
+        <div class="signature-container" col-10 offset-1>
 
-        <ion-row>
-            <ion-label>Visite de conformité effectuée par</ion-label>
-            <ion-input placeholder="Text Input"></ion-input>
-        </ion-row>
-            
-        <ion-row>
-            <ion-label>Dans le restaurant Eatsalad</ion-label>
-            <ion-input placeholder="Text Input"></ion-input>
-        </ion-row>
-            
-            
-        <ion-row>
-            <ion-label>Le</ion-label>
-            <ion-input placeholder="Text Input"></ion-input>
-        </ion-row>
-            
-        <ion-row>
-            <ion-col col-6>
-                <img [src]="pathForImage(signatureController)" *ngIf="signatureController" />
-                <button (tap)="signatureControllerAction()" *ngIf="!signatureController" class="signature-button" ion-button color="light">
-                    Signature du controlleur
-                    <span>Mention lu et approuvé</span>
-                </button>
-            </ion-col>
-            <ion-col col-6>
-                <img [src]="pathForImage(signatureFranchised)" *ngIf="signatureFranchised" />                    
-                <button (tap)="signatureFranchisedAction()" *ngIf="!signatureFranchised" class="signature-button" ion-button color="light">
-                    Signature du franchisé ou responsable
-                    <span>Mention lu et approuvé</span>
-                </button>
-            </ion-col>
-            
-        </ion-row>
-            
+            <img src="assets/img/barat-logo.png" text-center id="barat-logo" alt="">
+                        
+            <ion-row>
+                <ion-label text-right>Visite de conformité effectuée par</ion-label>
+                <ion-input placeholder="Text Input"></ion-input>
+            </ion-row>
+                <br>
+            <ion-row>
+                <ion-label text-right>Dans le restaurant Eatsalad</ion-label>
+                <ion-input placeholder="Text Input"></ion-input>
+            </ion-row>
+                <br>
+            <ion-row>
+                <ion-label text-right>Le</ion-label>
+                <ion-input placeholder="Text Input"></ion-input>
+            </ion-row>
+                <br>
+                <br>
+            <ion-row>
+                <ion-col col-6>
+                    <h3>Signature du controlleur</h3>
+                    <p>(Mention "lu et approuvé")</p>
+                    <img [src]="signatureController" *ngIf="signatureController"/>
+                    <button (tap)="signatureControllerAction()" *ngIf="!signatureController" class="signature-button" ion-button color="light">
+                        Signer
+                    </button>
+                </ion-col>
+                <ion-col col-6>
+                    <h3>Signature du franchisé</h3>
+                    <p>(Mention "lu et approuvé")</p>    
+                    <img [src]="signatureFranchised" *ngIf="signatureFranchised"/>                       
+                    <button (tap)="signatureFranchisedAction()" *ngIf="!signatureFranchised" class="signature-button" ion-button color="light">
+                    Signer
+                    </button>
+                </ion-col>
+                
+            </ion-row>
+        </div>
         <br>
         <br>
         <ion-row>

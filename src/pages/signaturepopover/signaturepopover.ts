@@ -15,13 +15,12 @@ export class SignaturepopoverPage {
     'canvasWidth': 340,
     'canvasHeight': 200
   };
-  public signatureImage;
-    
-  from:string;
+ 
 
+  
   constructor(public navParams: NavParams, public viewCtrl: ViewController) {
-    this.from = this.navParams.get('from');
-  }
+
+    }
 
    //Other Functions
 
@@ -30,8 +29,7 @@ export class SignaturepopoverPage {
     }
 
     drawComplete() {
-        this.signatureImage = {'signature': this.signaturePad.toDataURL(), 'from': this.from};
-        this.viewCtrl.dismiss(this.signatureImage);
+        this.viewCtrl.dismiss(this.signaturePad.toDataURL());
     }
 
     drawClear() {

@@ -267,6 +267,15 @@ export class DatabaseProvider {
     });
   }
 
+  addEvaluationSignatures(id_evaluation, controller_name, controller_signature, franchised_signature){
+    return this.database.executeSql('INSERT INTO `evaluation`(controller_name, controller_signature, franchised_signature) VALUES(\'' + controller_name + '\', \'' + controller_signature + '\', \'' + franchised_signature + '\') WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
+      return data;
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });
+  }
+
   getAllResponses() {
     
     return this.database.executeSql("SELECT * FROM `response`", {}).then((data) => {

@@ -17,8 +17,6 @@ import { SignaturepopoverPage } from '../signaturepopover/signaturepopover';
 
 declare var cordova: any;
 
-
-
 @Component({
   selector: 'page-signature',
   templateUrl: 'signature.html'
@@ -50,20 +48,22 @@ export class SignaturePage {
     signatureControllerAction(){
         let modal = this.modalController.create(SignaturepopoverPage);
         modal.onDidDismiss(data => {
-            
-            let realData = data.signature.split(",")[1];
-            let typeData = data.signature.trim().split(";")[0].split(":")[1];
+            if(data != null)
+            {     
+                this.signatureController = data;
+                let realData = data.split(",")[1];
+                let typeData = data.trim().split(";")[0].split(":")[1];
+                
+                var blob = this.b64toBlob(realData, typeData);
 
-            var base64Blob = new Blob([realData], {type: typeData});
-
-            this.file.writeFile(this.file.dataDirectory, this.id_evaluation + '-controller-signature.png', base64Blob).then((image) => {
-                this.signatureController = image.nativeURL;
-            }, (error) => {
-                console.log('Error: ' + JSON.stringify(error));
-            });
-            
-
-            
+                this.file.writeFile(this.file.dataDirectory, this.id_evaluation + '-controller-signature.jpg', blob)
+                .then((image) => {
+                    console.log(JSON.stringify(image));
+                    // this.signatureController = image.nativeURL;
+                }, (error) => {
+                    console.log('Error: ' + JSON.stringify(error));
+                });
+            }
         });
         modal.present();
     }
@@ -71,18 +71,22 @@ export class SignaturePage {
     signatureFranchisedAction(){
         let modal = this.modalController.create(SignaturepopoverPage);
         modal.onDidDismiss(data => {
-            let realData = data.signature.split(",")[1];
-            let typeData = data.signature.trim().split(";")[0].split(":")[1];
+            if(data != null)
+            {       
+                this.signatureFranchised = data;
+                let realData = data.split(",")[1];
+                let typeData = data.trim().split(";")[0].split(":")[1];
+                
+                var blob = this.b64toBlob(realData, typeData);
 
-            var base64Blob = new Blob([realData], {type: typeData});
-
-            this.file.writeFile(this.file.dataDirectory, this.id_evaluation + '-franchised-signature.png', base64Blob).then((image) => {
-                this.signatureFranchised = image.nativeURL;
-
-            }, (error) => {
-                console.log('Error: ' + JSON.stringify(error));
-            });
-     
+                this.file.writeFile(this.file.dataDirectory, this.id_evaluation + '-franchised-signature.jpg', blob)
+                .then((image) => {
+                    console.log(JSON.stringify(image));
+                    // this.signatureController = image.nativeURL;
+                }, (error) => {
+                    console.log('Error: ' + JSON.stringify(error));
+                });
+            }
         });
         modal.present();
     }
@@ -95,30 +99,28 @@ export class SignaturePage {
         });
         toast.present();
     }
-    
+
     b64toBlob(b64Data, contentType) {
-        console.log('into blob function');
         contentType = contentType || '';
         var sliceSize = 512;
         var byteCharacters = atob(b64Data);
         var byteArrays = [];
-
+      
         for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            var byteNumbers = new Array(slice.length);
-            for (var i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            var byteArray = new Uint8Array(byteNumbers);
-
-            byteArrays.push(byteArray);
+          var slice = byteCharacters.slice(offset, offset + sliceSize);
+      
+          var byteNumbers = new Array(slice.length);
+          for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+      
+          var byteArray = new Uint8Array(byteNumbers);
+      
+          byteArrays.push(byteArray);
         }
-
-        console.log('byteArrays: ' + byteArrays);
+          
         var blob = new Blob(byteArrays, {type: contentType});
         return blob;
-    }  
-
+      }
+      
 }
