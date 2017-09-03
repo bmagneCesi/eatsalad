@@ -11,6 +11,8 @@ import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { MyApp } from './app.component';
 
@@ -69,6 +71,8 @@ import { HttpModule } from '@angular/http'
     NativeStorage,
     SplashScreen,
     Camera,
+    EmailComposer,
+    FileOpener,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DatabaseProvider,
     SQLitePorter,

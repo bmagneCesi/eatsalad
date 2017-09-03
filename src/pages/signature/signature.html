@@ -13,20 +13,21 @@
         <div class="signature-container" col-10 offset-1>
 
             <img src="assets/img/barat-logo.png" text-center id="barat-logo" alt="">
-                        
+            <br>
+            <br>
             <ion-row>
                 <ion-label text-right>Visite de conformité effectuée par</ion-label>
-                <ion-input placeholder="Text Input"></ion-input>
+                <ion-input [(ngModel)]="controllerName" placeholder="Text Input"></ion-input>
             </ion-row>
                 <br>
             <ion-row>
                 <ion-label text-right>Dans le restaurant Eatsalad</ion-label>
-                <ion-input placeholder="Text Input"></ion-input>
+                <ion-label class="signature-information">{{ restaurant }}</ion-label>
             </ion-row>
                 <br>
             <ion-row>
                 <ion-label text-right>Le</ion-label>
-                <ion-input placeholder="Text Input"></ion-input>
+                <ion-label class="signature-information">{{ evaluation.date }}</ion-label>
             </ion-row>
                 <br>
                 <br>
@@ -34,15 +35,22 @@
                 <ion-col col-6>
                     <h3>Signature du controlleur</h3>
                     <p>(Mention "lu et approuvé")</p>
-                    <img [src]="signatureController" *ngIf="signatureController"/>
+                    <div text-center class="signature-container" *ngIf="signatureController">
+                        <ion-icon class="delete-signature" (tap)="deleteSignature('controller')" color="light" name="ios-trash"></ion-icon>                                                    
+                        <img class="signature-image" [src]="signatureController"/>   
+                    </div>
                     <button (tap)="signatureControllerAction()" *ngIf="!signatureController" class="signature-button" ion-button color="light">
                         Signer
                     </button>
                 </ion-col>
                 <ion-col col-6>
                     <h3>Signature du franchisé</h3>
-                    <p>(Mention "lu et approuvé")</p>    
-                    <img [src]="signatureFranchised" *ngIf="signatureFranchised"/>                       
+                    <p>(Mention "lu et approuvé")</p>
+                    <div text-center class="signature-container" *ngIf="signatureFranchised">
+                        <ion-icon class="delete-signature" (tap)="deleteSignature('franchised')" color="light" name="ios-trash"></ion-icon>                                                    
+                        <img class="signature-image" [src]="signatureFranchised"/>   
+                    </div>
+                                        
                     <button (tap)="signatureFranchisedAction()" *ngIf="!signatureFranchised" class="signature-button" ion-button color="light">
                     Signer
                     </button>
@@ -54,7 +62,7 @@
         <br>
         <ion-row>
             <ion-col text-center>
-                <button ion-button color="eatsalad" class="button-light">Valider</button>
+                <button ion-button  (tap)="validateContrat()" color="eatsalad" class="button-light">Valider</button>
             </ion-col>
         </ion-row>
     </ion-grid>

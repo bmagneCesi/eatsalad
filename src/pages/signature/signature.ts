@@ -9,6 +9,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 // pages
 import { SignaturepopoverPage } from '../signaturepopover/signaturepopover';
@@ -25,14 +27,114 @@ declare var cordova: any;
 export class SignaturePage {
 
     id_evaluation:number;
+    evaluation = [];
+    restaurant:string;
     signatureController:string;
     signatureFranchised:string;
 
-    constructor(public toastCtrl: ToastController, public file: File, public modalController:ModalController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, private nativeStorage: NativeStorage) {
+    constructor(private fileOpener: FileOpener, private emailComposer: EmailComposer, public toastCtrl: ToastController, public file: File, public modalController:ModalController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, private nativeStorage: NativeStorage) {
         this.platform.ready().then(() => {
             this.navCtrl.swipeBackEnabled = false;
             this.id_evaluation = this.navParams.get('id_evaluation');
+            this.databaseprovider.getEvaluationById(this.id_evaluation).then((data) => {
+                this.evaluation = data;
+                this.databaseprovider.getRestaurantName(data.restaurant_id).then((res) => {
+                    this.restaurant = res;
+                });
+
+            });
+            
         });
+    }
+
+    validateContrat(){
+        cordova.plugins.pdf.htmlToPDF({
+            data: '<div class="signature-container" col-10 offset-1>'+
+            '<img src="assets/img/barat-logo.png" text-center id="barat-logo" alt="">'+
+            '<br>'+
+            '<br>'+
+            '<ion-row>'+
+                '<ion-label text-right>Visite de conformité effectuée par</ion-label>'+
+                '<ion-input [(ngModel)]="controllerName" placeholder="Text Input"></ion-input>'+
+            '</ion-row>'+
+                '<br>'+
+            '<ion-row>'+
+                '<ion-label text-right>Dans le restaurant Eatsalad</ion-label>'+
+                '<ion-label class="signature-information">{{ restaurant }}</ion-label>'+
+            '</ion-row>'+
+                '<br>'+
+            '<ion-row>'+
+                '<ion-label text-right>Le</ion-label>'+
+                '<ion-label class="signature-information">{{ evaluation.date }}</ion-label>'+
+            '</ion-row>'+
+                '<br>'+
+                '<br>'+
+            '<ion-row>'+
+                '<ion-col col-6>'+
+                    '<h3>Signature du controlleur</h3>'+
+                    '<p>(Mention "lu et approuvé")</p>'+
+                    '<img class="signature-image" [src]="signatureController"/>'+   
+                '</ion-col>'+
+                '<ion-col col-6>'+
+                    '<h3>Signature du franchisé</h3>'+
+                    '<p>(Mention "lu et approuvé")</p>'+
+                    '<img class="signature-image" [src]="signatureFranchised"/>'+ 
+                '</ion-col>'+ 
+            '</ion-row>'+
+        '</div>',
+            documentSize: "A4",
+            landscape: "portrait",
+            type: "base64"
+        },
+        (success) => {
+            console.log('pdf created: ' + success);
+            // let blob = this.b64toBlob(success, 'application/pdf');
+            // var blob = this.b64toBlob(success, 'application/pdf');
+            // decode base64 string, remove space for IE compatibility
+
+
+            // create the blob object with content-type "application/pdf"               
+            var blob = this.b64toBlob(success, 'application/pdf');
+            
+            this.emailComposer.isAvailable().then((available: boolean) =>{
+                if(available) {
+
+                }
+            });
+            let email = {
+                to: 'bmagne@me.com',
+                attachments: [
+                    'base64:test.pdf//'+success
+                ],
+                subject: 'Cordova Icons',
+                body: 'How are you? Nice greetings from Leipzig',
+                isHtml: true
+            };
+            this.emailComposer.open(email);                
+                
+                
+                // Send a text message using default options
+                
+            
+            // this.file.writeFile(this.file.dataDirectory, this.id_evaluation+'-signed.pdf', blob).then((data) => {
+            //     console.log('Pdf file ok');
+            //     // 
+            // }, (error) => {
+            //     console.log('Mail send error: ' + JSON.stringify(error));
+            // });
+
+            
+        }, (error) => console.log('error:', JSON.stringify(error))
+        );
+    }
+
+    deleteSignature(type){
+        if (type == 'controller')
+            this.signatureController = '';    
+        
+        if (type == 'franchised')
+            this.signatureFranchised = '';    
+        
     }
 
     cancelEvaluation(){
@@ -124,3 +226,4 @@ export class SignaturePage {
       }
       
 }
+

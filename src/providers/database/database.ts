@@ -73,8 +73,7 @@ export class DatabaseProvider {
 
   getRestaurantName(id_restaurant) {
     return this.database.executeSql("SELECT * FROM `restaurant` WHERE id_restaurant = " + id_restaurant, []).then((data) => {
-      
-      let restaurant = [];
+      let restaurant;
       if(data == null) 
       {
         return;
@@ -83,15 +82,15 @@ export class DatabaseProvider {
       {
         if(data.rows.length > 0) 
         {
-          for(var i = 0; i < data.rows.length; i++) {
-            restaurant.push(data.rows.item(i).name);
-          }
+          
+          restaurant = data.rows.item(0).name;
+          
         }
       }
       return restaurant;
 
     }, err => {
-      console.log('Error: ', JSON.stringify(err));
+      console.log('Error getRestaurantName: ', JSON.stringify(err));
       return [];
     });
   }
@@ -267,11 +266,28 @@ export class DatabaseProvider {
     });
   }
 
-  addEvaluationSignatures(id_evaluation, controller_name, controller_signature, franchised_signature){
-    return this.database.executeSql('INSERT INTO `evaluation`(controller_name, controller_signature, franchised_signature) VALUES(\'' + controller_name + '\', \'' + controller_signature + '\', \'' + franchised_signature + '\') WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
-      return data;
+  getEvaluationById(id_evaluation){
+    return this.database.executeSql("SELECT * FROM `evaluation` WHERE id_evaluation = " + id_evaluation, {}).then((data) => {
+      let evaluation;
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          
+            evaluation = data.rows.item(0);
+          
+        }
+      }
+
+      return evaluation;
+
     }, err => {
-      console.log('Error: ', JSON.stringify(err));
+      console.log('Error getEvaluationById: ', JSON.stringify(err));
       return [];
     });
   }
