@@ -86,7 +86,7 @@ export class EvaluationCategoryPage {
   }
 
   validateEvaluation(){
-    this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation});
+    this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation, 'id_restaurant': this.id_restaurant});
   }
 
   cancelEvaluation():void {
@@ -101,7 +101,7 @@ export class EvaluationCategoryPage {
 
             this.databaseprovider.cancelEvaluation(this.id_evaluation);
             this.nativeStorage.setItem('subcategories-done', []);
-            this.navCtrl.popTo(RestaurantDetailPage);
+            this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
 
           }
         },

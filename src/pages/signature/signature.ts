@@ -27,6 +27,7 @@ declare var cordova: any;
 export class SignaturePage {
 
     id_evaluation:number;
+    id_restaurant:number;
     evaluation = [];
     restaurant:string;
     signatureController:string;
@@ -38,6 +39,7 @@ export class SignaturePage {
         this.platform.ready().then(() => {
             this.navCtrl.swipeBackEnabled = false;
             this.id_evaluation = this.navParams.get('id_evaluation');
+            this.id_evaluation = this.navParams.get('id_restaurant');
             this.databaseprovider.getEvaluationById(this.id_evaluation).then((data) => {
                 this.evaluation = data;
                 this.databaseprovider.getRestaurantName(data.restaurant_id).then((res) => {
@@ -58,7 +60,7 @@ export class SignaturePage {
             '</style>'+
             '<table style="position: relative;background-color: #ffffff;border-radius: 8px;padding: 5px 40px 20px;">'+
            '<tr>'+
-                '<td><img style="max-width: 120px;margin:0 auto 30px;" src="' + baratLogo + '"></td>'+
+                '<tdstyle="text-align:center;"><img style="max-width: 120px;margin:0 auto 30px;text-align:center;" src="' + baratLogo + '"></td>'+
            '</tr>'+
            '<tr><td>&nbsp;</td></tr>'+
            '<tr><td>&nbsp;</td></tr>'+
@@ -109,8 +111,8 @@ export class SignaturePage {
                 isHtml: true
             };
             this.emailComposer.open(email);
-                          
-            this.navCtrl.push(RestaurantDetailPage);
+            
+            this.navCtrl.push(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
             
         }, (error) => this.presentToast('error:' + JSON.stringify(error))
         );

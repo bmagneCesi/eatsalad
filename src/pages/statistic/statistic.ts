@@ -11,6 +11,7 @@ export class StatisticPage {
 
   id_evaluation:string;
   data = [];
+  subCategoryStat = [];
   categoryStat = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider) {
@@ -18,14 +19,22 @@ export class StatisticPage {
         this.id_evaluation = this.navParams.get('id_evaluation');
 
         this.databaseprovider.getResponseScoreByIdEvaluation(this.id_evaluation).then((data) => {
-          
+          console.log(JSON.stringify(data));        
           for (var i = 0; i < data.length; i++) {
-            let percent = (data[i].responseScore / (data[i].nbResponse * 4)) * 100;
-            this.categoryStat.push({'category': data[i].category, 'score': percent});          
+            let percent = Math.round((data[i].responseScore / (data[i].nbResponse * 4)) * 100);
+            this.subCategoryStat.push({'category': data[i].category, 'subcategory': data[i].subcategory, 'score': percent});          
+            if (this.categoryStat.indexOf(data[i].category) < 0)
+            {
+              this.categoryStat.push(data[i].category);         
+            }
+               
           }
 
         });
     });
   }
 
+  ionViewDidLoad(){
+    console.log(JSON.stringify(this.categoryStat));
+  }
 }

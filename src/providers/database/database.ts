@@ -267,7 +267,7 @@ export class DatabaseProvider {
   }
 
   getEvaluationById(id_evaluation){
-    return this.database.executeSql("SELECT * FROM `evaluation` WHERE id_evaluation = " + id_evaluation, {}).then((data) => {
+    return this.database.executeSql("SELECT * FROM `evaluation` WHERE id_evaluation = " + id_evaluation + " ORDER BY id_evaluation DESC", {}).then((data) => {
       let evaluation;
       if(data == null) 
       {
@@ -412,7 +412,7 @@ export class DatabaseProvider {
   }
 
   getResponseScoreByIdEvaluation(id_evaluation) {
-    return this.database.executeSql("SELECT SUM(response.score) as responseScore, COUNT(question_has_response.question_id) as nbResponse, question_category.name as category FROM `question_has_response` LEFT JOIN `question_has_response_image` ON `question_has_response`.id_question_has_response = `question_has_response_image`.question_has_response_id LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
+    return this.database.executeSql("SELECT SUM(response.score) as responseScore, COUNT(question_has_response.question_id) as nbResponse, question_category.name as category, question_subcategory.name as subcategory FROM `question_has_response` LEFT JOIN `question_has_response_image` ON `question_has_response`.id_question_has_response = `question_has_response_image`.question_has_response_id LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation + " GROUP BY `question_category`.name, question_subcategory.name", {}).then((data) => {
       let responses = [];
       if(data == null) 
       {

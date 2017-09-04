@@ -1,5 +1,6 @@
 PRAGMA foreign_keys=off;
-CREATE TABLE IF NOT EXISTS `restaurant` ( `id_restaurant` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL );
+CREATE TABLE IF NOT EXISTS `restaurant` ( `id_restaurant` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `address` TEXT NOT NULL, `postcode` INTEGER NOT NULL, `city` TEXT NOT NULL );
+CREATE TABLE IF NOT EXISTS `restaurant_contact` ( `id_restaurant_contact` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `phone1` TEXT, `phone2` TEXT, `email1` TEXT, `email2` TEXT, `email3` TEXT, `email4` TEXT, `email5` TEXT, `restaurant_id` INTEGER FOREIGN KEY(`restaurant_id`) REFERENCES `restaurant`(`restaurant_id`) ON DELETE CASCADE,);
 CREATE TABLE IF NOT EXISTS `question_category` ( `id_question_category` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL );
 CREATE TABLE IF NOT EXISTS `question_subcategory` ( `id_question_subcategory` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `question_category_id` INTEGER, FOREIGN KEY(`question_category_id`) REFERENCES `question_category`(`id_question_category`) );
 CREATE TABLE IF NOT EXISTS `question` ( `id_question` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `question` TEXT, `question_subcategory_id` INTEGER );
