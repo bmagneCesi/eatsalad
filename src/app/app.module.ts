@@ -21,11 +21,14 @@ import { HomePage } from '../pages/home/home';
 import { RestaurantlistPage } from '../pages/restaurantlist/restaurantlist';
 import { EvaluationCategoryPage } from '../pages/evaluationcategory/evaluationcategory';
 import { RestaurantDetailPage } from '../pages/restaurantdetail/restaurantdetail';
-import { ArchivesPage } from '../pages/archivespage/archivespage';
+import { ArchivePage } from '../pages/archive/archive';
 import { EvaluationPage } from '../pages/evaluation/evaluation';
 import { EvaluationCommentairePage } from '../pages/evaluationcommentaire/evaluationcommentaire';
 import { SignaturePage } from '../pages/signature/signature';
 import { SignaturepopoverPage } from '../pages/signaturepopover/signaturepopover';
+import { ArchiveDetailPage } from '../pages/archivedetail/archivedetail';
+import { StatisticPage } from '../pages/statistic/statistic';
+
 
 // Providers
 import { DatabaseProvider } from '../providers/database/database';
@@ -41,10 +44,12 @@ import { HttpModule } from '@angular/http'
     EvaluationCategoryPage,
     RestaurantDetailPage,
     EvaluationPage,
-    ArchivesPage,
+    ArchivePage,
     EvaluationCommentairePage,
     SignaturePage,
-    SignaturepopoverPage
+    SignaturepopoverPage,
+    ArchiveDetailPage,
+    StatisticPage
   ],
   imports: [
     BrowserModule,
@@ -61,10 +66,12 @@ import { HttpModule } from '@angular/http'
     EvaluationCategoryPage,
     RestaurantDetailPage,
     EvaluationPage,
-    ArchivesPage,
+    ArchivePage,
     EvaluationCommentairePage,
     SignaturePage,
-    SignaturepopoverPage
+    SignaturepopoverPage,
+    ArchiveDetailPage,
+    StatisticPage
   ],
   providers: [
     StatusBar,

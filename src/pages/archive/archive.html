@@ -9,6 +9,9 @@
 
 <ion-content>
     <ion-grid class="main-container">
-        
+        <ion-row><h1 class="title">ARCHIVES</h1></ion-row>
+        <ion-row *ngFor="let archive of archives">
+            <ion-col (tap)="showArchive(archive.id_evaluation)" col-6 offset-3 text-center>Rapport du {{ archive.date }}</ion-col>
+        </ion-row>
     </ion-grid>
 </ion-content>

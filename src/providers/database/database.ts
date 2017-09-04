@@ -292,6 +292,32 @@ export class DatabaseProvider {
     });
   }
 
+  getEvaluationByRestaurant(id_restaurant){
+    return this.database.executeSql("SELECT * FROM `evaluation` WHERE restaurant_id = " + id_restaurant, {}).then((data) => {
+      let responses = [];
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          for(var i = 0; i < data.rows.length; i++) {
+            responses.push(data.rows.item(i));
+          }
+        }
+      }
+
+      return responses;
+
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });
+  }
+
   getAllResponses() {
     
     return this.database.executeSql("SELECT * FROM `response`", {}).then((data) => {
@@ -331,32 +357,15 @@ export class DatabaseProvider {
   newEvaluation(id_restaurant) {
 
     let date = this.getTodayDate();
-
-    this.database.executeSql('INSERT INTO `evaluation` (date, comment, restaurant_id) VALUES (\'' + date + '\', \'\', ' + id_restaurant + ')', {});
-    return this.database.executeSql('select seq from sqlite_sequence where name="evaluation"', {}).then(data => {
-      
-      let id_evaluation;
-      
-      if(data == null) 
-      {
-        return;
-      }
-
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          id_evaluation = data.rows.item(0).seq;
-        }
-      }
-
-      return id_evaluation;
-      
+    
+    return this.database.executeSql('INSERT INTO `evaluation` (date, comment, restaurant_id) VALUES (\'' + date + '\', \'\', ' + id_restaurant + ')', {}).then((data) => {
+      console.log('after instert: ' + data);
+      return data.insertId;
     }, err => {
-      console.log('Error: ', JSON.stringify(err));
+      console.log('Error insert: ', JSON.stringify(err));
       return [];
     });
-
+    
   }
 
   cancelEvaluation(id_evaluation) {
@@ -402,8 +411,8 @@ export class DatabaseProvider {
     });
   }
 
-  getResponseByIdEvaluation(id_evaluation) {
-    return this.database.executeSql("SELECT * FROM `question_has_response` JOIN `question_has_response_image` ON `question_has_response`.id_question_has_response = `question_has_response_image`.question_has_response_id WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
+  getResponseScoreByIdEvaluation(id_evaluation) {
+    return this.database.executeSql("SELECT SUM(response.score) as responseScore, COUNT(question_has_response.question_id) as nbResponse, question_category.name as category FROM `question_has_response` LEFT JOIN `question_has_response_image` ON `question_has_response`.id_question_has_response = `question_has_response_image`.question_has_response_id LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
       let responses = [];
       if(data == null) 
       {
@@ -419,7 +428,6 @@ export class DatabaseProvider {
           }
         }
       }
-
       return responses;
 
     }, err => {

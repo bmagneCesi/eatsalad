@@ -1,0 +1,25 @@
+<ion-header no-border>
+    <ion-toolbar class="toolbar">
+        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Menu archives</button>
+        <ion-col col-4 offset-4>
+            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+        </ion-col>
+    </ion-toolbar>
+</ion-header>
+    
+<ion-content class="main-container no-scroll">
+    <ion-grid>
+        <ion-row>
+           <h1 class="title">ANALYSE DU RAPPORT</h1>
+        </ion-row>
+
+        <ion-row *ngFor="let stat of categoryStat">
+            <ion-col class="input-statistic" col-8 offset-2>
+                <span [ngStyle]="{ 'width': stat.score + '%' }">{{stat.category}}</span>
+            </ion-col>
+            <ion-col col-2 class="percent-right">
+                {{ stat.score }}%
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

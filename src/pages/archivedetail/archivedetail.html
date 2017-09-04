@@ -1,0 +1,29 @@
+<ion-header no-border>
+        <ion-toolbar class="toolbar">
+            <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Menu archives</button>
+            <ion-col col-4 offset-4>
+                <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+            </ion-col>
+        </ion-toolbar>
+    </ion-header>
+        
+    <ion-content class="main-container no-scroll">
+        <ion-grid>
+            <ion-row>
+                <div>
+                    <button color="light" class="detail-buttons" (tap)="showEvaluation(id_evaluation)" ion-button icon-only>
+                            <ion-icon name="ios-search"></ion-icon>
+                    </button>
+                    <h1 class="detail-titles">CONSULTER LE <br /> DOSSIER</h1>                  
+                </div>
+            </ion-row>
+            <ion-row>
+                <div>
+                    <button color="light" class="detail-buttons" (tap)="showStatistics(id_evaluation)" ion-button icon-only>
+                            <ion-icon name="ios-stats"></ion-icon>
+                    </button>
+                    <h1 class="detail-titles">ANALYSES <br /> STATISTIQUES</h1>
+                </div>
+            </ion-row>
+        </ion-grid>
+    </ion-content>

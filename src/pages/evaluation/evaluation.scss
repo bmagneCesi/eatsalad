@@ -13,20 +13,37 @@ page-evaluation {
         border-radius: 8px;
         color: #6a962f;
         height: 50px;
-        vertical-align: middle;
-        display: inline-block;
+        line-height: 25px;
         padding: 0px 10px;
+        position: absolute;
+        top: 50%; /* poussé de la moitié de hauteur du référent */
+        transform: translateY(-50%);
     }
 
     .camera-button{
         background-color:#bdd88c;
         color: #89BD29;
         height: 50px;
-        vertical-align: middle;
-        display: inline-block;
         width: 50px;
         border-radius: 50px;
         padding: 0px 10px;
+        position: absolute;
+        top: 47%; /* poussé de la moitié de hauteur du référent */
+        transform: translateY(-50%);
+    }
+
+    .photo-comment-line{
+        position: relative;
+    }
+
+    .comment-container{
+        line-height: 50px;
+        padding: 0;
+    }
+
+    .photo-container{
+        line-height: 50px;
+        padding: 0;
     }
 
     .photo-container{

@@ -1,9 +1,10 @@
+import { RestaurantlistPage } from './../restaurantlist/restaurantlist';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 
 // Pages
 import  { EvaluationCategoryPage } from '../evaluationcategory/evaluationcategory';
-import  { ArchivesPage } from '../archivespage/archivespage';
+import  { ArchivePage } from '../archive/archive';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
@@ -33,7 +34,11 @@ export class RestaurantDetailPage {
   }
 
   showArchivesAction():void {
-    this.navCtrl.push(ArchivesPage, {'id_restaurant': this.id_restaurant});
+    this.navCtrl.push(ArchivePage, {'id_restaurant': this.id_restaurant});
+  }
+
+  backToRestaurants(){
+    this.navCtrl.popTo(RestaurantlistPage);
   }
 
 }

@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button (tap)="cancelEvaluation()">Menu questions</button>
+        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Menu questions</button>
         <ion-col col-4 offset-4>
             <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
         </ion-col>
@@ -62,7 +62,7 @@
         <br>
         <ion-row>
             <ion-col text-center>
-                <button ion-button  (tap)="validateContrat()" color="eatsalad" class="button-light">Valider</button>
+                <button ion-button  (tap)="validateContrat(controllerName)" color="eatsalad" class="button-light">Valider</button>
             </ion-col>
         </ion-row>
     </ion-grid>

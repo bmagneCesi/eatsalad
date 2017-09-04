@@ -19,7 +19,7 @@
                 <ion-slide *ngFor="let question of questions; let i=index">
                     <ion-row><h1 class="subtitle">{{ question.question }}</h1></ion-row>
                     <ion-row col-10 offset-1 radio-group>
-                        <ion-item text-wrap class="response-button" no-lines col-3 *ngFor="let response of responses">
+                        <ion-item text-wrap text-center class="response-button" *ngFor="let response of responses" no-lines col-3>
                             <ion-label>{{ response.response}}</ion-label>
                             <ion-radio (ionSelect)="onSelectionChange(question, response)" value="{{response.id_response}}"></ion-radio>
                         </ion-item>
@@ -29,11 +29,11 @@
                             <h1 class="subtitle-left">Commentaire</h1>
                         </ion-col>
                     </ion-row>
-                    <ion-row col-10 offset-1>
-                        <ion-col col-10>
+                    <ion-row col-10 offset-1 class="photo-comment-line">
+                        <ion-col col-10 class="comment-container">
                             <ion-textarea class="response-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
                         </ion-col>
-                        <ion-col col-2>
+                        <ion-col col-2 class="photo-container">
                             <button color="light" (tap)="addPicture()" *ngIf="imagesArray.length < 4" class="camera-button" ion-button icon-only>
                                 <ion-icon name="ios-camera"></ion-icon>
                             </button>
