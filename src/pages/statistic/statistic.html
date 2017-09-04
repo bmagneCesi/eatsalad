@@ -16,8 +16,9 @@
             <h1 class="title">{{ category }}</h1>
             <ng-container *ngFor="let stat of subCategoryStat">
                 <ion-row *ngIf="category == stat.category">
-                    <ion-col class="input-statistic" col-8 offset-2>
-                        <span [ngStyle]="{ 'width': stat.score + '%' }">{{stat.subcategory}}</span>
+                    <ion-col [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + stat.score + '%, #bdd88c 0%)' }" class="input-statistic" col-8 offset-2>
+                        <span class="subcategory-span">{{stat.subcategory}}</span>
+                        <span class="subcategory-score" ></span>
                     </ion-col>
                     <ion-col col-2 class="percent-right">
                         {{ stat.score }}%

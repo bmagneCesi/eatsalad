@@ -38,7 +38,23 @@ export class RestaurantlistPage {
       inputs: [
         {
           name: 'name',
-          placeholder: 'Emplacement du restaurant' 
+          placeholder: 'Nom du restaurant' 
+        },
+        {
+          name: 'address',
+          placeholder: 'Adresse' 
+        },
+        {
+          name: 'postcode',
+          placeholder: 'Code postal' 
+        },
+        {
+          name: 'city',
+          placeholder: 'Ville' 
+        },
+        {
+          name: 'emails',
+          placeholder: 'Adresses email (séparer par une virgule)' 
         }
       ],
       buttons: [

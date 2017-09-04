@@ -120,6 +120,31 @@ export class DatabaseProvider {
       return [];
     });
   }
+  getFullCategories() {
+    return this.database.executeSql("SELECT question_category.id_question_category, question_category.name as question_category_name, question_subcategory.id_question_subcategory, question_subcategory.name as question_subcategory_name FROM `question_category`  LEFT JOIN `question_subcategory`  ON question_category.id_question_category = question_subcategory.question_category_id GROUP BY question_category.name, question_subcategory.name", {}).then((data) => {
+      let categories = [];
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          for(var i = 0; i < data.rows.length; i++) {
+            categories.push(data.rows.item(i));
+          }
+        }
+      }
+
+    return categories;
+
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });
+  }
   
   getCategories() {
     return this.database.executeSql("SELECT * FROM `question_category`", {}).then((data) => {
@@ -147,7 +172,7 @@ export class DatabaseProvider {
     });
   }
  
-  getSubCategories(id_evaluation) {
+  getSubCategories() {
     return this.database.executeSql("SELECT * FROM `question_subcategory`", {}).then((data) => {
       let subcategories = [];
       let id_subcategory_tmp;
@@ -435,6 +460,32 @@ export class DatabaseProvider {
       return [];
     });
   }
+
+  getResponseByIdEvaluation(id_evaluation) {
+    return this.database.executeSql("SELECT response.response, question_has_response_image.path as image, question.question, question_subcategory.id_question_subcategory as id_question_subcategory FROM `question_has_response` LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category LEFT JOIN `question_has_response_image` ON question_has_response.id_question_has_response=question_has_response_image.question_has_response_id WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
+      let responses = [];
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          for(var i = 0; i < data.rows.length; i++) {
+            responses.push(data.rows.item(i));
+          }
+        }
+      }
+      return responses;
+
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });
+  }
+
 
   addResponses(id_evaluation, responses) {        
     

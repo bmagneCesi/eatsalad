@@ -3,6 +3,7 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 
 // Pages
 import  { StatisticPage } from '../statistic/statistic';
+import  { ArchiveEvaluationPage } from '../archiveevaluation/archiveevaluation';
 
 @Component({
   selector: 'page-archivedetail',
@@ -23,6 +24,6 @@ export class ArchiveDetailPage {
   }
 
   showEvaluation(id_evaluation){
-    this.navCtrl.push(StatisticPage, {'id_evaluation': id_evaluation});
+    this.navCtrl.push(ArchiveEvaluationPage, {'id_evaluation': id_evaluation});
   }
 }
