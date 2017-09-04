@@ -65,8 +65,8 @@ export class RestaurantlistPage {
         {
           text: 'Ajouter',
           handler: data => {
-            if (data.name != "") {
-              this.databaseprovider.addRestaurant(data.name);
+            if (data.name != "" && data.address != "" && data.postcode != "" && data.city != "" && data.emails != "") {
+              this.databaseprovider.addRestaurant(data);
               this.getRestaurants();
             } else {
               // invalid name

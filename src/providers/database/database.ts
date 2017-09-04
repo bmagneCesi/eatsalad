@@ -53,8 +53,8 @@ export class DatabaseProvider {
     });
   }
  
-  addRestaurant(name) {
-    return this.database.executeSql('INSERT INTO `restaurant`(name) VALUES(\'' + name + '\')', []).then(data => {
+  addRestaurant(data) {
+    return this.database.executeSql('INSERT INTO `restaurant`(name, address, postcode, city, emails) VALUES(\'' + data.name + '\', \'' + data.address + '\', \'' + data.postcode + '\', \'' + data.city + '\', \'' + data.emails + '\')', []).then(data => {
       return data;
     }, err => {
       console.log('Error: ', JSON.stringify(err));
@@ -71,7 +71,7 @@ export class DatabaseProvider {
     });
   }
 
-  getRestaurantName(id_restaurant) {
+  getRestaurant(id_restaurant) {
     return this.database.executeSql("SELECT * FROM `restaurant` WHERE id_restaurant = " + id_restaurant, []).then((data) => {
       let restaurant;
       if(data == null) 
@@ -83,7 +83,7 @@ export class DatabaseProvider {
         if(data.rows.length > 0) 
         {
           
-          restaurant = data.rows.item(0).name;
+          restaurant = data.rows.item(0);
           
         }
       }
@@ -283,10 +283,10 @@ export class DatabaseProvider {
   }
 
   addEvaluationComment(id_evaluation, comment){
-    return this.database.executeSql('INSERT INTO `evaluation`(comment) VALUES(\'' + comment + '\') WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
+    return this.database.executeSql('UPDATE `evaluation` SET comment=\'' + comment + '\' WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
       return data;
     }, err => {
-      console.log('Error: ', JSON.stringify(err));
+      console.log('Error add evaluation comment: ', JSON.stringify(err));
       return [];
     });
   }
