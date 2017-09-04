@@ -1,0 +1,25 @@
+page-statistic{
+    .main-container .input-statistic{
+        background-color:#bdd88c;
+        color: #6a962f;
+        height: 40px;
+        font-weight: 500;
+        padding: 0;
+    }
+
+    .main-container .input-statistic span{
+        display: block;
+        height: 100%;
+        line-height: 40px;
+        padding: 0 20px;
+        background-color:#dcedc2;
+    }
+    .percent-right{
+        padding: 0 0 0 10px;
+        line-height: 40px;
+        font-weight: 600;
+    }
+    ion-row{
+        margin:10px
+    }
+}

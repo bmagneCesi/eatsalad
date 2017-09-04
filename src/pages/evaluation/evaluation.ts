@@ -82,7 +82,7 @@ export class EvaluationPage {
       var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
       this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
     }, (err) => {
-     // Handle error
+     console.log('Error take picture: ' + JSON.stringify(err));
     });
     
   }
@@ -97,7 +97,7 @@ export class EvaluationPage {
   
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+    this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
       this.imagesArray.push({'image': this.pathForImage(newFileName)});
     }, error => {
       this.presentToast('Erreur durant l\'enregistrement de l\'image.');
@@ -114,7 +114,7 @@ export class EvaluationPage {
   }
   
   deletePhoto(image){
-    this.file.removeFile(cordova.file.dataDirectory, image);
+    this.file.removeFile(this.file.dataDirectory, image);
     this.removeByAttr(this.imagesArray, 'image', image);
   }
 
@@ -123,7 +123,7 @@ export class EvaluationPage {
     if (img === null) {
       return '';
     } else {
-      return cordova.file.dataDirectory + img;
+      return this.file.dataDirectory + img;
     }
   }
 

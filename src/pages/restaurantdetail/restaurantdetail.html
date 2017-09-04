@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Menu restaurants</button>
+        <button offset-1 col-3 class="button-back" color="light" ion-button (tap)="backToRestaurants()">Menu restaurants</button>
         <ion-col col-4 offset-4>
             <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
         </ion-col>
@@ -19,7 +19,7 @@
         </ion-row>
         <ion-row>
             <div>
-                <button color="light" class="detail-buttons" (tap)="showArchivesAction()" ion-button icon-only>
+                <button color="light" class="detail-buttons" (tap)="showArchivesAction(id_restaurant)" ion-button icon-only>
                         <ion-icon name="ios-copy-outline"></ion-icon>
                 </button>
                 <h1 class="detail-titles">ÉVALUATIONS <br /> ARCHIVÉES</h1>

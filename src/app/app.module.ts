@@ -10,6 +10,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { MyApp } from './app.component';
 
@@ -18,10 +21,14 @@ import { HomePage } from '../pages/home/home';
 import { RestaurantlistPage } from '../pages/restaurantlist/restaurantlist';
 import { EvaluationCategoryPage } from '../pages/evaluationcategory/evaluationcategory';
 import { RestaurantDetailPage } from '../pages/restaurantdetail/restaurantdetail';
-import { ArchivesPage } from '../pages/archivespage/archivespage';
+import { ArchivePage } from '../pages/archive/archive';
 import { EvaluationPage } from '../pages/evaluation/evaluation';
 import { EvaluationCommentairePage } from '../pages/evaluationcommentaire/evaluationcommentaire';
 import { SignaturePage } from '../pages/signature/signature';
+import { SignaturepopoverPage } from '../pages/signaturepopover/signaturepopover';
+import { ArchiveDetailPage } from '../pages/archivedetail/archivedetail';
+import { StatisticPage } from '../pages/statistic/statistic';
+
 
 // Providers
 import { DatabaseProvider } from '../providers/database/database';
@@ -37,13 +44,17 @@ import { HttpModule } from '@angular/http'
     EvaluationCategoryPage,
     RestaurantDetailPage,
     EvaluationPage,
-    ArchivesPage,
+    ArchivePage,
     EvaluationCommentairePage,
-    SignaturePage
+    SignaturePage,
+    SignaturepopoverPage,
+    ArchiveDetailPage,
+    StatisticPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    SignaturePadModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
@@ -55,15 +66,20 @@ import { HttpModule } from '@angular/http'
     EvaluationCategoryPage,
     RestaurantDetailPage,
     EvaluationPage,
-    ArchivesPage,
+    ArchivePage,
     EvaluationCommentairePage,
-    SignaturePage
+    SignaturePage,
+    SignaturepopoverPage,
+    ArchiveDetailPage,
+    StatisticPage
   ],
   providers: [
     StatusBar,
     NativeStorage,
     SplashScreen,
     Camera,
+    EmailComposer,
+    FileOpener,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DatabaseProvider,
     SQLitePorter,

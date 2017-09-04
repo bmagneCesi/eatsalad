@@ -1,0 +1,35 @@
+page-archivedetail{
+    
+        .detail-buttons{
+            color: #89BD29;
+            background-color: #bdd88c;
+            font-size: 45px;
+            padding: 20px;
+            border-radius: 6px;
+            text-align:center;
+            margin: 10px auto;
+        }
+    
+        .detail-titles{
+            text-align: center;
+            margin: 10px auto 0px;
+            font-size: 20px;
+        }
+    
+        .main-container ion-grid div{
+            margin: 150px auto 0px; 
+            height:100%;
+        }
+    
+        #new-restaurant-container ion-input{
+            border-radius: 7px;
+            height: 35px;
+            background-color: #bdd88c;
+        }
+    
+        #new-restaurant-container ion-label{
+            min-width: 50px;
+            font-size: 20px;
+        }
+    
+    }

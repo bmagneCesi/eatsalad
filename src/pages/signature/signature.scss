@@ -1,3 +1,63 @@
 page-signature{
-    
+
+    #barat-logo{
+        max-width: 120px;
+        margin-bottom: 30px;
+    }
+
+    .signature-button{
+        width: 120px;
+        height: 120px;
+        border-radius: 8px;
+        border: 1px solid #969696;
+        background-color: #ffffff;
+        color: #969696;
+        white-space: normal;
+        margin: 0 auto;
+        text-align: center
+    }
+
+    .signature-done{
+        background-color: #89BD29!important;
+        border: 1px solid #ffffff;
+        color: #ffffff;
+    }
+
+    .signature-container{
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 5px 40px 20px;
+    }
+
+    ion-input{
+        border-radius: 7px;
+        height: 40px;
+        background-color: rgba(150, 150, 150, 0.51);
+        color:#ffffff;
+    }
+
+    p, h3, ion-label{
+        color:#30302e;
+    }
+
+    .signature-information{
+        font-weight: bold;
+    }
+
+    .signature-image{
+        width: 200px;
+    }
+
+    .signature-container{
+        position: relative;
+    }
+
+    .delete-signature{
+        color:rgba(150, 150, 150, 0.51);
+        position: absolute;
+        right: 40px;
+        top: 10px;
+        font-size: 30px;
+    }
+
 }

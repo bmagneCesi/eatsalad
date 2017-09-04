@@ -27,7 +27,9 @@ export class EvaluationCategoryPage {
       this.navCtrl.swipeBackEnabled = false;
       this.id_restaurant = this.navParams.get('id_restaurant');
       this.id_evaluation = this.navParams.get('id_evaluation');
-
+      this.databaseprovider.getEvaluationByRestaurant(this.id_restaurant).then((data) => {
+        console.log(JSON.stringify(data));
+      });
       this.databaseprovider.getCategories().then((data) => {
         this.categories = data;
       });
@@ -43,9 +45,6 @@ export class EvaluationCategoryPage {
     this.nativeStorage.getItem('subcategories-done').then((data) => {
       this.subcategoriesDone = data;
     });
-    this.databaseprovider.getResponseByIdEvaluation(this.id_evaluation).then((data) => {
-      console.log('responses added: ' + JSON.stringify(data));
-    })
   }
 
   evaluateAction(category, subcategory, eraseAlert):void {
@@ -87,7 +86,7 @@ export class EvaluationCategoryPage {
   }
 
   validateEvaluation(){
-    this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation});
+    this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation, 'id_restaurant': this.id_restaurant});
   }
 
   cancelEvaluation():void {
@@ -102,7 +101,7 @@ export class EvaluationCategoryPage {
 
             this.databaseprovider.cancelEvaluation(this.id_evaluation);
             this.nativeStorage.setItem('subcategories-done', []);
-            this.navCtrl.popTo(RestaurantDetailPage);
+            this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
 
           }
         },
