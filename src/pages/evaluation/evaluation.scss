@@ -4,22 +4,27 @@ page-evaluation {
         border-radius: 8px;
         color: #fff;
         text-align: center;
-        width:130px;
-        height:130px;
         margin: 0 auto;
-        position: relative
+        position: relative;
+        width:150px;
+        height:150px;
     }
 
     .response-button ion-label{
         text-align: center;
         position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    .response-button ion-label span{
+        position: absolute;
         left: 0;
         right: 0;
         top: 50%;
         transform: translateY(-50%);
-        margin:0px;
-        padding: 0 1px;
-        width: 130px;
     }
 
     .response-comment{

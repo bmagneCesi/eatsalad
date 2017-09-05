@@ -7,8 +7,8 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="no-scroll">
-    <ion-grid class="main-container">
+<ion-content class="main-container no-scroll">
+    <ion-grid>
 
         <ion-row>
             <h1 class="title">{{ subcategory.name | uppercase }}</h1>
@@ -18,9 +18,11 @@
             <ion-slides>
                 <ion-slide *ngFor="let question of questions; let i=index">
                     <ion-row><h1 class="subtitle">{{ question.question }}</h1></ion-row>
-                    <ion-row text-center class="button-container" col-10 offset-1 radio-group>
-                        <ion-item text-wrap text-center class="response-button response-{{response.score}}" *ngFor="let response of responses" no-lines>
-                            <ion-label text-center>{{ response.response}}</ion-label>
+                    <ion-row col-10 offset-1 radio-group>
+                        <ion-item text-wrap text-center class="response-button" *ngFor="let response of responses" no-lines>
+                            <ion-label class="response-{{response.score}}">
+                                <span>{{ response.response}}</span>
+                            </ion-label>
                             <ion-radio (ionSelect)="onSelectionChange(question, response)" value="{{response.id_response}}"></ion-radio>
                         </ion-item>
                     </ion-row>
