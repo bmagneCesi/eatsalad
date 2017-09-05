@@ -3,7 +3,7 @@
     <name>EatSalad</name>
     <description>Comptes rendus de visites de franchises.</description>
     <author email="bmagne@me.com" href="http://benjaminmagne.com/">Benjamin Magne</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.1.99:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />

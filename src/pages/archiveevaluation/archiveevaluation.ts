@@ -18,14 +18,16 @@ export class ArchiveEvaluationPage {
     this.platform.ready().then(() => {
         this.id_evaluation = this.navParams.get('id_evaluation');
         this.databaseprovider.getResponseByIdEvaluation(this.id_evaluation).then((data) => {
+          for (var i = 0; i < data.length; i++) {
+            data[i].question = data[i].question.replace(/\(.*\)/, '');
+          }
           this.responses = data;
-          console.log('Responses: ' + JSON.stringify(data));
           this.databaseprovider.getCategories().then((categories) => {
             this.categories = categories;
           });
           this.databaseprovider.getSubCategories().then((subcategories) => {
             this.subcategories = subcategories;
-            console.log('Subcategories: ' + JSON.stringify(subcategories)); 
+
           });
                    
         });
