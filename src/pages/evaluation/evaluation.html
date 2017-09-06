@@ -19,11 +19,11 @@
                 <ion-slide *ngFor="let question of questions; let i=index">
                     <ion-row><h1 class="subtitle">{{ question.question }}</h1></ion-row>
                     <ion-row col-10 offset-1 radio-group>
-                        <ion-item text-wrap text-center class="response-button" *ngFor="let response of responses" no-lines>
-                            <ion-label class="response-{{response.score}}">
+                        <ion-item text-wrap text-center class="response-button" [ngClass]="{checked : radioChecked == response.id_response}" *ngFor="let response of responses" no-lines>
+                            <ion-label class="response-bck response-{{response.score}}">
                                 <span>{{ response.response}}</span>
                             </ion-label>
-                            <ion-radio (ionSelect)="onSelectionChange(question, response)" value="{{response.id_response}}"></ion-radio>
+                            <ion-radio (ionSelect)="onSelectionChange(question, response, $event)" value="{{response.id_response}}"></ion-radio>
                         </ion-item>
                     </ion-row>
                     <ion-row col-10 offset-1>

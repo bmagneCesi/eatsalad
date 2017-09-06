@@ -1,5 +1,9 @@
 page-evaluationcategory{
 
+    .subcategory-container{
+        margin: 0 auto;
+    }
+
     .subcategory-button{
         width: 120px;
         height: 120px;
@@ -7,7 +11,7 @@ page-evaluationcategory{
         background-color: #bdd88c;
         color: #6a962f;
         white-space: normal;
-        margin: 0 auto;
+        margin: 0 10px;
         text-align: center
     }
 

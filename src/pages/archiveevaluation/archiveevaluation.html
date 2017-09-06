@@ -20,7 +20,7 @@
                         <h3 class="subtitle-rapport">{{ subcategory.name | uppercase }}</h3>
                         <ng-container *ngFor="let response of responses; let first = first">
                             <ion-row [ngClass]="!first ? 'border' : false" class="question-response-container" *ngIf="response.id_question_subcategory == subcategory.id_question_subcategory && subcategory.question_category_id == category.id_question_category">
-                                <ion-col col-6 class="question">{{ response.question.replace('/\(.*\)/', '') }}</ion-col>
+                                <ion-col col-6 class="question">{{ response.question }}</ion-col>
                                 <ion-col col-4 text-center class="response">
                                     <span class="response-{{response.score}}" text-center>{{ response.response }}</span>
                                 </ion-col>         

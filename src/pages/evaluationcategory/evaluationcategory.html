@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" (tap)="cancelEvaluation()" color="light" ion-button>Retour</button>
+        <button offset-1 col-3 class="button-back" (tap)="cancelEvaluation()" color="light" ion-button>Annuler</button>
         <ion-col col-4 offset-4>
             <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
         </ion-col>
@@ -14,11 +14,13 @@
                 <h1 class="title">{{ category.name }}</h1>
             </ion-row>
             <ion-row>
-                <ng-container *ngFor="let subcategory of subcategories">
+                <div class="subcategory-container">
+                    <ng-container *ngFor="let subcategory of subcategories">
                         <button [ngClass]="{'form-done': (subcategoriesDone.indexOf(subcategory.id_question_subcategory) > -1)}" (tap)="evaluateAction(category, subcategory, (subcategoriesDone.indexOf(subcategory.id_question_subcategory) > -1) ? 1 : 0)" class="subcategory-button button-done" ion-button color="light" *ngIf="subcategory.question_category_id == category.id_question_category">
                             {{ subcategory.name }} 
                         </button>
-                </ng-container>
+                    </ng-container>
+                </div>
             </ion-row>
         </ng-container>
         <br>

@@ -101,4 +101,25 @@ page-evaluation {
         background-color:#1cd304;
     }
 
+    .checked .response-bck{
+        color: #ffffff;
+    }
+
+
+    .checked .response-0{
+        background-color:rgba(195, 0, 4, 0.50)!important;
+    }
+
+    .checked .response-1{
+        background-color:rgba(244, 133, 66, 0.50)!important;
+    }
+
+    .checked .response-2{
+        background-color:rgba(248, 215, 76, 0.50)!important;
+    }
+
+    .checked .response-3{
+        background-color:rgba(85, 202, 69, 0.50)!important;
+    }
+
 }
