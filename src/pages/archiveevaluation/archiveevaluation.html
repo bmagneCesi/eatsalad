@@ -1,0 +1,40 @@
+<ion-header no-border>
+    <ion-toolbar class="toolbar">
+        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Retour</button>
+        <ion-col col-4 offset-4>
+            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+        </ion-col>
+    </ion-toolbar>
+</ion-header>
+    
+<ion-content class="main-container">
+    <ion-grid>
+        <ng-container *ngFor="let category of categories">
+            <ion-row>
+                <h1 class="title">{{ category.name }}</h1>
+            </ion-row>
+            <ion-row>
+
+                <ng-container *ngFor="let subcategory of subcategories">
+                    <ion-col col-10 offset-1 class="responses-container" *ngIf="subcategory.question_category_id == category.id_question_category">
+                        <h3 class="subtitle-rapport">{{ subcategory.name | uppercase }}</h3>
+                        <ng-container *ngFor="let response of responses; let first = first">
+                            <ion-row [ngClass]="!first ? 'border' : false" class="question-response-container" *ngIf="response.id_question_subcategory == subcategory.id_question_subcategory && subcategory.question_category_id == category.id_question_category">
+                                <ion-col col-6 class="question">{{ response.question }}</ion-col>
+                                <ion-col col-4 text-center class="response">
+                                    <span class="response-{{response.score}}" text-center>{{ response.response }}</span>
+                                </ion-col>         
+                                <ion-col col-2 text-center>
+                                    <button color="light" class="camera-button" ion-button icon-only>
+                                        <ion-icon name="ios-camera"></ion-icon>
+                                    </button>
+                                </ion-col>
+                            </ion-row>
+                        </ng-container>
+                    </ion-col>
+                </ng-container>
+
+            </ion-row>
+        </ng-container>
+    </ion-grid>
+</ion-content>

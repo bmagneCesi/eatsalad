@@ -34,7 +34,7 @@ export class EvaluationCategoryPage {
         this.categories = data;
       });
       
-      this.databaseprovider.getSubCategories(this.id_evaluation).then((subcategories) => {
+      this.databaseprovider.getSubCategories().then((subcategories) => {
         this.subcategories = subcategories;
       });
 

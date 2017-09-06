@@ -30,6 +30,7 @@ export class EvaluationPage {
   category:string[] = [];
   subcategory:string[] = [];
   currentSlide:number;
+  radioChecked:number;
   questionHasResponse = {};
   responsesArray = [];
   subcategoriesDone = [];
@@ -127,7 +128,8 @@ export class EvaluationPage {
     }
   }
 
-  onSelectionChange(question, response):void {
+  onSelectionChange(question, response, event):void {
+    this.radioChecked = event;
     this.questionHasResponse = {'question': question, 'response': response};
   }
 
@@ -150,6 +152,7 @@ export class EvaluationPage {
       this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
       this.imagesArray = [];
       this.comment = '';
+      this.radioChecked = 20;
       this.questionHasResponse = {};
   }
 

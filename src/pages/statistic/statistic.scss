@@ -1,6 +1,6 @@
 page-statistic{
     .main-container .input-statistic{
-        background-color:#bdd88c;
+        // background-color:#bdd88c;
         color: #6a962f;
         height: 40px;
         font-weight: 500;
@@ -12,7 +12,7 @@ page-statistic{
         height: 100%;
         line-height: 40px;
         padding: 0 20px;
-        background-color:#dcedc2;
+        // background-color:#dcedc2;
     }
     .percent-right{
         padding: 0 0 0 10px;
@@ -21,5 +21,13 @@ page-statistic{
     }
     ion-row{
         margin:10px
+    }
+    .subcategory-span{
+        position: absolute;
+
+    }
+    .subcategory-score{
+        display: block;
+        height: 100%;
     }
 }

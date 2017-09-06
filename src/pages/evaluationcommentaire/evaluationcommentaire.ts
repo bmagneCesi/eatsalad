@@ -26,7 +26,7 @@ export class EvaluationCommentairePage {
     this.platform.ready().then(() => {
       this.navCtrl.swipeBackEnabled = false;
       this.id_evaluation = this.navParams.get('id_evaluation');
-      this.id_evaluation = this.navParams.get('id_restaurant');
+      this.id_restaurant = this.navParams.get('id_restaurant');
     });
   }
 

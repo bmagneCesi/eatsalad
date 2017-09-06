@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Menu archives</button>
+        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Retour</button>
         <ion-col col-4 offset-4>
             <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
         </ion-col>
@@ -9,15 +9,13 @@
     
 <ion-content class="main-container">
     <ion-grid>
-        <ion-row>
-           <h1 class="title">ANALYSE DU RAPPORT</h1>
-        </ion-row>
         <ng-container *ngFor="let category of categoryStat">
             <h1 class="title">{{ category }}</h1>
             <ng-container *ngFor="let stat of subCategoryStat">
                 <ion-row *ngIf="category == stat.category">
-                    <ion-col class="input-statistic" col-8 offset-2>
-                        <span [ngStyle]="{ 'width': stat.score + '%' }">{{stat.subcategory}}</span>
+                    <ion-col [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + stat.score + '%, #bdd88c 0%)' }" class="input-statistic" col-8 offset-2>
+                        <span class="subcategory-span">{{stat.subcategory}}</span>
+                        <span class="subcategory-score" ></span>
                     </ion-col>
                     <ion-col col-2 class="percent-right">
                         {{ stat.score }}%

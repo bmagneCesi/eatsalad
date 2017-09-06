@@ -2,10 +2,29 @@ page-evaluation {
 
     .response-button{
         border-radius: 8px;
-        background-color: #bdd88c;
-        color: #6a962f;
+        color: #fff;
         text-align: center;
-        height:130px;
+        margin: 0 auto;
+        position: relative;
+        width:150px;
+        height:150px;
+    }
+
+    .response-button ion-label{
+        text-align: center;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    .response-button ion-label span{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .response-comment{
@@ -64,6 +83,43 @@ page-evaluation {
         border-radius: 8px;
         width: 150px;
         height: 150px;
+    }
+
+    .response-0{
+        background-color:#c30004;
+    }
+
+    .response-1{
+        background-color:#fc6308;
+    }
+
+    .response-2{
+        background-color:#fece09;
+    }
+
+    .response-3{
+        background-color:#1cd304;
+    }
+
+    .checked .response-bck{
+        color: #ffffff;
+    }
+
+
+    .checked .response-0{
+        background-color:rgba(195, 0, 4, 0.50)!important;
+    }
+
+    .checked .response-1{
+        background-color:rgba(244, 133, 66, 0.50)!important;
+    }
+
+    .checked .response-2{
+        background-color:rgba(248, 215, 76, 0.50)!important;
+    }
+
+    .checked .response-3{
+        background-color:rgba(85, 202, 69, 0.50)!important;
     }
 
 }

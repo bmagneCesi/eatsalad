@@ -28,6 +28,7 @@ import { SignaturePage } from '../pages/signature/signature';
 import { SignaturepopoverPage } from '../pages/signaturepopover/signaturepopover';
 import { ArchiveDetailPage } from '../pages/archivedetail/archivedetail';
 import { StatisticPage } from '../pages/statistic/statistic';
+import { ArchiveEvaluationPage } from '../pages/archiveevaluation/archiveevaluation';
 
 
 // Providers
@@ -49,7 +50,8 @@ import { HttpModule } from '@angular/http'
     SignaturePage,
     SignaturepopoverPage,
     ArchiveDetailPage,
-    StatisticPage
+    StatisticPage,
+    ArchiveEvaluationPage
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,8 @@ import { HttpModule } from '@angular/http'
     SignaturePage,
     SignaturepopoverPage,
     ArchiveDetailPage,
-    StatisticPage
+    StatisticPage,
+    ArchiveEvaluationPage
   ],
   providers: [
     StatusBar,
