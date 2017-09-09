@@ -19,6 +19,8 @@ page-restaurantdetail{
     .main-container ion-grid div{
         margin: 150px auto 0px; 
         height:100%;
+        width: 100%;
+        text-align: center;
     }
 
     #new-restaurant-container ion-input{
@@ -30,6 +32,18 @@ page-restaurantdetail{
     #new-restaurant-container ion-label{
         min-width: 50px;
         font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+        
+        .main-container ion-grid div{
+            margin: 70px auto 0px!important; 
+        }
+
+        .detail-buttons{
+            font-size: 30px!important;
+            margin: 0px auto!important;
+        } 
     }
 
 }

@@ -29,6 +29,7 @@ import { SignaturepopoverPage } from '../pages/signaturepopover/signaturepopover
 import { ArchiveDetailPage } from '../pages/archivedetail/archivedetail';
 import { StatisticPage } from '../pages/statistic/statistic';
 import { ArchiveEvaluationPage } from '../pages/archiveevaluation/archiveevaluation';
+import { EvaluationphotoPage } from '../pages/evaluationphoto/evaluationphoto';
 
 
 // Providers
@@ -51,7 +52,8 @@ import { HttpModule } from '@angular/http'
     SignaturepopoverPage,
     ArchiveDetailPage,
     StatisticPage,
-    ArchiveEvaluationPage
+    ArchiveEvaluationPage,
+    EvaluationphotoPage
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ import { HttpModule } from '@angular/http'
     SignaturepopoverPage,
     ArchiveDetailPage,
     StatisticPage,
-    ArchiveEvaluationPage
+    ArchiveEvaluationPage,
+    EvaluationphotoPage
   ],
   providers: [
     StatusBar,

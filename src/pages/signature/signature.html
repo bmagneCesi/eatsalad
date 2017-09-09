@@ -1,32 +1,33 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Commentaire</button>
-        <ion-col col-4 offset-4>
-            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
-        </ion-col>
+        <button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop>Commentaire</button>
+        <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
+            <ion-icon name="arrow-back"></ion-icon>       
+        </button>
+        <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
     </ion-toolbar>
 </ion-header>
 
-<ion-content #tpl class="main-container no-scroll">
+<ion-content #tpl class="main-container no-ipad-scroll">
     <ion-grid text-center padding>
 
-        <div class="signature-container" col-10 offset-1>
+        <div class="signature-container" col-sm-10 offset-sm-1>
 
             <img src="assets/img/barat-logo.png" text-center id="barat-logo" alt="">
             <br>
             <br>
-            <ion-row>
-                <ion-label text-right>Visite de conformité effectuée par</ion-label>
-                <ion-input [(ngModel)]="controllerName" placeholder="Text Input"></ion-input>
+            <ion-row no-padding>
+                <ion-label text-wrap text-right>Visite de conformité effectuée par</ion-label>
+                <ion-input [(ngModel)]="controllerName" placeholder="..."></ion-input>
             </ion-row>
                 <br>
-            <ion-row>
-                <ion-label text-right>Dans le restaurant Eatsalad</ion-label>
+            <ion-row no-padding>
+                <ion-label text-wrap text-right>Dans le restaurant Eatsalad</ion-label>
                 <ion-label class="signature-information">{{ restaurant.name }}</ion-label>
             </ion-row>
                 <br>
-            <ion-row>
-                <ion-label text-right>Le</ion-label>
+            <ion-row no-padding>
+                <ion-label text-wrap text-right>Le</ion-label>
                 <ion-label class="signature-information">{{ evaluation.date }}</ion-label>
             </ion-row>
                 <br>

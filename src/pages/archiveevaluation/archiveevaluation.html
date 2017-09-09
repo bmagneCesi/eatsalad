@@ -1,20 +1,28 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Retour</button>
-        <ion-col col-4 offset-4>
-            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
-        </ion-col>
+        <button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop>Retour</button>
+        <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
+            <ion-icon name="arrow-back"></ion-icon>       
+        </button>
+        <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
     </ion-toolbar>
 </ion-header>
-    
+
 <ion-content class="main-container">
     <ion-grid>
+        <ion-row *ngIf="evaluation.comment != 'undefined'">
+            <h1 class="title">COMMENTAIRE GÉNÉRAL</h1>
+        </ion-row>
+        <ion-row *ngIf="evaluation.comment != 'undefined'">
+            <ion-col col-10 offset-1>
+                <p>{{ evaluation.comment }}</p>
+            </ion-col>
+        </ion-row>
         <ng-container *ngFor="let category of categories">
             <ion-row>
                 <h1 class="title">{{ category.name }}</h1>
             </ion-row>
             <ion-row>
-
                 <ng-container *ngFor="let subcategory of subcategories">
                     <ion-col col-10 offset-1 class="responses-container" *ngIf="subcategory.question_category_id == category.id_question_category">
                         <h3 class="subtitle-rapport">{{ subcategory.name | uppercase }}</h3>
@@ -25,7 +33,7 @@
                                     <span class="response-{{response.score}}" text-center>{{ response.response }}</span>
                                 </ion-col>         
                                 <ion-col col-2 text-center>
-                                    <button color="light" class="camera-button" ion-button icon-only>
+                                    <button color="light" (tap)="photoShow()" class="camera-button" ion-button icon-only>
                                         <ion-icon name="ios-camera"></ion-icon>
                                     </button>
                                 </ion-col>

@@ -1,9 +1,10 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Déconnexion</button>
-        <ion-col col-4 offset-4>
-            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
-        </ion-col>
+        <button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop>Déconnexion</button>
+        <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
+            <ion-icon name="arrow-back"></ion-icon>       
+        </button>
+        <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
     </ion-toolbar>
 </ion-header>
 
@@ -15,11 +16,11 @@
         </ion-row>
 
         <ion-row *ngIf="restaurants">
-            <ion-col col-8 offset-2>
+            <ion-col col-sm-8 offset-sm-2 col-xs-12>
                 <ion-list>
                     <ion-item-sliding *ngFor="let restaurant of restaurants" class="slide-restaurants-container">
                         <ion-item color="light" class="button-restaurants" (tap)="showRestaurantAction(restaurant.id_restaurant)">
-                            {{ restaurant.name | uppercase }}
+                            {{ restaurant.name|uppercase }}
                         </ion-item>
                         <ion-item-options side="right" class="remove-restaurant" >
                             <button ion-button color="danger" (click)="deleteRestaurantAction(restaurant)">Supprimer</button>

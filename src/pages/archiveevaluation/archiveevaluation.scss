@@ -10,12 +10,18 @@ page-archiveevaluation {
 
     .question{
         font-size: 17px;
+        display: inline-flex;
+        align-items: center;
     }
 
     .question-response-container{
         min-height: 40px;
         padding: 10px;
-        line-height: 40px;
+        // line-height: 40px;
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+
     }
 
     .question-response-container.border{
@@ -42,7 +48,7 @@ page-archiveevaluation {
     .response span{
         border-radius: 8px;
         color: #fff;
-        padding: 5 10px;
+        padding: 10px 0px;
         margin: 0 auto;
         width:100%;
         display:block;

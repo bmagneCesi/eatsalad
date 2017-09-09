@@ -32,11 +32,7 @@ page-evaluation {
         border-radius: 8px;
         color: #6a962f;
         height: 50px;
-        line-height: 25px;
         padding: 0px 10px;
-        position: absolute;
-        top: 50%; /* poussé de la moitié de hauteur du référent */
-        transform: translateY(-50%);
     }
 
     .camera-button{
@@ -46,29 +42,21 @@ page-evaluation {
         width: 50px;
         border-radius: 50px;
         padding: 0px 10px;
-        position: absolute;
-        top: 47%; /* poussé de la moitié de hauteur du référent */
-        transform: translateY(-50%);
+        margin: 0px;
     }
 
     .photo-comment-line{
-        position: relative;
+        // height: 50px;
+        // border: 1px solid black;
+        padding: 0px
     }
 
     .comment-container{
-        line-height: 50px;
-        padding: 0;
+
     }
 
     .photo-container{
-        line-height: 50px;
-        padding: 0;
-    }
 
-    .photo-container{
-        position: relative;
-        width: 150px;
-        height: 150px;
     }
 
     .delete-photo{
@@ -120,6 +108,34 @@ page-evaluation {
 
     .checked .response-3{
         background-color:rgba(85, 202, 69, 0.50)!important;
+    }
+
+    @media (max-width: 575px) {
+        .response-button{
+            border-radius: 8px;
+            color: #fff;
+            text-align: center;
+            margin: 0px auto;
+            position: relative;
+            width:85px!important;
+            height:85px!important;
+        }   
+        .response-button ion-label{
+            text-align: center;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+    
+        .response-button ion-label span{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        } 
     }
 
 }

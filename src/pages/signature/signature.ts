@@ -315,7 +315,7 @@ export class SignaturePage {
                     let emailsArr = this.restaurant['emails'].split(';');
                     let email = {
                         to: emailsArr,
-                        bcc: ['colin.delorme@eatsalad.fr', 'wahid.benserir@eatsalad.fr'],
+                        // bcc: ['colin.delorme@eatsalad.fr', 'wahid.benserir@eatsalad.fr'],
                         attachments: [
                             'base64:visite.pdf//'+success1,
                             'base64:compte-rendu.pdf//'+success2,

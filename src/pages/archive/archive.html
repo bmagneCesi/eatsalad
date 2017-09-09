@@ -1,9 +1,10 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button navPop>Retour</button>
-        <ion-col col-4 offset-4>
-            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
-        </ion-col>
+        <button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop>Retour</button>
+        <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
+            <ion-icon name="arrow-back"></ion-icon>       
+        </button>
+        <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
     </ion-toolbar>
 </ion-header>
 
@@ -11,7 +12,7 @@
     <ion-grid>
         <ion-row><h1 class="title">ARCHIVES</h1></ion-row>
         <ion-row *ngFor="let archive of archives">
-            <ion-col (tap)="showArchive(archive.id_evaluation)" col-6 offset-3 text-center>Rapport du {{ archive.date }}</ion-col>
+            <ion-col (tap)="showArchive(archive.id_evaluation)" col-sm-6 offset-sm-3 text-center>Rapport du {{ archive.date }}</ion-col>
         </ion-row>
     </ion-grid>
 </ion-content>

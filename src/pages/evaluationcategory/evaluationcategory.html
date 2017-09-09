@@ -1,14 +1,15 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" (tap)="cancelEvaluation()" color="light" ion-button>Annuler</button>
-        <ion-col col-4 offset-4>
-            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
-        </ion-col>
+        <button offset-1 class="button-back hidden-xs-down" (tap)="cancelEvaluation()" color="light" ion-button>Annuler</button>
+        <button offset-1 class="button-back hidden-sm-up" (tap)="cancelEvaluation()" color="light" ion-button navPop>
+            <ion-icon name="arrow-back"></ion-icon>       
+        </button>
+        <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="no-scroll">
-    <ion-grid *ngIf="categories" class="main-container">
+<ion-content class="no-ipad-scroll" class="main-container">
+    <ion-grid *ngIf="categories" >
         <ng-container *ngFor="let category of categories">
             <ion-row>
                 <h1 class="title">{{ category.name }}</h1>

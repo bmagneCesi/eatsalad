@@ -96,7 +96,7 @@ export class DatabaseProvider {
   }
  
   getAllRestaurants() {
-    return this.database.executeSql("SELECT * FROM `restaurant`", {}).then((data) => {
+    return this.database.executeSql("SELECT * FROM `restaurant` ORDER BY id_restaurant DESC", {}).then((data) => {
       let restaurants = [];
       if(data == null) 
       {
@@ -318,7 +318,7 @@ export class DatabaseProvider {
   }
 
   getEvaluationByRestaurant(id_restaurant){
-    return this.database.executeSql("SELECT * FROM `evaluation` WHERE restaurant_id = " + id_restaurant, {}).then((data) => {
+    return this.database.executeSql("SELECT * FROM `evaluation` WHERE restaurant_id = " + id_restaurant + " ORDER BY id_evaluation DESC", {}).then((data) => {
       let responses = [];
       if(data == null) 
       {

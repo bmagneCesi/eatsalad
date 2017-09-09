@@ -1,13 +1,14 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 col-3 class="button-back" color="light" ion-button (tap)="cancelResponses(subcategory.name)">Menu questions</button>
-        <ion-col col-4 offset-4>
-            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
-        </ion-col>
+        <button offset-1 class="button-back hidden-xs-down" color="light" ion-button (tap)="cancelResponses(subcategory.name)">Menu questions</button>
+        <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
+            <ion-icon name="arrow-back"></ion-icon>       
+        </button>
+        <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="main-container no-scroll">
+<ion-content class="main-container no-ipad-scroll">
     <ion-grid>
 
         <ion-row>
@@ -18,7 +19,7 @@
             <ion-slides>
                 <ion-slide *ngFor="let question of questions; let i=index">
                     <ion-row><h1 class="subtitle">{{ question.question }}</h1></ion-row>
-                    <ion-row col-10 offset-1 radio-group>
+                    <ion-row col-sm-10 sm-offset-1 radio-group>
                         <ion-item text-wrap text-center class="response-button" [ngClass]="{checked : radioChecked == response.id_response}" *ngFor="let response of responses" no-lines>
                             <ion-label class="response-bck response-{{response.score}}">
                                 <span>{{ response.response}}</span>
@@ -27,19 +28,22 @@
                         </ion-item>
                     </ion-row>
                     <ion-row col-10 offset-1>
-                        <ion-col col-5>
+                        <ion-col >
                             <h1 class="subtitle-left">Commentaire</h1>
                         </ion-col>
                     </ion-row>
                     <ion-row col-10 offset-1 class="photo-comment-line">
-                        <ion-col col-10 class="comment-container">
-                            <ion-textarea class="response-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
-                        </ion-col>
-                        <ion-col col-2 class="photo-container">
-                            <button color="light" (tap)="addPicture()" *ngIf="imagesArray.length < 4" class="camera-button" ion-button icon-only>
-                                <ion-icon name="ios-camera"></ion-icon>
-                            </button>
-                        </ion-col>
+                        <!-- <ion-col col-10 class="comment-container">
+                            
+                        </ion-col> -->
+                        <ion-textarea col-9 class="response-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
+                        <ion-col col-1></ion-col>
+                        <button col-2 color="light" (tap)="addPicture()" *ngIf="imagesArray.length < 4" class="camera-button" ion-button icon-only>
+                            <ion-icon name="ios-camera"></ion-icon>
+                        </button>
+                        <!-- <ion-col col-2 class="photo-container">
+                            
+                        </ion-col> -->
                     </ion-row>
                     <ion-row *ngIf="imagesArray.length > 0">
                         <ion-col col-3 *ngFor="let image of imagesArray">
@@ -49,6 +53,8 @@
                             </div>
                         </ion-col>                        
                     </ion-row>
+                    <br>
+                    <br>
                     <ion-row col-10 offset-1>
                         <ion-col col-6 *ngIf="!isBeginning() && question.id_question">
                             <button (tap)="prevQuestion()" ion-button class="button-light" color="light">Précédent</button>

@@ -22,7 +22,8 @@ export class RestaurantlistPage {
       this.restaurants = data;
     });
   }
-  
+
+
   // Return on homepage
   logoutAction(): void {
     this.navCtrl.popTo(HomePage);
