@@ -35,7 +35,7 @@ $colors: (
   primary:    #488aff,
   secondary:  #6a962f,
   danger:     #f53d3d,
-  light:      #d9eaba,
+  light:      #E1E9D2,
   white:    #ffffff,
   dark:       #222,
   eatsalad:   #89BD2A,
@@ -50,7 +50,9 @@ $toolbar-background: #ffffff;
 $item-ios-sliding-content-background: transparent;
 $radio-ios-icon-border-style: transparent;
 $radio-ios-color-on: #ffffff;
-
+$modal-inset-height-small	: 400px;
+$modal-inset-height-large	: 400px;
+$popover-ios-text-color: #6a962f;
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here

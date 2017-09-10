@@ -30,6 +30,8 @@ import { ArchiveDetailPage } from '../pages/archivedetail/archivedetail';
 import { StatisticPage } from '../pages/statistic/statistic';
 import { ArchiveEvaluationPage } from '../pages/archiveevaluation/archiveevaluation';
 import { EvaluationphotoPage } from '../pages/evaluationphoto/evaluationphoto';
+import { AjoutquestionPage } from '../pages/ajoutquestion/ajoutquestion';
+import { AjoutquestionmodalPage } from '../pages/ajoutquestionmodal/ajoutquestionmodal';
 
 
 // Providers
@@ -53,7 +55,9 @@ import { HttpModule } from '@angular/http'
     ArchiveDetailPage,
     StatisticPage,
     ArchiveEvaluationPage,
-    EvaluationphotoPage
+    EvaluationphotoPage,
+    AjoutquestionPage,
+    AjoutquestionmodalPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +81,9 @@ import { HttpModule } from '@angular/http'
     ArchiveDetailPage,
     StatisticPage,
     ArchiveEvaluationPage,
-    EvaluationphotoPage
+    EvaluationphotoPage,
+    AjoutquestionPage,
+    AjoutquestionmodalPage
   ],
   providers: [
     StatusBar,

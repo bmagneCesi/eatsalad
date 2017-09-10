@@ -1,0 +1,21 @@
+page-ajoutquestionmodal{
+    .main-container{
+        position: relative
+    }
+
+    .button-container{
+        position: absolute;
+        bottom: 500px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .text-input, ion-select{
+        background-color:#bdd88c;
+        border-radius: 8px;
+        color: #6a962f;
+        // height: 50px;
+        width:100%;
+        padding: 0px 10px;
+    }
+}

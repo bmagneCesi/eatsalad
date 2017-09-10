@@ -1,0 +1,50 @@
+<ion-content class="main-container">
+    <ion-grid>
+        <ion-row><h1 class="title">NOUVELLE {{ modaltitle|uppercase }}</h1></ion-row>
+        <ion-row text-center>
+            <ion-col col-8 offset-2>
+                <ion-label *ngIf="modaltitle == 'question'" fixed>Question :</ion-label>
+                <ion-label *ngIf="modaltitle != 'question'" fixed>Nom :</ion-label>
+                <ion-input [(ngModel)]="name" class="text-input" type="text" value=""></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row text-center *ngIf="modaltitle == 'sous-categorie'">
+            <ion-col col-8 offset-2 text-center>
+                <ion-label fixed text-wrap>Catégorie :</ion-label>
+                <ion-select [(ngModel)]="categorySelected" interface="action-sheet">
+                    <ion-option *ngFor="let category of categories" [value]="category.id_question_category">{{category.name}}</ion-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row text-center *ngIf="modaltitle == 'question'">
+            <ion-col col-6 text-center>
+                <ion-label fixed text-wrap>Catégorie :</ion-label>
+                <ion-select [(ngModel)]="categorySelected" interface="action-sheet"> 
+                    <ion-option (ionSelect)="loadSubcategories(category.id_question_category)" *ngFor="let category of categories" [value]="category.id_question_category">{{category.name}}</ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col col-6 text-center *ngIf="subcategories.length > 0">
+                <ion-label fixed text-wrap>Sous catégorie :</ion-label>
+                <ion-select [(ngModel)]="subcategorySelected" interface="alert">
+                    <ion-option *ngFor="let subcategory of subcategories" [value]="subcategory.id_question_subcategory">{{subcategory.name}}</ion-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        
+        <br>
+        <ion-row text-center class="button-container">
+            <ion-col col-6> 
+                <button ion-button color="light" class="button-light" (tap)="close()">Annuler</button>
+            </ion-col>
+            <ion-col col-6 *ngIf="modaltitle == 'sous-categorie' && name && categorySelected">
+                <button ion-button color="light" class="button-light" (tap)="saveSubcategory(name, categorySelected)">Enregistrer</button>
+            </ion-col>
+            <ion-col col-6 *ngIf="modaltitle == 'categorie' && name">
+                <button ion-button color="light" class="button-light" (tap)="saveCategory(name)">Enregistrer</button>
+            </ion-col>
+            <ion-col col-6 *ngIf="modaltitle == 'question' && name && subcategorySelected">
+                <button ion-button color="light" class="button-light" (tap)="saveQuestion(name, subcategorySelected)">Enregistrer</button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

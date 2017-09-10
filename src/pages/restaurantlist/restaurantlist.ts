@@ -1,3 +1,4 @@
+import { AjoutquestionPage } from './../ajoutquestion/ajoutquestion';
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 
@@ -31,6 +32,10 @@ export class RestaurantlistPage {
 
   showRestaurantAction(id_restaurant): void{
     this.navCtrl.push(RestaurantDetailPage, {'id_restaurant': id_restaurant});
+  }
+
+  addQuestion(): void{
+    this.navCtrl.push(AjoutquestionPage);
   }
 
   addRestaurantAction(): void {

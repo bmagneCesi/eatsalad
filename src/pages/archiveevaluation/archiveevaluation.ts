@@ -28,25 +28,22 @@ export class ArchiveEvaluationPage {
             data[i].question = data[i].question.replace(/\(.*\)/, '');
           }
           this.responses = data;
+          console.log(data);
           this.databaseprovider.getCategories().then((categories) => {
             this.categories = categories;
           });
           this.databaseprovider.getSubCategories().then((subcategories) => {
             this.subcategories = subcategories;
-
           });
                    
         });
     });
   }
 
-  photoShow(){
-    let modal = this.modalController.create(EvaluationphotoPage);
+  photoShow(id_question_has_response){
+    let modal = this.modalController.create(EvaluationphotoPage, id_question_has_response);
     modal.onDidDismiss(data => {
-        if(data != null)
-        {     
-            
-        }
+
     });
     modal.present();
   }

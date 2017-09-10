@@ -1,8 +1,11 @@
-<ion-content class="no-scroll modal" padding>
+<ion-content class="modal" padding>
     <ion-grid>
+        <ion-row *ngFor="let photo of photos">
+            <img src="photo" alt="">
+        </ion-row>
         <ion-row>
             <ion-col col-10 offset-1>
-                <button ion-button full color="eatsalad">Fermer</button>
+                <button ion-button (tap)="close()" full color="eatsalad">Fermer</button>
             </ion-col>
         </ion-row>
     </ion-grid>
