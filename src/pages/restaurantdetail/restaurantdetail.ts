@@ -18,10 +18,16 @@ import { NativeStorage } from '@ionic-native/native-storage';
 export class RestaurantDetailPage {
 
   id_restaurant:number;
+  hasEvaluation:boolean = false;
 
   constructor(private nativeStorage: NativeStorage, public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider) {
     this.platform.ready().then(() => {
       this.id_restaurant = this.navParams.get('id_restaurant');
+      this.databaseprovider.getEvaluationByRestaurant(this.id_restaurant).then((data) => {
+        if (data.length > 0) {
+          this.hasEvaluation = true;
+        }
+      });
     });
   }
 

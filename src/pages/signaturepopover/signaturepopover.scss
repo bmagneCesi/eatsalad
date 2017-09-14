@@ -5,4 +5,12 @@ page-signaturepopover {
           width: 100%; height: 300px;
         }
       }
+
+    @media (max-width: 767px) {
+      signature-pad {
+        canvas {
+          margin-top: 100px;
+        }
+      }
+    }
 }

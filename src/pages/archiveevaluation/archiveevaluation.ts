@@ -16,6 +16,7 @@ export class ArchiveEvaluationPage {
   categories = [];
   responses = [];
   evaluation = [];
+  photos = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider, public modalController:ModalController) {
     this.platform.ready().then(() => {
@@ -28,12 +29,18 @@ export class ArchiveEvaluationPage {
             data[i].question = data[i].question.replace(/\(.*\)/, '');
           }
           this.responses = data;
-          console.log(data);
+
           this.databaseprovider.getCategories().then((categories) => {
             this.categories = categories;
           });
           this.databaseprovider.getSubCategories().then((subcategories) => {
             this.subcategories = subcategories;
+          });
+
+          this.databaseprovider.getResponsePhotoByEvaluation(this.id_evaluation).then((photos) => {
+            for (var i = 0; i < photos.length; i++) {
+              this.photos.push(photos[i].question_has_response_id);              
+            }
           });
                    
         });
@@ -41,7 +48,7 @@ export class ArchiveEvaluationPage {
   }
 
   photoShow(id_question_has_response){
-    let modal = this.modalController.create(EvaluationphotoPage, id_question_has_response);
+    let modal = this.modalController.create(EvaluationphotoPage, {'id_question_has_response': id_question_has_response});
     modal.onDidDismiss(data => {
 
     });

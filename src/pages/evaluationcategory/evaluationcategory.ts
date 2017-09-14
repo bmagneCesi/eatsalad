@@ -21,6 +21,7 @@ export class EvaluationCategoryPage {
   subcategories = [];
   id_evaluation:number;
   subcategoriesDone = [];
+  photo;
 
   constructor(private nativeStorage: NativeStorage, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, public platform: Platform) {
     this.platform.ready().then(() => {
@@ -37,12 +38,13 @@ export class EvaluationCategoryPage {
       this.databaseprovider.getSubCategories().then((subcategories) => {
         this.subcategories = subcategories;
       });
-
+      
     });
   }
 
   ionViewDidEnter(){
     this.nativeStorage.getItem('subcategories-done').then((data) => {
+      console.log(data);
       this.subcategoriesDone = data;
     });
   }

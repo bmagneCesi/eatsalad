@@ -13,6 +13,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { FileOpener } from '@ionic-native/file-opener';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MyApp } from './app.component';
 
@@ -32,6 +33,7 @@ import { ArchiveEvaluationPage } from '../pages/archiveevaluation/archiveevaluat
 import { EvaluationphotoPage } from '../pages/evaluationphoto/evaluationphoto';
 import { AjoutquestionPage } from '../pages/ajoutquestion/ajoutquestion';
 import { AjoutquestionmodalPage } from '../pages/ajoutquestionmodal/ajoutquestionmodal';
+import { AjoutrestaurantmodalPage } from '../pages/ajoutrestaurantmodal/ajoutrestaurantmodal';
 
 
 // Providers
@@ -57,14 +59,16 @@ import { HttpModule } from '@angular/http'
     ArchiveEvaluationPage,
     EvaluationphotoPage,
     AjoutquestionPage,
-    AjoutquestionmodalPage
+    AjoutquestionmodalPage,
+    AjoutrestaurantmodalPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     SignaturePadModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -83,7 +87,8 @@ import { HttpModule } from '@angular/http'
     ArchiveEvaluationPage,
     EvaluationphotoPage,
     AjoutquestionPage,
-    AjoutquestionmodalPage
+    AjoutquestionmodalPage,
+    AjoutrestaurantmodalPage
   ],
   providers: [
     StatusBar,
@@ -98,7 +103,8 @@ import { HttpModule } from '@angular/http'
     SQLite,
     File,
     Transfer,
-    FilePath
+    FilePath,
+    BrowserAnimationsModule
   ]
 })
 export class AppModule {}

@@ -521,7 +521,37 @@ export class DatabaseProvider {
     });
   }
 
-  getResponsePhoto(id_question_has_response) {
+  getResponsePhotoByEvaluation(id_evaluation) {
+  
+    return this.database.executeSql("SELECT question_has_response_image.question_has_response_id "+ 
+                                    "FROM question_has_response_image "+ 
+                                    "LEFT JOIN question_has_response "+ 
+                                    "ON question_has_response_image.question_has_response_id = question_has_response.id_question_has_response "+ 
+                                    "WHERE question_has_response.evaluation_id = " + id_evaluation, {}).then((data) => {
+      let photos = [];
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          for(var i = 0; i < data.rows.length; i++) {
+            photos.push(data.rows.item(i));
+          }
+        }
+      }
+      return photos;
+
+    }, err => {
+      console.log('Error getting photos: ', JSON.stringify(err));
+      return [];
+    });
+  }
+
+  getResponsePhotoByIdQuestionHasResponse(id_question_has_response) {
     console.log("SELECT path "+ 
     "FROM question_has_response_image "+ 
     "WHERE question_has_response_id = " + id_question_has_response);
@@ -539,7 +569,7 @@ export class DatabaseProvider {
         if(data.rows.length > 0) 
         {
           for(var i = 0; i < data.rows.length; i++) {
-            photos.push(data.rows.item(i));
+            photos.push(data.rows.item(i).path);
           }
         }
       }
@@ -576,6 +606,31 @@ export class DatabaseProvider {
     });
   }
 
+  getLastImage() {
+    return this.database.executeSql("SELECT path FROM question_has_response_image ORDER BY id_question_has_response_image DESC LIMIT 1", {}).then((data) => {
+      let photo = [];
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          for(var i = 0; i < data.rows.length; i++) {
+            photo.push(data.rows.item(i).path);
+          }
+        }
+      }
+      return photo;
+
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });
+  }
+
 
   addResponses(id_evaluation, responses) {        
     
@@ -591,6 +646,7 @@ export class DatabaseProvider {
           images.forEach(image => {
 
             this.database.executeSql('INSERT INTO `question_has_response_image`(path, question_has_response_id) VALUES(\'' + image.image + '\', ' + last_id_question_has_response + ')', {}).then((data) => {
+
               return data;
             }, err => {
               console.log('Error insert image: ', JSON.stringify(err));

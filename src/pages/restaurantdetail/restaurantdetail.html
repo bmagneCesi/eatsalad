@@ -18,7 +18,7 @@
                 <h1 class="detail-titles">NOUVELLE <br /> ÉVALUATION</h1>                  
             </div>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="hasEvaluation">
             <div>
                 <button color="light" class="detail-buttons" (tap)="showArchivesAction(id_restaurant)" ion-button icon-only>
                         <ion-icon name="ios-copy-outline"></ion-icon>

@@ -19,8 +19,8 @@
             <ion-col col-sm-8 offset-sm-2 col-xs-12>
                 <ion-list>
                     <ion-item-sliding *ngFor="let restaurant of restaurants" class="slide-restaurants-container">
-                        <ion-item color="light" class="button-restaurants" (tap)="showRestaurantAction(restaurant.id_restaurant)">
-                            {{ restaurant.name|uppercase }}
+                        <ion-item color="light" text-capitalize class="button-restaurants" (tap)="showRestaurantAction(restaurant.id_restaurant)">
+                            {{ restaurant.name }}
                         </ion-item>
                         <ion-item-options side="right" class="remove-restaurant" >
                             <button ion-button color="danger" (click)="deleteRestaurantAction(restaurant)">Supprimer</button>

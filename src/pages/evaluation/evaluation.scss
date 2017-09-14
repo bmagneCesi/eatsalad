@@ -33,20 +33,24 @@ page-evaluation {
         color: #6a962f;
         height: 50px;
         padding: 0px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .camera-button{
         background-color:#bdd88c;
         color: #89BD29;
-        height: 50px;
-        width: 50px;
+        height: 37px;
+        width: 37px;
+        font-size: 14px;
         border-radius: 50px;
         padding: 0px 10px;
         margin: 0px;
     }
 
     .photo-comment-line{
-        // height: 50px;
+        height: 50px;
         // border: 1px solid black;
         padding: 0px
     }
@@ -67,9 +71,16 @@ page-evaluation {
         font-size: 30px;
     }
 
+    .photo-container{
+        overflow: hidden;
+    }
+
     .evaluation-photo{
-        border-radius: 8px;
-        width: 150px;
+        height: auto;
+        width: 100%
+    }
+
+    .photo-evaluation{
         height: 150px;
     }
 
@@ -118,6 +129,7 @@ page-evaluation {
             margin: 0px auto;
             position: relative;
             width:85px!important;
+            font-size: 14px;
             height:85px!important;
         }   
         .response-button ion-label{

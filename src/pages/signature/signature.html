@@ -61,7 +61,7 @@
         </div>
         <br>
         <br>
-        <ion-row>
+        <ion-row *ngIf="signatureFranchised && signatureController && controllerName">
             <ion-col text-center>
                 <button ion-button  (tap)="validateContrat(controllerName)" color="eatsalad" class="button-light">Valider</button>
             </ion-col>

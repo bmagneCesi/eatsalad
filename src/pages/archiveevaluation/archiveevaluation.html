@@ -32,8 +32,8 @@
                                 <ion-col col-4 text-center class="response">
                                     <span class="response-{{response.score}}" text-center>{{ response.response }}</span>
                                 </ion-col>         
-                                <ion-col col-2 text-center>
-                                    <button color="light" (tap)="photoShow(id_question_has_response)" class="camera-button" ion-button icon-only>
+                                <ion-col col-2 text-center *ngIf="photos.indexOf(response.id_question_has_response) > -1">
+                                    <button color="light" (tap)="photoShow(response.id_question_has_response)" class="camera-button" ion-button icon-only>
                                         <ion-icon name="ios-camera"></ion-icon>
                                     </button>
                                 </ion-col>

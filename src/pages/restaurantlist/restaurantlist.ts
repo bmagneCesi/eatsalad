@@ -1,11 +1,12 @@
 import { AjoutquestionPage } from './../ajoutquestion/ajoutquestion';
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 
 
 // Pages
 import { HomePage } from '../home/home';
 import { RestaurantDetailPage } from '../restaurantdetail/restaurantdetail';
+import { AjoutrestaurantmodalPage } from '../ajoutrestaurantmodal/ajoutrestaurantmodal';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
@@ -18,7 +19,7 @@ export class RestaurantlistPage {
   
   restaurants: string[] = [];
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private databaseprovider: DatabaseProvider ) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, private databaseprovider: DatabaseProvider ) {
     this.databaseprovider.getAllRestaurants().then(data => {
       this.restaurants = data;
     });
@@ -39,51 +40,13 @@ export class RestaurantlistPage {
   }
 
   addRestaurantAction(): void {
-    let alert = this.alertCtrl.create({
-      title: 'Ajouter un restaurant',
-      inputs: [
-        {
-          name: 'name',
-          placeholder: 'Nom du restaurant' 
-        },
-        {
-          name: 'address',
-          placeholder: 'Adresse' 
-        },
-        {
-          name: 'postcode',
-          placeholder: 'Code postal' 
-        },
-        {
-          name: 'city',
-          placeholder: 'Ville' 
-        },
-        {
-          name: 'emails',
-          placeholder: 'Adresses email (séparer par une virgule)' 
-        }
-      ],
-      buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel'
-        },
-        {
-          text: 'Ajouter',
-          handler: data => {
-            if (data.name != "" && data.address != "" && data.postcode != "" && data.city != "" && data.emails != "") {
-              this.databaseprovider.addRestaurant(data);
-              this.getRestaurants();
-            } else {
-              // invalid name
-              return false;
-            }
-          }
-        }
-      ]
-    });
-    alert.present();
-    
+
+      let modal = this.modalCtrl.create(AjoutrestaurantmodalPage, {'type': 'categorie'});
+      modal.onDidDismiss(data => {
+        if(data)
+          this.getRestaurants();
+      });
+      modal.present();    
   }
 
   deleteRestaurantAction(restaurant):void {

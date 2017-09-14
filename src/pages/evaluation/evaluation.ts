@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { trigger, state, style, transition, animate, AUTO_STYLE } from '@angular/animations';
 import { Slides, NavController, NavParams, AlertController, Platform, ActionSheetController, ToastController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
@@ -17,7 +18,21 @@ declare var cordova: any;
 
 @Component({
   selector: 'page-evaluation',
-  templateUrl: 'evaluation.html'
+  templateUrl: 'evaluation.html',
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({transform: 'translateX(100%)', opacity: 0}),
+          animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateX(0)', opacity: 1}),
+          animate('500ms', style({transform: 'translateX(100%)', opacity: 0}))
+        ])
+      ]
+    )
+  ],
 })
 export class EvaluationPage {
   @ViewChild(Slides) slides: Slides;
