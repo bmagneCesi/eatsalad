@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
-import { SignaturePage } from '../signature/signature';
 
 @Component({
   selector: 'page-signaturepopover',

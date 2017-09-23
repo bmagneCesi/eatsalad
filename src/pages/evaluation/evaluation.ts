@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { trigger, state, style, transition, animate, AUTO_STYLE } from '@angular/animations';
 import { Slides, NavController, NavParams, AlertController, Platform, ActionSheetController, ToastController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
-import { Transfer, TransferObject } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 // Native components
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -14,25 +11,9 @@ import { DatabaseProvider } from './../../providers/database/database';
 // Pages
 import { EvaluationCategoryPage } from '../evaluationcategory/evaluationcategory';
 
-declare var cordova: any;
-
 @Component({
   selector: 'page-evaluation',
-  templateUrl: 'evaluation.html',
-  animations: [
-    trigger(
-      'enterAnimation', [
-        transition(':enter', [
-          style({transform: 'translateX(100%)', opacity: 0}),
-          animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
-        ]),
-        transition(':leave', [
-          style({transform: 'translateX(0)', opacity: 1}),
-          animate('500ms', style({transform: 'translateX(100%)', opacity: 0}))
-        ])
-      ]
-    )
-  ],
+  templateUrl: 'evaluation.html'
 })
 export class EvaluationPage {
   @ViewChild(Slides) slides: Slides;
@@ -52,7 +33,7 @@ export class EvaluationPage {
   comment:string = '';
   imagesArray = [];
 
-  constructor(private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, private camera: Camera, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, private nativeStorage: NativeStorage) {
+  constructor(private file: File, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, private camera: Camera, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, public alertCtrl: AlertController, private nativeStorage: NativeStorage) {
     this.platform.ready().then(() => {
       this.navCtrl.swipeBackEnabled = false;
       this.id_restaurant = this.navParams.get('id_restaurant');

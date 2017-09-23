@@ -1,15 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
-import { Slides, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
-
-// Native components
-import { NativeStorage } from '@ionic-native/native-storage';
+import { Component } from '@angular/core';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // Pages
-import { EvaluationCategoryPage } from '../evaluationcategory/evaluationcategory';
 import { SignaturePage } from '../signature/signature';
 
 
@@ -22,7 +17,7 @@ export class EvaluationCommentairePage {
     id_evaluation:number;
     id_restaurant:number;
     
-  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider, private nativeStorage: NativeStorage) {
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider) {
     this.platform.ready().then(() => {
       this.navCtrl.swipeBackEnabled = false;
       this.id_evaluation = this.navParams.get('id_evaluation');

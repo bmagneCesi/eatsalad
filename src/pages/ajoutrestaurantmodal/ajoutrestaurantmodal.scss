@@ -5,7 +5,7 @@ page-ajoutrestaurantmodal{
 
     .button-container{
         // position: absolute;
-        bottom: 500px;
+        // bottom: 400px;
         text-align: center;
         width: 100%;
     }
@@ -21,7 +21,7 @@ page-ajoutrestaurantmodal{
     @media (max-width:767px) {
         .button-container{
             position: absolute;
-            bottom: 300px;
+            bottom: 200px;
             text-align: center;
             width: 100%;
         }

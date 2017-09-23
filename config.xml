@@ -3,7 +3,7 @@
     <name>EatSalad</name>
     <description>Comptes rendus de visites de franchises.</description>
     <author email="bmagne@me.com" href="http://benjaminmagne.com/">Benjamin Magne</author>
-    <content original-src="index.html" src="http://192.168.1.99:8100" />
+    <content original-src="index.html" src="http://192.168.1.14:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -99,8 +99,8 @@
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-pdf-generator" spec="file:node_modules/cordova-pdf-generator" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Take pictures to add information in a restaurant evaluation" />
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />

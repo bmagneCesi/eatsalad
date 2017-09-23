@@ -28,19 +28,19 @@ export class HomePage {
   }
   
   loginAction(): void {
-    // if (this.user == "admin" && this.password == "admin") {
-    //   this.navCtrl.push(RestaurantlistPage);
-    // }
-    // else
-    // {
-    //   let alert = this.alertCtrl.create({
-    //     title: 'Oups!',
-    //     subTitle: 'Mauvais nom d\'utilisateur / mot de passe',
-    //     buttons: ['Réessayer']
-    //   });
-    //   alert.present();
-    // }
-    this.navCtrl.push(RestaurantlistPage);
+    if (this.user == "admin" && this.password == "admin") {
+      this.navCtrl.push(RestaurantlistPage);
+    }
+    else
+    {
+      let alert = this.alertCtrl.create({
+        title: 'Oups!',
+        subTitle: 'Mauvaise combinaison utilisateur / mot de passe',
+        buttons: ['Réessayer']
+      });
+      alert.present();
+    }
+    // this.navCtrl.push(RestaurantlistPage);
   }
 
 }

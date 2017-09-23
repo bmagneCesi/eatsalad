@@ -1,0 +1,25 @@
+<ion-header no-border>
+        <ion-toolbar class="toolbar">
+            <button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop>Retour</button>
+            <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
+                <ion-icon name="arrow-back"></ion-icon>       
+            </button>
+            <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+        </ion-toolbar>
+    </ion-header>
+    
+    <ion-content class="main-container">
+        <ion-grid>
+            <ng-container *ngFor="let stat of subCategoryStat">
+                <ion-row>
+                    <ion-col [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + stat.score + '%, #bdd88c 0%)' }" class="input-statistic" col-8 offset-2>
+                        <span class="subcategory-span">{{stat.subcategory}}</span>
+                        <span class="subcategory-score" ></span>
+                    </ion-col>
+                    <ion-col col-2 class="percent-right">
+                        {{ stat.score }}%
+                    </ion-col>
+                </ion-row>
+            </ng-container>
+        </ion-grid>
+    </ion-content>

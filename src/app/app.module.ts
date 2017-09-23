@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { SQLite } from '@ionic-native/sqlite';
 import { SQLitePorter } from '@ionic-native/sqlite-porter';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
@@ -29,6 +29,7 @@ import { SignaturePage } from '../pages/signature/signature';
 import { SignaturepopoverPage } from '../pages/signaturepopover/signaturepopover';
 import { ArchiveDetailPage } from '../pages/archivedetail/archivedetail';
 import { StatisticPage } from '../pages/statistic/statistic';
+import { StatisticSubCategoryPage } from '../pages/statisticsubcategory/statisticsubcategory';
 import { ArchiveEvaluationPage } from '../pages/archiveevaluation/archiveevaluation';
 import { EvaluationphotoPage } from '../pages/evaluationphoto/evaluationphoto';
 import { AjoutquestionPage } from '../pages/ajoutquestion/ajoutquestion';
@@ -60,7 +61,8 @@ import { HttpModule } from '@angular/http'
     EvaluationphotoPage,
     AjoutquestionPage,
     AjoutquestionmodalPage,
-    AjoutrestaurantmodalPage
+    AjoutrestaurantmodalPage,
+    StatisticSubCategoryPage
   ],
   imports: [
     BrowserModule,
@@ -88,7 +90,8 @@ import { HttpModule } from '@angular/http'
     EvaluationphotoPage,
     AjoutquestionPage,
     AjoutquestionmodalPage,
-    AjoutrestaurantmodalPage
+    AjoutrestaurantmodalPage,
+    StatisticSubCategoryPage
   ],
   providers: [
     StatusBar,

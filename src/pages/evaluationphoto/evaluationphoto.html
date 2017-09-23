@@ -1,8 +1,11 @@
 <ion-content class="modal main-container" padding>
     <ion-grid>
+        <ion-row *ngIf="comment != ''">
+            <h1 class="title">Commentaire :</h1> <br>
+            <p>{{ comment }}</p>
+        </ion-row>
         <ion-row *ngFor="let photo of photos">
-            {{ photo }}
-            <img src="{{photo}}" alt="">
+            <img class="photo" src="{{photo}}" alt="">
         </ion-row>
         <ion-row>
             <ion-col col-10 offset-1>

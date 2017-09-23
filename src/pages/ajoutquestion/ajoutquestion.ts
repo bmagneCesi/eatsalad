@@ -2,15 +2,13 @@ import { AjoutquestionmodalPage } from './../ajoutquestionmodal/ajoutquestionmod
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, ModalController } from 'ionic-angular';
 
-import { DatabaseProvider } from './../../providers/database/database';
-
 @Component({
   selector: 'page-ajoutquestion',
   templateUrl: 'ajoutquestion.html'
 })
 export class AjoutquestionPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider, public modalController:ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public modalController:ModalController) {
     this.platform.ready().then(() => {
        
     });

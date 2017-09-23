@@ -80,16 +80,16 @@
             "cordova-plugin-nativestorage": {},
             "cordova-sqlite-storage": {},
             "uk.co.workingedge.cordova.plugin.sqliteporter": {},
-            "cordova-plugin-camera": {
-                "CAMERA_USAGE_DESCRIPTION": " ",
-                "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
-            },
             "cordova-plugin-file": {},
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-filepath": {},
             "cordova-pdf-generator": {},
             "cordova-plugin-email-composer": {},
-            "cordova-plugin-file-opener2": {}
+            "cordova-plugin-file-opener2": {},
+            "cordova-plugin-camera": {
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": "Take pictures to add information in a restaurant evaluation",
+                "CAMERA_USAGE_DESCRIPTION": " "
+            }
         },
         "platforms": [
             "ios"

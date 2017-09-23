@@ -11,9 +11,10 @@ import { EvaluationphotoPage } from './../evaluationphoto/evaluationphoto';
 })
 export class ArchiveEvaluationPage {
 
-  id_evaluation:string;
+  id_evaluation:number;
+  id_category:number;
   subcategories = [];
-  categories = [];
+  category = [];
   responses = [];
   evaluation = [];
   photos = [];
@@ -21,19 +22,27 @@ export class ArchiveEvaluationPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider, public modalController:ModalController) {
     this.platform.ready().then(() => {
         this.id_evaluation = this.navParams.get('id_evaluation');
+        this.id_category = this.navParams.get('id_category');
         this.databaseprovider.getEvaluationById(this.id_evaluation).then((data) => {
           this.evaluation = data;
         });
-        this.databaseprovider.getResponseByIdEvaluation(this.id_evaluation).then((data) => {
+        this.databaseprovider.getResponseByIdEvaluationByCategory(this.id_evaluation, this.id_category).then((data) => {
           for (var i = 0; i < data.length; i++) {
             data[i].question = data[i].question.replace(/\(.*\)/, '');
           }
           this.responses = data;
 
-          this.databaseprovider.getCategories().then((categories) => {
-            this.categories = categories;
+          this.databaseprovider.getCategoryById(this.id_category).then((category) => {
+            this.category = category;
           });
-          this.databaseprovider.getSubCategories().then((subcategories) => {
+
+          this.databaseprovider.getResponseScoreByIdEvaluationByCategory(this.id_evaluation, this.id_category).then((data) => {
+            let subcategories = [];
+            console.log(JSON.stringify(data));
+            for (var i = 0; i < data.length; i++) {
+                let percent = Math.round((data[i].responseScore / (data[i].nbResponse * 3)) * 100);
+                subcategories.push({'question_category_id': data[i].question_category_id, 'score': percent, 'name': data[i].name, 'id_question_subcategory': data[i].id_question_subcategory});
+            }
             this.subcategories = subcategories;
           });
 
@@ -42,7 +51,6 @@ export class ArchiveEvaluationPage {
               this.photos.push(photos[i].question_has_response_id);              
             }
           });
-                   
         });
     });
   }

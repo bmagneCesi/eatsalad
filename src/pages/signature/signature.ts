@@ -1,15 +1,10 @@
-import { FilePath } from '@ionic-native/file-path';
 import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams, Platform, ModalController, ToastController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 
-// Native components
-import { NativeStorage } from '@ionic-native/native-storage';
-
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
 import { EmailComposer } from '@ionic-native/email-composer';
-import { FileOpener } from '@ionic-native/file-opener';
 
 // pages
 import { SignaturepopoverPage } from '../signaturepopover/signaturepopover';
@@ -35,7 +30,7 @@ export class SignaturePage {
     controllerName:string;
     baratLogo:string;
 
-    constructor(private fileOpener: FileOpener, private emailComposer: EmailComposer, public toastCtrl: ToastController, public viewCtrl: ViewController, public file: File, public modalController:ModalController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider) {
+    constructor(private emailComposer: EmailComposer, public toastCtrl: ToastController, public viewCtrl: ViewController, public file: File, public modalController:ModalController, public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private databaseprovider: DatabaseProvider) {
         this.platform.ready().then(() => {
             this.navCtrl.swipeBackEnabled = false;
             this.id_evaluation = this.navParams.get('id_evaluation');

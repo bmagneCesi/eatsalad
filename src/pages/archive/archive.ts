@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
 
 import { DatabaseProvider } from './../../providers/database/database';
 
 // Pages
-import  { ArchiveDetailPage } from '../archivedetail/archivedetail';
+import { StatisticPage } from '../statistic/statistic';
 
 
 @Component({
@@ -31,8 +30,7 @@ export class ArchivePage {
   }
 
   showArchive(id_evaluation){
-    this.navCtrl.push(ArchiveDetailPage, {'id_evaluation': id_evaluation});
+    this.navCtrl.push(StatisticPage, {'id_evaluation': id_evaluation});
   }
-
-
+  
 }
