@@ -5,7 +5,7 @@
             <ion-col col-8 offset-2>
                 <ion-label *ngIf="modaltitle == 'question'" fixed>Question :</ion-label>
                 <ion-label *ngIf="modaltitle != 'question'" fixed>Nom :</ion-label>
-                <ion-input col-12 [(ngModel)]="name" class="text-input" type="text" value=""></ion-input>
+                <ion-input autocorrect="on" spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="name" class="text-input" type="text" value=""></ion-input>
             </ion-col>
         </ion-row>
         <ion-row text-center *ngIf="modaltitle == 'sous-categorie'">

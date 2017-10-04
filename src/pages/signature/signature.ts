@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+    import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams, Platform, ModalController, ToastController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 
@@ -136,118 +136,165 @@ export class SignaturePage {
         },
         (success1) => {
 
-            this.databaseprovider.getResponseScoreByIdEvaluation(this.id_evaluation).then((data) => {
-                var subCategoryStat = [];
-                var categoryStat = [];
-                let total = 0;
-                let totalNb = 0;
+            this.databaseprovider.getResponseByIdEvaluation(this.id_evaluation).then((responses) => {
+                
+                this.databaseprovider.getResponseScoreByIdEvaluation(this.id_evaluation).then((data) => {
+                    var subCategoryStat = [];
+                    var categoryStat = [];
+                    let total = 0;
+                    let totalNb = 0;
 
-                for (var i = 0; i < data.length; i++) {
-                    let percent = Math.round((data[i].responseScore / (data[i].nbResponse * 4)) * 100);
-                    total += percent;
-                    totalNb++;
-                    subCategoryStat.push({'category': data[i].category, 'subcategory': data[i].subcategory, 'score': percent});          
-                    if (categoryStat.indexOf(data[i].category) < 0)
-                    {
-                    categoryStat.push(data[i].category);         
+                    for (var i = 0; i < data.length; i++) {
+                        let percent = Math.round((data[i].responseScore / (data[i].nbResponse * 3)) * 100);
+                        total += percent;
+                        totalNb++;
+                        subCategoryStat.push({'category': data[i].category, 'subcategory': data[i].subcategory, 'score': percent, 'id_question_subcategory': data[i].id_question_subcategory, 'question_category_id': data[i].question_category_id});  
+
+                        var found = categoryStat.some(function (el) {
+                          return el.category === data[i].category;
+                        });
+                        if (!found) { categoryStat.push({'category': data[i].category, 'id_question_category': data[i].id_question_category}); }   
+
                     }
-                }
-               
-                let htmlEmail1 = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-                htmlEmail1 += '<html xmlns="http://www.w3.org/1999/xhtml" style="background-color:#89BD29;margin:0px">';
-                    htmlEmail1 += '<head>';
-                        htmlEmail1 += '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
-                        htmlEmail1 += '<title></title>';
-                        htmlEmail1 += '<style>body, html{background-color:#89BD29;margin:0px}</style>'
-                    htmlEmail1 += '</head>';
-                    htmlEmail1 += '<body style="background-color:#89BD29;margin:0px">';
-                    htmlEmail1 += '<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">';
-                        htmlEmail1 += '<tr>';
-                            htmlEmail1 += '<td align="center" valign="top">';
-                                htmlEmail1 += '<table style="padding:0px" width="100%" border="0" cellpadding="20" cellspacing="0" id="emailContainer">';
-                                    htmlEmail1 += '<tr style="background-color:#ffffff;padding:50px">';
+
+                    let htmlEmail1 = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+                    htmlEmail1 += '<html xmlns="http://www.w3.org/1999/xhtml" style="background-color:#89BD29;margin:0px">';
+                        htmlEmail1 += '<head>';
+                            htmlEmail1 += '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+                            htmlEmail1 += '<title></title>';
+                            htmlEmail1 += '<style>body, html{font-family:helvetica, sans-serif;background-color:#89BD29;margin:0px}</style>'
+                        htmlEmail1 += '</head>';
+                        htmlEmail1 += '<body style="background-color:#89BD29;margin:0px">';
+                        htmlEmail1 += '<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">';
+                            htmlEmail1 += '<tr>';
+                                htmlEmail1 += '<td align="center" valign="top">';
+                                    htmlEmail1 += '<table style="padding:0px" width="100%" border="0" cellpadding="20" cellspacing="0" id="emailContainer">';
+                                        htmlEmail1 += '<tr style="background-color:#ffffff;padding:50px">';
+                                            htmlEmail1 += '<td align="center" valign="top">';
+                                                htmlEmail1 += '<table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">';
+                                                    htmlEmail1 += '<tr>';
+                                                        htmlEmail1 += '<td align="center" valign="top">';
+                                                                htmlEmail1 += '<img width="50%" src="'+logoEatSalad+'" alt="">';
+                                                        htmlEmail1 += '</td>';
+                                                    htmlEmail1 += '</tr>';
+                                                htmlEmail1 += '</table>';
+                                            htmlEmail1 += '</td>';
+                                        htmlEmail1 += '</tr>';
+                                        htmlEmail1 += '<tr>';
                                         htmlEmail1 += '<td align="center" valign="top">';
-                                            htmlEmail1 += '<table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">';
+                                            htmlEmail1 += '<table border="0" cellpadding="20" cellspacing="0" width="100%">';
                                                 htmlEmail1 += '<tr>';
                                                     htmlEmail1 += '<td align="center" valign="top">';
-                                                            htmlEmail1 += '<img width="50%" src="'+logoEatSalad+'" alt="">';
+                                                        htmlEmail1 += '<h1 style="font-family:Helvetica, sans-serif;color: #FFFFFF;text-align: center;font-weight: 500;font-size: 25px;margin: 40px auto;border:none;">SCORE TOTAL : '+ Math.round((total/(totalNb*100))*100) +'%</h1>';
                                                     htmlEmail1 += '</td>';
                                                 htmlEmail1 += '</tr>';
                                             htmlEmail1 += '</table>';
+                                            htmlEmail1 += '<table border="0" cellpadding="20" cellspacing="0" width="100%">';
+                                                htmlEmail1 += '<tr>';
+                                                    htmlEmail1 += '<td align="center" valign="top">';
+                                
+                                                    categoryStat.forEach(category => {
+                                
+                                                        htmlEmail1 += '<h1 style="font-family:Helvetica, sans-serif;color: #FFFFFF;text-align: center;font-weight: 500;font-size: 25px;margin: 40px auto;border:none;">'+ category.category +'</h1>';
+                                                        subCategoryStat.forEach(subcategory => {
+                                                            
+                                                            if (subcategory.category == category.category)
+                                                            {
+                                                                htmlEmail1 += '<table border="0" style="border:1px solid #fff;border-radius: 8px;margin: 10px auto;padding: 0px;overflow: hidden;" cellpadding="20" cellspacing="0" width="100%" id="emailBody">';
+                                                                    htmlEmail1 += '<tr>';
+                                                                        htmlEmail1 += '<td colspan="2" style="background-image: linear-gradient(90deg, white ' + subcategory.score + '%, #bdd88c 0%);">';
+                                                                            htmlEmail1 += '<h3 style="padding: 0px;margin:0;padding: 10px;color:#6a962f;">' + subcategory.subcategory + '<span style="float:right">' + subcategory.score + '%</span></h3>';
+                                                                        htmlEmail1 += '</td>';
+                                                                    htmlEmail1 += '</tr>';   
+
+                                                                responses.forEach(response => {
+                                                                                                                    
+                                                                    if (response.id_question_subcategory == subcategory.id_question_subcategory && subcategory.question_category_id == category.id_question_category) {
+
+                                                                        htmlEmail1 += '<tr style="min-height: 40px;padding: 10px;40px;display: inline-flex;width: 100%;align-items: center;border-top:1px dashed #fff">';
+                                                                            htmlEmail1 += '<td style="width:70%;font-size: 17px;display: inline-flex;align-items: center;color:#fff">' + response.question + '</td>';    
+                                                                            htmlEmail1 += '<td style="width:30%;text-align:center;">';
+                                                                                if (response.score == 0)
+                                                                                    htmlEmail1 += '<span style="background-color:#c30004;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">' + response.response + '</span>';        
+                                                                                else if (response.score == 1)
+                                                                                    htmlEmail1 += '<span style="background-color:#fc6308;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">' + response.response + '</span>';     
+                                                                                else if (response.score == 2)   
+                                                                                    htmlEmail1 += '<span style="background-color:#fece09;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">' + response.response + '</span>';     
+                                                                                else if (response.score == 3)  
+                                                                                    htmlEmail1 += '<span style="background-color:#1cd304;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">' + response.response + '</span>';     
+                                                                            htmlEmail1 += '</td>';    
+                                                                        htmlEmail1 += '</tr>';  
+                                                                        
+                                                                        if (response.comment != '') {
+                                                                            htmlEmail1 += '<tr>';                                                                                            
+                                                                                htmlEmail1 += '<td colspan="2" style="width:100%;">';                                                                                            
+                                                                                    htmlEmail1 += '<p style="display:block;width:100%;text-align:center;color:#fff">"'+ response.comment +'"</p>';                                                                                   
+                                                                                htmlEmail1 += '</td>';                                                                                           
+                                                                            htmlEmail1 += '</tr>';                                                                                            
+                                                                        }
+                                                                        htmlEmail1 += '<tr>';  
+                                                                            htmlEmail1 += '<td colspan="2" style="text-align:center">';
+                                                                            for (var i = 0; i < response.photos.length; i++) {
+                                                                                if (response.photos[i] != null) {
+                                                                                    var image = new Image();
+                                                                                    image.src = response.photos[i];
+                                                                                    var canvas = document.createElement("canvas");
+                                                                                    canvas.width = image.width;
+                                                                                    canvas.height = image.height;
+                                                                                    var ctx = canvas.getContext("2d");
+                                                                                    ctx.drawImage(image, 0, 0);
+                                                                                    var dataURL = canvas.toDataURL("image/jpg");
+                                                                                    console.log('base64' + dataURL);
+                                                                                            
+                                                                                    htmlEmail1 += '<img style="padding:1px;width:25%;height:auto;margin:0 auto; text-align:center" src="'+ dataURL +'"/>';  
+                                                                                            
+                                                                                       
+                                                                                }
+                                                                            }
+                                                                            htmlEmail1 += '</td>';                                                            
+                                                                        htmlEmail1 += '</tr>';  
+                                                                                
+
+                                                                    }
+
+                                                                });
+                                                                htmlEmail1 += '</table>';
+                                                            }
+                                
+                                                                        });
+                                                                        
+                                                                    
+                                                                htmlEmail1 += '</td>';
+                                                            htmlEmail1 += '</tr>';
+                                                        htmlEmail1 += '</table>';
+                                
+                                                    });
+                                                    
+                                                htmlEmail1 += '</td>';
+                                                htmlEmail1 += '</tr>';
+                                            htmlEmail1 += '</table>';
+
                                         htmlEmail1 += '</td>';
                                     htmlEmail1 += '</tr>';
-                                    htmlEmail1 += '<tr>';
-                                    htmlEmail1 += '<td align="center" valign="top">';
-                                        htmlEmail1 += '<table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">';
-                                            htmlEmail1 += '<tr>';
-                                                htmlEmail1 += '<td align="center" valign="top">';
-                                                    htmlEmail1 += '<h1 style="font-family:Helvetica, sans-serif;color: #FFFFFF;text-align: center;font-weight: 500;font-size: 25px;margin: 40px auto;border:none;">SCORE TOTAL : '+ Math.round((total/(totalNb*100))*100) +'%</h1>';
-                                                htmlEmail1 += '<td>';
-                                            htmlEmail1 += '</tr>';
-                                            htmlEmail1 += '<tr>';
-                                                htmlEmail1 += '<td align="center" valign="top">';
-                            
-                                                categoryStat.forEach(category => {
-                            
-                                                    htmlEmail1 += '<h1 style="font-family:Helvetica, sans-serif;color: #FFFFFF;text-align: center;font-weight: 500;font-size: 25px;margin: 40px auto;border:none;">'+ category +'</h1>';
-                                                    htmlEmail1 += '<table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">';
-                                                        htmlEmail1 += '<tr>';
-                                                            htmlEmail1 += '<td style="padding:0px 100px" align="center" valign="top">';
-                                                                htmlEmail1 += '<table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">';
-                            
-                                                                    subCategoryStat.forEach(subcategory => {
-                                                                        
-                                                                        if (subcategory.category == category)
-                                                                        {
-                                                                            htmlEmail1 += '<tr>';
-                                                                            htmlEmail1 += '<td style="background-image:linear-gradient(90deg, white ' + subcategory.score + '%, #bdd88c 0%);color: #6a962f;font-weight: 500;padding:0px;" height="40px"  align="center" valign="top">';
-                                                                                    htmlEmail1 += '<p style="text-align:left;margin:0px;font-family:Helvetica, sans-serif;line-height:40px;padding-left:20px">'+ subcategory.subcategory +'</p>';
-                                                                            htmlEmail1 += '</td>';
-                                                                            htmlEmail1 += '<td style="padding:0px;" height="40px" width="10%" align="center" valign="top">';
-                                                                                htmlEmail1 += '<p style="padding-left:25px;line-height:40px;margin:0px;text-align:left;font-family:Helvetica, sans-serif;color:#ffffff">' + subcategory.score + '%</p>';
-                                                                            htmlEmail1 += '</td>';
-                                                                            htmlEmail1 += '</tr>';    
-                                                                            htmlEmail1 += '<tr>';
-                                                                                htmlEmail1 += '<td>';    
-                                                                                htmlEmail1 += '</td>';
-                                                                            htmlEmail1 += '</tr>';    
-                                                                        }
-                            
-                                                                    });
-                                                                    
-                                                                htmlEmail1 += '</table>';
-                                                            htmlEmail1 += '</td>';
-                                                        htmlEmail1 += '</tr>';
-                                                    htmlEmail1 += '</table>';
-                            
-                                                });
-                                                
-                                                htmlEmail1 += '</td>';
-                                            htmlEmail1 += '</tr>';
-                                        htmlEmail1 += '</table>';
-                                    htmlEmail1 += '</td>';
-                                htmlEmail1 += '</tr>';
                                 htmlEmail1 += '</table>';
-                            htmlEmail1 += '</td>';
-                        htmlEmail1 += '</tr>';
-                    htmlEmail1 += '</table>';
-                htmlEmail1 += '</body>';
-                htmlEmail1 += '</html>';
-                
-                cordova.plugins.pdf.htmlToPDF({
-                    data: htmlEmail1,
-                    documentSize: "A4",
-                    landscape: "portrait",
-                    type: "base64"
-                },
-                (success2) => { 
 
-                    let htmlEmail = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+                        htmlEmail1 += '</body>';
+                    htmlEmail1 += '</html>';
+                    
+                    cordova.plugins.pdf.htmlToPDF({
+                        data: htmlEmail1,
+                        documentSize: "A4",
+                        landscape: "portrait",
+                        type: "base64"
+                    },
+                    (success2) => { 
+
+                                           let htmlEmail = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
                     htmlEmail += '<html xmlns="http://www.w3.org/1999/xhtml">';
                         htmlEmail += '<head>';
                             htmlEmail += '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
                             htmlEmail += '<title></title>';
-                            htmlEmail += '<style></style>'
+                            htmlEmail += '<style>*{font-family: "Helvetica, sans-serif"}</style>'
                         htmlEmail += '</head>';
                         htmlEmail += '<body>';
                         htmlEmail += '<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">';
@@ -306,34 +353,36 @@ export class SignaturePage {
                         htmlEmail += '</table>';
                     htmlEmail += '</body>';
                 htmlEmail += '</html>';
-        
-                    let emailsArr = this.restaurant['emails'].split(';');
-                    let email = {
-                        to: emailsArr,
-                        // bcc: ['colin.delorme@eatsalad.fr', 'wahid.benserir@eatsalad.fr'],
-                        attachments: [
-                            'base64:visite.pdf//'+success1,
-                            'base64:compte-rendu.pdf//'+success2,
-                        ],
-                        subject: '[EatSalad] Compte rendu de la visite du ' + this.evaluation['date'],
-                        body: htmlEmail,
-                        isHtml: true
-                    };
-                    this.emailComposer.open(email);
-                    
-                    this.navCtrl.push(RestaurantDetailPage, {'id_restaurant': this.id_restaurant}).then(() => {
-                        // first we find the index of the current view controller:
-                        const index = this.viewCtrl.index;
-                        // then we remove it from the navigation stack
-                        this.navCtrl.remove(index);
-                        this.navCtrl.remove(index-1);
-                        this.navCtrl.remove(index-2);
-                        this.navCtrl.remove(index-3);
-                    });
 
-                }, (error) => this.presentToast('error:' + JSON.stringify(error))
+            
+                        let emailsArr = this.restaurant['emails'].split(';');
+                        let email = {
+                            to: emailsArr,
+                            bcc: ['colin.delorme@eatsalad.fr', 'wahid.benserir@eatsalad.fr'],
+                            attachments: [
+                                'base64:visite.pdf//'+success1,
+                                'base64:compte-rendu.pdf//'+success2,
+                            ],
+                            subject: '[EatSalad] Compte rendu de la visite du ' + this.evaluation['date'],
+                            body: htmlEmail,
+                            isHtml: true
+                        };
+                        this.emailComposer.open(email);
+                        
+                        this.navCtrl.push(RestaurantDetailPage, {'id_restaurant': this.id_restaurant}).then(() => {
+                            // first we find the index of the current view controller:
+                            const index = this.viewCtrl.index;
+                            // then we remove it from the navigation stack
+                            this.navCtrl.remove(index);
+                            this.navCtrl.remove(index-1);
+                            this.navCtrl.remove(index-2);
+                            this.navCtrl.remove(index-3);
+                        });
+
+                    }, (error) => this.presentToast('error:' + JSON.stringify(error))
+                );
+            }, (error) => this.presentToast('error:' + JSON.stringify(error))
             );
-
         });
 
         }, (error) => this.presentToast('error:' + JSON.stringify(error))
@@ -402,6 +451,15 @@ export class SignaturePage {
         var blob = new Blob(byteArrays, {type: contentType});
         return blob;
       }
-      
+
+     getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+      }
 }
 

@@ -36,12 +36,12 @@ export class ArchiveEvaluationPage {
             this.category = category;
           });
 
-          this.databaseprovider.getResponseScoreByIdEvaluationByCategory(this.id_evaluation, this.id_category).then((data) => {
+          this.databaseprovider.getResponseScoreByIdEvaluationByCategory(this.id_evaluation, this.id_category).then((responseScore) => {
             let subcategories = [];
-            console.log(JSON.stringify(data));
-            for (var i = 0; i < data.length; i++) {
-                let percent = Math.round((data[i].responseScore / (data[i].nbResponse * 3)) * 100);
-                subcategories.push({'question_category_id': data[i].question_category_id, 'score': percent, 'name': data[i].name, 'id_question_subcategory': data[i].id_question_subcategory});
+
+            for (var i = 0; i < responseScore.length; i++) {
+                let percent = Math.round((responseScore[i].responseScore / (responseScore[i].nbResponse * 3)) * 100);
+                subcategories.push({'question_category_id': responseScore[i].question_category_id, 'score': percent, 'name': responseScore[i].name, 'id_question_subcategory': responseScore[i].id_question_subcategory});
             }
             this.subcategories = subcategories;
           });

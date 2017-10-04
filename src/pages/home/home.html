@@ -1,16 +1,12 @@
 <ion-content class="no-scroll">
-
-  <ion-grid id="header">
-
+    
+  <ion-grid id="login-container">
+    
     <ion-row>
-      <ion-col>
+      <ion-col col-xs-12 col-sm-8 offset-sm-2>
         <img id="logo-home" src="assets/img/logo-app-home.png" alt="">
       </ion-col>
     </ion-row>
-
-  </ion-grid>
-    
-  <ion-grid id="login-container">
 
     <ion-row>
       <ion-col col-xs-12 col-sm-8 offset-sm-2>
@@ -18,12 +14,12 @@
           
           <ion-item no-lines>
             <ion-label text-wrap col-5>Utilisateur</ion-label>
-            <ion-input [(ngModel)]="user" type="text"></ion-input>
+            <ion-input spellcheck="on" autocorrect="on"  [(ngModel)]="user" type="text"></ion-input>
           </ion-item>
           
           <ion-item no-lines>
             <ion-label text-wrap col-5>Mot de passe</ion-label>
-            <ion-input [(ngModel)]="password" type="password"></ion-input>
+            <ion-input spellcheck="on" autocorrect="on"  [(ngModel)]="password" type="password"></ion-input>
           </ion-item>
       
         </ion-list>

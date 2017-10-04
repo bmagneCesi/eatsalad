@@ -519,6 +519,32 @@ export class DatabaseProvider {
     });
   }
 
+  getPreviousEvaluations(id_evaluation, id_restaurant) {
+    return this.database.executeSql("SELECT * FROM `evaluation` WHERE id_evaluation < " + id_evaluation + " AND restaurant_id = "+ id_restaurant + " ORDER BY id_evaluation DESC LIMIT 1", {}).then((data) => {
+      let evaluation;
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          
+            evaluation = data.rows.item(0);
+          
+        }
+      }
+
+      return evaluation;
+
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });
+  }
+
   getTotalResponseScoreByIdEvaluation(id_evaluation) {
     return this.database.executeSql("SELECT SUM(response.score) as responseScore, COUNT(question_has_response.question_id) as nbResponse, question_category.name as category, question_category.id_question_category as id_category FROM `question_has_response` LEFT JOIN `question_has_response_image` ON `question_has_response`.id_question_has_response = `question_has_response_image`.question_has_response_id LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation + " GROUP BY `question_category`.name", {}).then((data) => {
       let responses = [];
@@ -546,7 +572,7 @@ export class DatabaseProvider {
   }
 
   getResponseScoreByIdEvaluation(id_evaluation) {
-    return this.database.executeSql("SELECT SUM(response.score) as responseScore, COUNT(question_has_response.question_id) as nbResponse, question_category.name as category, question_category.id_question_category as id_category, question_subcategory.name as subcategory FROM `question_has_response` LEFT JOIN `question_has_response_image` ON `question_has_response`.id_question_has_response = `question_has_response_image`.question_has_response_id LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation + " GROUP BY `question_category`.name, question_subcategory.name", {}).then((data) => {
+    return this.database.executeSql("SELECT SUM(response.score) as responseScore, COUNT(question_has_response.question_id) as nbResponse, question_category.name as category, question_category.id_question_category, question_category.id_question_category as id_category, question_subcategory.name as subcategory, question_subcategory.id_question_subcategory, question_subcategory.question_category_id FROM `question_has_response` LEFT JOIN `question_has_response_image` ON `question_has_response`.id_question_has_response = `question_has_response_image`.question_has_response_id LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation + " GROUP BY `question_category`.name, question_subcategory.name", {}).then((data) => {
       let responses = [];
       if(data == null) 
       {
@@ -682,8 +708,11 @@ export class DatabaseProvider {
   }
 
   getResponseByIdEvaluation(id_evaluation) {
-    return this.database.executeSql("SELECT response.response, response.score, question.question, question_subcategory.id_question_subcategory as id_question_subcategory, question_has_response.id_question_has_response FROM `question_has_response` LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
+    return this.database.executeSql("SELECT question_has_response_image.path as photo, question_has_response.comment, response.response, response.score, question.question, question_subcategory.id_question_subcategory as id_question_subcategory, question_has_response.id_question_has_response FROM `question_has_response` LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category LEFT JOIN question_has_response_image ON question_has_response.id_question_has_response = question_has_response_image.question_has_response_id  WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
       let responses = [];
+      let photos = [];
+      let idAlreadyDone = [];
+
       if(data == null) 
       {
         return;
@@ -694,10 +723,18 @@ export class DatabaseProvider {
         if(data.rows.length > 0) 
         {
           for(var i = 0; i < data.rows.length; i++) {
-            responses.push(data.rows.item(i));
+            if (idAlreadyDone.indexOf(data.rows.item(i).id_question_has_response) > -1) {
+              responses[idAlreadyDone.indexOf(data.rows.item(i).id_question_has_response)].photos.push(data.rows.item(i).photo);
+            }
+            else{
+              responses.push({'photos': [data.rows.item(i).photo], 'id_question_subcategory': data.rows.item(i).id_question_subcategory, 'score': data.rows.item(i).score, 'question': data.rows.item(i).question, 'response': data.rows.item(i).response, 'comment': data.rows.item(i).comment, })
+              idAlreadyDone.push(data.rows.item(i).id_question_has_response);
+            }
+              
           }
         }
       }
+      console.log(JSON.stringify(responses));
       return responses;
 
     }, err => {

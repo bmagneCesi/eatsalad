@@ -34,7 +34,7 @@
                     </ion-row>
                     <ion-row col-10 offset-1 class="photo-comment-line">
 
-                        <ion-textarea col-9 class="response-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
+                        <ion-input type="text" col-9 class="response-comment" autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" [(ngModel)]="comment" placeholder="..."></ion-input>
                         <ion-col col-1></ion-col>
                         <ion-col col-1 nopadding>
                             <button color="light" (tap)="addPicture()" *ngIf="imagesArray.length < 4" class="camera-button" ion-button icon-only>

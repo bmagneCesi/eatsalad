@@ -9,12 +9,13 @@ page-restaurantlist{
     }
 
     .button-restaurants{
+        width: 150px;
+        border-radius:150px!important;
         text-align: center;
-        background-color: #bdd88c;
+        background-color: #77b320;
         border-radius: 6px;
-        height:45px;
-        line-height: 35px;
-        color: #6a962f;
+        height:150px;
+        color: #ffffff;
         margin:0 auto;
         font-size: 20px;
     }
@@ -24,9 +25,9 @@ page-restaurantlist{
     }
 
     .bottom-button{
-        color: #bdd88c;
+        color: rgba(255, 255, 255, 0.67);
         font-size: 65px;
-        margin: 0 auto 35px;
+        margin: 40px auto;
     }
 
     .remove-restaurant{

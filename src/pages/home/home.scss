@@ -1,5 +1,9 @@
 page-home {
 
+    #logo-home{
+        margin-top: 250px;
+    }
+
     .no-scroll .scroll-content{
         overflow: hidden;
     }
@@ -23,7 +27,8 @@ page-home {
     }
 
     #login-container{
-        background-color: #89BD2A;
+        height: 100%;
+        background-image: url('../../assets/img/home-background.png');
     }
 
     #login-container ion-item{
@@ -38,6 +43,6 @@ page-home {
     #login-container ion-item ion-input{
         border-radius: 7px;
         // height: 35px;
-        background-color: #bdd88c;
+        background-color: rgba(255, 255, 255, 0.77);
     }
 }

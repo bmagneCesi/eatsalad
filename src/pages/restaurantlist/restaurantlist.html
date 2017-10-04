@@ -15,29 +15,18 @@
             <h3 class="title" id="restaurant-title">RESTAURANTS</h3>
         </ion-row>
 
-        <ion-row *ngIf="restaurants">
-            <ion-col col-sm-8 offset-sm-2 col-xs-12>
-                <ion-list>
-                    <ion-item-sliding *ngFor="let restaurant of restaurants" class="slide-restaurants-container">
-                        <ion-item color="light" text-capitalize class="button-restaurants" (tap)="showRestaurantAction(restaurant.id_restaurant)">
-                            {{ restaurant.name }}
-                        </ion-item>
-                        <ion-item-options side="right" class="remove-restaurant" >
-                            <button ion-button color="danger" (click)="deleteRestaurantAction(restaurant)">Supprimer</button>
-                        </ion-item-options>
-                    </ion-item-sliding>
-                </ion-list>
+        <ion-row *ngIf="restaurants" col-8 offset-2>
+            <ion-col *ngFor="let restaurant of restaurants" col-4>
+                <button color="light" text-capitalize class="button-restaurants" (tap)="showRestaurantAction(restaurant.id_restaurant)">
+                    {{ restaurant.name }}
+                </button>
             </ion-col>
-        </ion-row>
-
-        <ion-row>
             <ion-col col-6 text-center>
                     <ion-icon class="bottom-button"  (tap)="addRestaurantAction()" name="ios-add-circle"></ion-icon>                    
             </ion-col>
             <ion-col col-6 text-center>
                     <ion-icon class="bottom-button" (tap)="addQuestion()" name="ios-settings"></ion-icon>                    
-            </ion-col>
-            
+            </ion-col>    
         </ion-row>
         
     </ion-grid>

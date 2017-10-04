@@ -68,10 +68,12 @@ export class EvaluationPage {
   addPicture(){
     
     const options: CameraOptions = {
-      quality: 100,
+      quality: 50,
       sourceType: this.camera.PictureSourceType.CAMERA,
       saveToPhotoAlbum: false,
-      correctOrientation: true
+      correctOrientation: true,
+      targetHeight: 2000,
+      targetWidth: 1000
     }
     
     this.camera.getPicture(options).then((imagePath) => {

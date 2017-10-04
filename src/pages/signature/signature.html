@@ -18,7 +18,7 @@
             <br>
             <ion-row no-padding>
                 <ion-label text-wrap text-right>Visite de conformité effectuée par</ion-label>
-                <ion-input [(ngModel)]="controllerName" placeholder="..."></ion-input>
+                <ion-input autocorrect="on"  [(ngModel)]="controllerName" autocomplete="on" spellcheck="on" placeholder="..."></ion-input>
             </ion-row>
                 <br>
             <ion-row no-padding>
@@ -61,6 +61,7 @@
         </div>
         <br>
         <br>
+
         <ion-row *ngIf="signatureFranchised && signatureController && controllerName">
             <ion-col text-center>
                 <button ion-button  (tap)="validateContrat(controllerName)" color="eatsalad" class="button-light">Valider</button>
