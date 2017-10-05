@@ -2,32 +2,36 @@
     <ion-grid>
         <ion-row><h1 class="title">NOUVEAU RESTAURANT</h1></ion-row>
         <ion-row>
-            <ion-col col-6>
-                <ion-label text-wrap>Nom du restaurant :</ion-label>
-                <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="name" class="text-input" type="text" value=""></ion-input>
-            </ion-col>
-            <ion-col col-6>
-                <ion-label text-wrap>Emails (séparer par ';'):</ion-label>
-                <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="emails" class="text-input" type="text" value=""></ion-input>
+            <ion-col>
+                <ion-list>
+                    <ion-item col-12 no-lines>
+                        <ion-label col-5 text-wrap>Nom du restaurant :</ion-label>
+                        <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="name" class="text-input" type="text" value=""></ion-input>
+                    </ion-item>
+                    <ion-item col-12 no-lines>
+                        <ion-label col-5 text-wrap>Emails (séparer par ';'):</ion-label>
+                        <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="emails" class="text-input" type="text" value=""></ion-input>
+                    </ion-item>
+                </ion-list>
+
+                <ion-list>
+                    <ion-item col-12 no-lines>
+                        <ion-label col-5 text-wrap>Adresse :</ion-label>
+                        <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="address" class="text-input" type="text" value=""></ion-input>
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <ion-item col-12 no-lines>
+                        <ion-label col-5 text-wrap>Code postal :</ion-label>
+                        <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="postcode" class="text-input" type="number" value=""></ion-input>
+                    </ion-item>
+                    <ion-item col-12 no-lines>
+                        <ion-label col-5 text-wrap>Ville :</ion-label>
+                        <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="city" class="text-input" type="text" value=""></ion-input>
+                    </ion-item>
+                </ion-list>
             </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col col-12>
-                <ion-label text-wrap>Adresse :</ion-label>
-                <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="address" class="text-input" type="text" value=""></ion-input>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-6>
-                <ion-label text-wrap>Code postal :</ion-label>
-                <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="postcode" class="text-input" type="number" value=""></ion-input>
-            </ion-col>        
-            <ion-col col-6>
-                <ion-label text-wrap>Ville :</ion-label>
-                <ion-input autocorrect="on"  spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="city" class="text-input" type="text" value=""></ion-input>
-            </ion-col>
-        </ion-row>
-        <br>
         <ion-row text-center class="button-container">
             <ion-col col-6> 
                 <button ion-button color="light" class="button-light" (tap)="close()">Annuler</button>

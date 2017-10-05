@@ -25,16 +25,30 @@
     box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.20);
 }
 
+.arrow-back{
+    color: #89BD2A;
+    font-size: 40px;
+    position: absolute;
+    left: 40px;
+    top:65px;
+}
+
 .main-container{
     background-image: url('../assets/img/main-container-background.png');
     min-height: calc(100vh - 150px);
 }
 
 .button-back{
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid #89BD2A;
-    color: #89BD2A;
     background-color:#ffffff;
+    height:60px;
+    width:60px;
+}
+
+.button-back ion-icon{
+    font-size: 50px;
+    color: #89BD2A;
 }
 
 // Vertically center content
