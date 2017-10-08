@@ -1,0 +1,21 @@
+page-evaluation-main-category {
+    .category-title{
+        margin: 40px auto;
+        // font-family: 'SourceSansPro';
+        background-image: url('../assets/img/background-title.png');
+        background-size:contain;
+        background-position:center center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        color:#fff;
+        height: 170px;
+        line-height: 170px;
+        min-width: 400px;
+        font-size: 35px;
+        text-align: center;
+        text-decoration: none;
+    }
+    .category-done{
+        background-image: url('../assets/img/title-ok.png');
+    }
+}

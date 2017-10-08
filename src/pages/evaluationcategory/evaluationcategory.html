@@ -12,7 +12,7 @@
     <ion-grid *ngIf="categories" >
         <ng-container *ngFor="let category of categories">
             <ion-row>
-                <h1 class="title">{{ category.name }}</h1>
+                <h1 class="title category-tite">{{ category.name }}</h1>
             </ion-row>
             <ion-row>
                 <div class="subcategory-container">
@@ -27,7 +27,7 @@
         <br>
         <br>
         <br>
-        <ion-row *ngIf="subcategoriesDone.length == subcategories.length">
+        <ion-row>
             <ion-col text-center>
                 <button ion-button (tap)="validateEvaluation()" color="eatsalad" class="button-light">Valider l'évaluation</button>
             </ion-col>

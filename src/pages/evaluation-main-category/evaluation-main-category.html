@@ -1,0 +1,27 @@
+<ion-header no-border>
+  <ion-toolbar class="toolbar">
+      <ion-icon class="arrow-back" name="arrow-back"></ion-icon><button offset-1 class="button-back hidden-xs-down" color="light" ion-button (tap)="cancelEvaluation()"><ion-icon ios="ios-list" md="md-list"></ion-icon></button>
+      <button offset-1 class="button-back hidden-sm-up" (tap)="cancelEvaluation()" color="light" ion-button>
+          <ion-icon name="arrow-back"></ion-icon>       
+      </button>
+      <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="no-ipad-scroll" class="main-container">
+  <ion-grid *ngIf="categories" >
+      <ng-container *ngFor="let category of categories">
+          <ion-row>
+              <a href="#" [ngClass]="{'category-done': (categoriesDone.indexOf(category.id_question_category) > -1)}" class="category-title" (tap)="showSubcategories(category.id_question_category)">{{ category.name }}</a>
+          </ion-row>
+      </ng-container>
+      <br>
+      <br>
+      <br>
+      <ion-row *ngIf="categoriesDone.length == categories.length">
+          <ion-col text-center>
+              <button ion-button (tap)="validateEvaluation()" color="eatsalad" class="button-light">Valider l'évaluation</button>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

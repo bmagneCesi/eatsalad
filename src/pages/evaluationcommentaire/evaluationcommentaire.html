@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 class="button-back hidden-xs-down" color="light"ion-button navPop>Menu questions</button>
+        <ion-icon class="arrow-back" name="arrow-back"></ion-icon><button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop><ion-icon ios="ios-list" md="md-list"></ion-icon></button>            
         <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
             <ion-icon name="arrow-back"></ion-icon>       
         </button>
@@ -16,7 +16,11 @@
         </ion-row>
         <ion-row>
             <ion-col col-sm-6 offset-sm-3>
-                <ion-textarea  autocorrect="on" autocomplete="on" spellcheck="on" class="evaluation-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
+                <ion-list>
+                    <ion-item no-lines class="item-textarea">
+                        <ion-textarea autocorrect="on" autocomplete="on" spellcheck="on" spellcheck="true" class="evaluation-comment" [(ngModel)]="comment" placeholder="..."></ion-textarea>
+                    </ion-item>
+                </ion-list>
             </ion-col>
         </ion-row>
         <br>

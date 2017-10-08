@@ -5,21 +5,33 @@ page-evaluationcategory{
         text-align: center
     }
 
+    .category-tite{
+        background-image: url('../assets/img/category-title.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        line-height: 10px; 
+        width: 100%;
+        text-align: center;
+    }
+
     .subcategory-button{
-        width: 120px;
-        height: 120px;
+        width: 160px;
+        padding:100px;
+        height: 160px;
         border-radius: 8px;
-        background-color: #bdd88c;
-        color: #6a962f;
+        background-color: transparent;
+        background-image: url('../assets/img/bouton.png');
+        background-size: contain;
+        color: #000;
         white-space: normal;
         margin: 10px;
         text-align: center
     }
 
     .form-done{
-        background-color: #89BD29!important;
-        border: 1px solid #ffffff;
-        color: #ffffff;
+        background-color: transparent;
+        background-image: url('../assets/img/bouton-ok.png');
+        background-size: contain;
     }
 
 }

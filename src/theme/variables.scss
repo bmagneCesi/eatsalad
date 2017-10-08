@@ -35,10 +35,10 @@ $colors: (
   primary:    #488aff,
   secondary:  #6a962f,
   danger:     #f53d3d,
-  light:      #F1F1F1,
+  light:      rgba(0,0,0,0),
   white:    #ffffff,
   dark:       #222,
-  eatsalad:   #89BD2A,
+  eatsalad:   rgba(255,255,255, 0.8),
 );
 
 
@@ -90,6 +90,13 @@ $popover-ios-text-color: #6a962f;
 
 @import "roboto";
 @import "noto-sans";
+
+@font-face {
+  font-family: "alittlesunshine";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../assets/fonts/alittlesunshine.ttf") format("truetype");
+}
 
 @font-face {
   font-family: "SourceSansPro";

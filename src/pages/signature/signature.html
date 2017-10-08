@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar class="toolbar">
-        <button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop>Commentaire</button>
+        <ion-icon class="arrow-back" name="arrow-back"></ion-icon><button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop><ion-icon ios="ios-list" md="md-list"></ion-icon></button>
         <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
             <ion-icon name="arrow-back"></ion-icon>       
         </button>
@@ -8,7 +8,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content #tpl class="main-container no-ipad-scroll">
+<ion-content #tpl class="main-container">
     <ion-grid text-center padding>
 
         <div class="signature-container" col-sm-10 offset-sm-1>
@@ -17,10 +17,14 @@
             <br>
             <br>
             <ion-row no-padding>
-                <ion-label text-wrap text-right>Visite de conformité effectuée par</ion-label>
-                <ion-input autocorrect="on"  [(ngModel)]="controllerName" autocomplete="on" spellcheck="on" placeholder="..."></ion-input>
+                <ion-col>
+                    <ion-item>
+                        <ion-label col-7 text-wrap text-right>Visite de conformité effectuée par</ion-label>
+                        <ion-input autocorrect="on" [(ngModel)]="controllerName" autocomplete="on" spellcheck="on" placeholder="..."></ion-input>
+                    </ion-item>
+                </ion-col>
             </ion-row>
-                <br>
+            <br>
             <ion-row no-padding>
                 <ion-label text-wrap text-right>Dans le restaurant Eatsalad</ion-label>
                 <ion-label class="signature-information">{{ restaurant.name }}</ion-label>
@@ -29,6 +33,11 @@
             <ion-row no-padding>
                 <ion-label text-wrap text-right>Le</ion-label>
                 <ion-label class="signature-information">{{ evaluation.date }}</ion-label>
+            </ion-row>
+                <br>
+            <ion-row no-padding>
+                <ion-label text-wrap text-right>À</ion-label>
+                <ion-label class="signature-information">{{ hour }}H{{ minutes }}</ion-label>
             </ion-row>
                 <br>
                 <br>
