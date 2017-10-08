@@ -10,11 +10,17 @@ page-ajoutquestionmodal{
         width: 100%;
     }
 
-    ion-item{
+    .item-text{
         background:none!important;
     }
 
-    .text-input, ion-select{
+    .text{
+        background-color: rgba(255, 255, 255, 0.77);
+        border-radius: 8px;
+        color: #000;
+    }
+
+    ion-select{
         background-color: rgba(255, 255, 255, 0.77);
         border-radius: 8px;
         color: #000;

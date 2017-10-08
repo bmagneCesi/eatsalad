@@ -4,14 +4,14 @@
         <ion-row>
             <ion-col col-12>
                 <ion-list>
-                    <ion-item col-12 no-lines>
+                    <ion-item class="item-text" col-12 no-lines>
                         <ion-label col-5 *ngIf="modaltitle == 'question'" fixed>Question :</ion-label>
                         <ion-label col-5 *ngIf="modaltitle != 'question'" fixed>Nom :</ion-label>
-                        <ion-input autocorrect="on" spellcheck="on" autocomplete="on" spellcheck="on" col-12 [(ngModel)]="name" class="text-input" type="text" value=""></ion-input>
+                        <ion-input class="text" autocorrect="on" autocomplete="on" spellcheck="on" placeholder="..." [(ngModel)]="name"></ion-input>
                     </ion-item>
                 </ion-list>
                 <ion-list text-center *ngIf="modaltitle == 'sous-categorie'">
-                    <ion-item col-12 no-lines>
+                    <ion-item col-12 class="item-text" no-lines>
                         <ion-label col-5 fixed text-wrap>Catégorie :</ion-label>
                         <ion-select col-11 [(ngModel)]="categorySelected" interface="action-sheet">
                             <ion-option *ngFor="let category of categories" [value]="category.id_question_category">{{category.name}}</ion-option>
@@ -21,15 +21,15 @@
             </ion-col>
             <ion-col col-12>
                 <ion-list text-center *ngIf="modaltitle == 'question'">
-                    <ion-item col-12 no-lines>
-                        <ion-label col-5 fixed text-wrap>Catégorie :</ion-label>
-                        <ion-select col-11 [(ngModel)]="categorySelected" interface="action-sheet"> 
+                    <ion-item col-12 class="item-text"  no-lines>
+                        <ion-label col-6 fixed text-wrap>Catégorie :</ion-label>
+                        <ion-select col-9 [(ngModel)]="categorySelected" interface="action-sheet"> 
                             <ion-option (ionSelect)="loadSubcategories(category.id_question_category)" *ngFor="let category of categories" [value]="category.id_question_category">{{category.name}}</ion-option>
                         </ion-select>
                     </ion-item>
-                    <ion-item col-12 no-lines *ngIf="subcategories.length > 0">
-                        <ion-label col-5 fixed text-wrap>Sous catégorie :</ion-label>
-                        <ion-select col-11 [(ngModel)]="subcategorySelected" interface="alert">
+                    <ion-item col-12 class="item-text" no-lines *ngIf="subcategories.length > 0">
+                        <ion-label col-6 fixed text-wrap>Sous catégorie :</ion-label>
+                        <ion-select col-9 [(ngModel)]="subcategorySelected" interface="alert">
                             <ion-option *ngFor="let subcategory of subcategories" [value]="subcategory.id_question_subcategory">{{subcategory.name}}</ion-option>
                         </ion-select>
                     </ion-item>
