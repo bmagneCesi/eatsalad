@@ -8,22 +8,26 @@ import { DatabaseProvider } from './../../providers/database/database';
   templateUrl: 'ajoutrestaurantmodal.html'
 })
 export class AjoutrestaurantmodalPage {
-    
+
+  ville = [];
+
   constructor(public viewCtrl: ViewController ,public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider, public modalController:ModalController) {
     this.platform.ready().then(() => {
-        
+      this.databaseprovider.getVilleById(this.navParams.get('id_ville')).then((data) => {
+        this.ville = data;
+      });
     });
   }
 
-  saveRestaurant(name, address, postcode, city, emails){
-    if (name != "" && address != "" && postcode != "" && city != "" && emails != "") {
+  saveRestaurant(name, address, emails){
+    if (name != "" && address != "" && emails != "") {
         let data = {
             'name': name,
             'address': address,
-            'postcode': postcode,
-            'city': city,
-            'emails': emails
+            'emails': emails,
+            'ville': this.ville
         };
+
         this.databaseprovider.addRestaurant(data).then((data) => {
             this.viewCtrl.dismiss(data);
         });

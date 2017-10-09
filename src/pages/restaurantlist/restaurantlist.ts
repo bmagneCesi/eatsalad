@@ -1,6 +1,6 @@
 import { AjoutquestionPage } from './../ajoutquestion/ajoutquestion';
 import { Component } from '@angular/core';
-import { NavController, AlertController, ModalController } from 'ionic-angular';
+import { NavController, AlertController, ModalController, NavParams, Platform } from 'ionic-angular';
 
 
 // Pages
@@ -18,10 +18,14 @@ import { DatabaseProvider } from './../../providers/database/database';
 export class RestaurantlistPage {
   
   restaurants: string[] = [];
+  id_ville:number;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, private databaseprovider: DatabaseProvider ) {
-    this.databaseprovider.getAllRestaurants().then(data => {
-      this.restaurants = data;
+  constructor(public navParams: NavParams, public platform: Platform, public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, private databaseprovider: DatabaseProvider ) {
+    this.platform.ready().then(() => {
+      this.id_ville = this.navParams.get('id_ville');
+      this.databaseprovider.getRestaurantByVille(this.id_ville).then(data => {
+        this.restaurants = data;
+      });
     });
   }
 
@@ -41,23 +45,23 @@ export class RestaurantlistPage {
 
   addRestaurantAction(): void {
 
-      let modal = this.modalCtrl.create(AjoutrestaurantmodalPage, {'type': 'categorie'});
+      let modal = this.modalCtrl.create(AjoutrestaurantmodalPage, {'type': 'categorie', 'id_ville': this.id_ville});
       modal.onDidDismiss(data => {
         if(data)
-          this.getRestaurants();
+          this.getRestaurants(this.id_ville);
       });
       modal.present();    
   }
 
   deleteRestaurantAction(restaurant):void {
     this.databaseprovider.deleteRestaurant(restaurant.id_restaurant).then(data => {
-      this.getRestaurants();
+      this.getRestaurants(this.id_ville);
     });
   }
 
   // Get restaurants
-  getRestaurants() {
-    this.databaseprovider.getAllRestaurants().then(data => {
+  getRestaurants(id_ville) {
+    this.databaseprovider.getRestaurantByVille(id_ville).then(data => {
       this.restaurants = data;
     })
   }

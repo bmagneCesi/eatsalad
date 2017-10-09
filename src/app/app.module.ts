@@ -35,6 +35,8 @@ import { EvaluationphotoPage } from '../pages/evaluationphoto/evaluationphoto';
 import { AjoutquestionPage } from '../pages/ajoutquestion/ajoutquestion';
 import { AjoutquestionmodalPage } from '../pages/ajoutquestionmodal/ajoutquestionmodal';
 import { AjoutrestaurantmodalPage } from '../pages/ajoutrestaurantmodal/ajoutrestaurantmodal';
+import { VillelistPage } from '../pages/villelist/villelist';
+import { AjoutvillemodalPage } from '../pages/ajoutvillemodal/ajoutvillemodal';
 
 
 // Providers
@@ -62,7 +64,9 @@ import { HttpModule } from '@angular/http'
     AjoutquestionPage,
     AjoutquestionmodalPage,
     AjoutrestaurantmodalPage,
-    StatisticSubCategoryPage
+    StatisticSubCategoryPage,
+    VillelistPage,
+    AjoutvillemodalPage
   ],
   imports: [
     BrowserModule,
@@ -91,7 +95,9 @@ import { HttpModule } from '@angular/http'
     AjoutquestionPage,
     AjoutquestionmodalPage,
     AjoutrestaurantmodalPage,
-    StatisticSubCategoryPage
+    StatisticSubCategoryPage,
+    VillelistPage,
+    AjoutvillemodalPage
   ],
   providers: [
     StatusBar,

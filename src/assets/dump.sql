@@ -1,11 +1,19 @@
 PRAGMA foreign_keys=off;
+
+CREATE TABLE IF NOT EXISTS `ville` ( 
+	`id_ville` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+	`postcode` TEXT NOT NULL,
+	`name` TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS `restaurant` ( 
 	`id_restaurant` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
 	`name` TEXT NOT NULL, 
 	`address` TEXT NOT NULL, 
-	`postcode` INTEGER NOT NULL, 
-	`city` TEXT NOT NULL,
-	`emails` TEXT );
+	`emails` TEXT,
+	`ville_id` INTEGER,
+	FOREIGN KEY(`ville_id`) REFERENCES `ville`(`id_ville`)
+);
 
 CREATE TABLE IF NOT EXISTS `question_category` ( 
 	`id_question_category` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
@@ -163,5 +171,30 @@ INSERT OR IGNORE INTO `question` VALUES (1, "Propreté de la terrasse",1),
 (99, "Propreté des vitrines réfrigérées",12),
 (100, "Lors de la confection d'une salade sur mesure (Quantité des ingrédients et de la sauce)",12);
 
-INSERT OR IGNORE INTO `restaurant` VALUES (1,"BORDEAUX ALBRET","8 COURS D’ALBRET","33000","BORDEAUX","abidine.daffe@eatsalad.fr"),(2,"MÉRIGNAC","128 AVENUE DE LA SOMME","33700","MÉRIGNAC","abidine.daffe@eatsalad.fr"),(3,"PESSAC","12 AVENUE GUSTAVE EIFFEL","33600","PESSAC","lionel.cassoulet@laposte.net;delphine.dubearn@laposte.net"),(4,"SAINT RÉMI","55 RUE SAINT RÉMI","33000","BORDEAUX","nicolas.moulinet@eatsalad.fr"),(5,"CHARTRONS","24 QUAI DE BACALAN","33000","BORDEAUX","paulinespinasse@gmail.com;eatsaladchartrons@gmail.com;laurentdefay@free.fr"),(6,"TOULOUSE","2 RUE PAUL MÉRIEL","31000","TOULOUSE","sas.rapetout@yahoo.com"),(7,"NANTES ZÉNITH","RUE VICTOR SCHOELCHER","44800","SAINT-HERBLAIN","charlinebardet1@gmail.com;tom.fonvieille@ece-france.com"),(8,"RAVEZIES","198 BOULEVARD GODARD","33300","BORDEAUX","nicolas.remaut@gmail.com;laurentcoste2911@hotmail.com"),(9,"BALMA","15 ESP ANDRE MICHAUX","31130","BALMA","dca@baschconseil.com;stefmazieres@hotmail.fr"),(10,"LE HAILLAN","27 AVENUE DE MAGUDAS","33185","LE HAILLAN","m.lagoubie@cartes-services.fr"),(11,"BASSINS À FLOTS","RUE LUCIEN FAURE","33300","BORDEAUX","melvyn.celu@laposte.net;luis.candelas@free.fr"),(12,"STALINGRAD","13 PLACE STALINGRAD","33100","BORDEAUX","lionel.cassoulet@laposte.net"),(13,"PUILBOREAU","82 RUE DU 18 JUIN","17138","PUILBOREAU","nboncorps@gmail.com"),(14,"TOURS","50 AVENUE MARCEL MÉRIEUX LOCAL R01 BIS BAS","37200","TOURS","touatijamel37@gmail.com;tolansuleyman@gmail.com"),(15,"VICTOIRE","245 Rue Sainte-Catherine","33000","BORDEAUX","romainlamoliatte@yahoo.com");
+INSERT OR IGNORE INTO `restaurant` VALUES (1,"BORDEAUX ALBRET","8 COURS D’ALBRET","abidine.daffe@eatsalad.fr",1),
+(2,"MÉRIGNAC","128 AVENUE DE LA SOMME","abidine.daffe@eatsalad.fr",2),
+(3,"PESSAC","12 AVENUE GUSTAVE EIFFEL","lionel.cassoulet@laposte.net;delphine.dubearn@laposte.net",3),
+(4,"SAINT RÉMI","55 RUE SAINT RÉMI","nicolas.moulinet@eatsalad.fr",1),
+(5,"CHARTRONS","24 QUAI DE BACALAN","paulinespinasse@gmail.com;eatsaladchartrons@gmail.com;laurentdefay@free.fr",1),
+(6,"TOULOUSE","2 RUE PAUL MÉRIEL","sas.rapetout@yahoo.com",4),
+(7,"NANTES ZÉNITH","RUE VICTOR SCHOELCHER","charlinebardet1@gmail.com;tom.fonvieille@ece-france.com",5),
+(8,"RAVEZIES","198 BOULEVARD GODARD","nicolas.remaut@gmail.com;laurentcoste2911@hotmail.com",1),
+(9,"BALMA","15 ESP ANDRE MICHAUX","dca@baschconseil.com;stefmazieres@hotmail.fr",6),
+(10,"LE HAILLAN","27 AVENUE DE MAGUDAS","m.lagoubie@cartes-services.fr",7),
+(11,"BASSINS À FLOTS","RUE LUCIEN FAURE","melvyn.celu@laposte.net;luis.candelas@free.fr",1),
+(12,"STALINGRAD","13 PLACE STALINGRAD","lionel.cassoulet@laposte.net",1),
+(13,"PUILBOREAU","82 RUE DU 18 JUIN","nboncorps@gmail.com",8),
+(14,"TOURS","50 AVENUE MARCEL MÉRIEUX LOCAL R01 BIS BAS","touatijamel37@gmail.com;tolansuleyman@gmail.com",9),
+(15,"VICTOIRE","245 Rue Sainte-Catherine","romainlamoliatte@yahoo.com",1);
+
+INSERT OR IGNORE INTO `ville` VALUES (1,"33000","BORDEAUX"),
+(2,"33700","MÉRIGNAC"),
+(3,"33600","PESSAC"),
+(4,"31000","TOULOUSE"),
+(5,"44800","SAINT-HERBLAIN"),
+(6,"31130","BALMA"),
+(7,"33185","LE HAILLAN"),
+(8,"17138","PUILBOREAU"),
+(9,"37200","TOURS");
+
 PRAGMA foreign_keys=on;

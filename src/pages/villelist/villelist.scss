@@ -1,0 +1,42 @@
+page-villelist {
+    #ville-title{
+        margin: 40px auto 40px;
+        background-image: url('../assets/img/background-title.png');
+        background-size: contain;
+        line-height: 150px;
+        background-repeat: no-repeat;
+        font-family: 'alittlesunshine';
+        background-position: center center;
+    }
+
+    .list-ville{
+        margin-bottom: 30px;
+    }
+
+    .button-ville{
+        width: 150px;
+        border-radius:150px!important;
+        text-align: center;
+        background-color: #77b320;
+        border-radius: 6px;
+        height:150px;
+        color: #ffffff;
+        margin:0 auto;
+        font-size: 20px;
+    }
+
+    .slide-restaurants-container{
+        margin-bottom: 20px;
+    }
+
+    .bottom-button{
+        color: rgba(255, 255, 255, 0.67);
+        font-size: 65px;
+        margin: 40px auto;
+    }
+
+    .remove-restaurant{
+        border-radius: 6px;
+    }
+
+}

@@ -54,7 +54,8 @@ export class DatabaseProvider {
   }
  
   addRestaurant(data) {
-    return this.database.executeSql('INSERT INTO `restaurant`(name, address, postcode, city, emails) VALUES(\'' + data.name + '\', \'' + data.address + '\', \'' + data.postcode + '\', \'' + data.city + '\', \'' + data.emails + '\')', []).then(data => {
+    console.log('LADATA ' + JSON.stringify(data));
+    return this.database.executeSql('INSERT INTO `restaurant`(name, address, emails, ville_id) VALUES(\'' + data.name + '\', \'' + data.address + '\', \'' + data.emails + '\', \'' + data.ville.id_ville + '\')', []).then(data => {
       return data;
     }, err => {
       console.log('Error: ', JSON.stringify(err));
@@ -89,6 +90,55 @@ export class DatabaseProvider {
       }
       return restaurant;
 
+    }, err => {
+      console.log('Error getRestaurantName: ', JSON.stringify(err));
+      return [];
+    });
+  }
+
+  getVilleById(id_ville) {
+    return this.database.executeSql("SELECT * FROM `ville` WHERE id_ville = " + id_ville, []).then((data) => {
+      let ville;
+      if(data == null) 
+      {
+        return;
+      }
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          
+          ville = data.rows.item(0);
+          
+        }
+      }
+      return ville;
+
+    }, err => {
+      console.log('Error getVille: ', JSON.stringify(err));
+      return [];
+    });
+  }
+
+  getVilles() {
+    return this.database.executeSql("SELECT * FROM `ville`", []).then((data) => {
+      let villes = [];
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          for(var i = 0; i < data.rows.length; i++) {
+            villes.push(data.rows.item(i));
+          }
+        }
+      }
+
+      return villes;
     }, err => {
       console.log('Error getRestaurantName: ', JSON.stringify(err));
       return [];
@@ -146,6 +196,30 @@ export class DatabaseProvider {
     });
   }
 
+  getRestaurantByVille(id_ville) {
+    return this.database.executeSql("SELECT * FROM `restaurant` WHERE ville_id = " + id_ville, {}).then((data) => {
+      let restaurant = [];
+      if(data == null) 
+      {
+        return;
+      }
+
+      if(data.rows) 
+      {
+        if(data.rows.length > 0) 
+        {
+          for(var i = 0; i < data.rows.length; i++) {
+            restaurant.push(data.rows.item(i));
+          }
+        }
+      }
+
+    return restaurant;
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return [];
+    });
+  }
   getCategoryById(id_category) {
     return this.database.executeSql("SELECT * FROM `question_category` WHERE id_question_category = " + id_category, {}).then((data) => {
       let category;

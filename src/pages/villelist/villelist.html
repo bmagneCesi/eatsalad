@@ -1,0 +1,30 @@
+<ion-header no-border>
+  <ion-toolbar class="toolbar">
+      <button offset-1 class="button-back hidden-xs-down" color="light" ion-button navPop><ion-icon ios="ios-list" md="md-list"></ion-icon></button>
+      <button offset-1 class="button-back hidden-sm-up" color="light" ion-button navPop>
+          <ion-icon name="arrow-back"></ion-icon>       
+      </button>
+      <img src="assets/img/logo-app.png" class="logo-toolbar" alt="">
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-container">
+  <ion-grid>
+
+      <ion-row>
+          <h3 class="title" id="ville-title">VILLES</h3>
+      </ion-row>
+
+      <ion-row *ngIf="villes" col-8 offset-2>
+          <ion-col *ngFor="let ville of villes" col-4>
+              <button color="light" text-capitalize class="button-ville" (tap)="showRestaurantAction(ville.id_ville)">
+                  {{ ville.name }}
+              </button>
+          </ion-col>
+          <ion-col col-12 text-center>
+                  <ion-icon class="bottom-button"  (tap)="addVilleAction()" name="ios-add-circle"></ion-icon>                    
+          </ion-col>
+      </ion-row>
+      
+  </ion-grid>
+</ion-content>

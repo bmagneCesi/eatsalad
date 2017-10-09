@@ -1,3 +1,4 @@
+import { VillelistPage } from './../villelist/villelist';
 import { Component } from '@angular/core';
 import { NavController, AlertController, Platform } from 'ionic-angular';
 
@@ -28,19 +29,19 @@ export class HomePage {
   }
   
   loginAction(): void {
-    if (this.user == "admin" && this.password == "admin") {
-      this.navCtrl.push(RestaurantlistPage);
-    }
-    else
-    {
-      let alert = this.alertCtrl.create({
-        title: 'Oups!',
-        subTitle: 'Mauvaise combinaison utilisateur / mot de passe',
-        buttons: ['Réessayer']
-      });
-      alert.present();
-    }
-    // this.navCtrl.push(RestaurantlistPage);
+    // if (this.user == "admin" && this.password == "admin") {
+    //   this.navCtrl.push(VillelistPage);
+    // }
+    // else
+    // {
+    //   let alert = this.alertCtrl.create({
+    //     title: 'Oups!',
+    //     subTitle: 'Mauvaise combinaison utilisateur / mot de passe',
+    //     buttons: ['Réessayer']
+    //   });
+    //   alert.present();
+    // }
+    this.navCtrl.push(VillelistPage);
   }
 
 }
