@@ -1,3 +1,33 @@
 page-ajoutvillemodal {
+    .main-container{
+        position: relative
+    }
+
+    .button-container{
+        text-align: center;
+        width: 100%;
+    }
+
+    ion-item{
+        background:none!important;
+    }
+
+    .text-input, ion-select{
+        background-color: rgb(196, 196, 196);
+        border-radius: 8px;
+        color: #000;
+        min-width:100px;
+        padding: 0px 10px;
+    }
+
+    @media (max-width:767px) {
+        .button-container{
+            position: absolute;
+            bottom: 200px;
+            text-align: center;
+            width: 100%;
+        }
+    }
+
 
 }

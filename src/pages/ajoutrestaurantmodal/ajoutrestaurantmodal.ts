@@ -22,7 +22,7 @@ export class AjoutrestaurantmodalPage {
   saveRestaurant(name, address, emails){
     if (name != "" && address != "" && emails != "") {
         let data = {
-            'name': name,
+            'name': name.toUpperCase(),
             'address': address,
             'emails': emails,
             'ville': this.ville

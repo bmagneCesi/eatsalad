@@ -1,8 +1,9 @@
 page-archiveevaluation {
     
     .responses-container{
-        border:1px solid #fff;
-        border-radius: 8px;
+        // border:1px solid #fff;
+        background: rgba(255,255,255,0.5);
+        border-radius: 4px;
         margin: 10px auto;
         padding: 0px;
         overflow: hidden;
@@ -28,12 +29,21 @@ page-archiveevaluation {
         border-top: 1px dashed #fff;
     }
 
+
+    .title{
+        background-image: url('../assets/img/category-title.png');
+        background-size:contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%
+    }
+
     .subtitle-rapport{
-        background: #bdd88c;
+        background: rgb(196, 196, 196);
         padding: 0px;
         margin:0;
         padding: 10px;
-        color:#6a962f;
+        color:#000;
     }
 
     .subtitle-rapport span{

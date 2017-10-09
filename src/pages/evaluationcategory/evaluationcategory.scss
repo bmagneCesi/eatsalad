@@ -6,12 +6,14 @@ page-evaluationcategory{
     }
 
     .category-tite{
-        background-image: url('../assets/img/category-title.png');
-        background-repeat: no-repeat;
+        margin: 40px auto 40px;
+        background-image: url('../assets/img/background-title.png');
         background-size: contain;
-        line-height: 10px; 
-        width: 100%;
-        text-align: center;
+        line-height: 150px;
+        background-repeat: no-repeat;
+        font-family: 'alittlesunshine';
+        background-position: center center;
+        font-size: 50px;
     }
 
     .subcategory-button{
@@ -26,6 +28,16 @@ page-evaluationcategory{
         white-space: normal;
         margin: 10px;
         text-align: center
+    }
+
+    .subcategory-button:active{
+        background-color: transparent;
+        background-image: url('../assets/img/bouton-on.png');
+    }
+
+    .subcategory-button:hover{
+        background-color: transparent;
+        // background-image: url('../assets/img/bouton-on.png');
     }
 
     .form-done{

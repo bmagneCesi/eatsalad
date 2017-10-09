@@ -62,6 +62,16 @@ export class DatabaseProvider {
       return err;
     });
   }
+ 
+  addVille(data) {
+    console.log('LADATA ' + JSON.stringify(data));
+    return this.database.executeSql('INSERT INTO `ville`(name, postcode) VALUES(\'' + data.name + '\', \'' + data.postcode + '\')', []).then(data => {
+      return data;
+    }, err => {
+      console.log('Error: ', JSON.stringify(err));
+      return err;
+    });
+  }
 
   deleteRestaurant(id_restaurant) {
     return this.database.executeSql("DELETE FROM `restaurant` WHERE id_restaurant = " + id_restaurant, []).then(data => {
@@ -818,7 +828,7 @@ export class DatabaseProvider {
   }
 
   getResponseByIdEvaluationByCategory(id_evaluation, id_category) {
-    return this.database.executeSql("SELECT response.response, response.score, question.question, question_subcategory.id_question_subcategory as id_question_subcategory, question_has_response.id_question_has_response FROM `question_has_response` LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation + " AND `question_category`.id_question_category = " + id_category, {}).then((data) => {
+    return this.database.executeSql("SELECT response.response, response.score, question.question, question_subcategory.id_question_subcategory as id_question_subcategory, question_has_response.comment, question_has_response.id_question_has_response FROM `question_has_response` LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category  WHERE `question_has_response`.evaluation_id = " + id_evaluation + " AND `question_category`.id_question_category = " + id_category, {}).then((data) => {
       let responses = [];
       if(data == null) 
       {

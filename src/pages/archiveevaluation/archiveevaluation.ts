@@ -31,7 +31,7 @@ export class ArchiveEvaluationPage {
             data[i].question = data[i].question.replace(/\(.*\)/, '');
           }
           this.responses = data;
-
+          console.log(JSON.stringify(data));
           this.databaseprovider.getCategoryById(this.id_category).then((category) => {
             this.category = category;
           });

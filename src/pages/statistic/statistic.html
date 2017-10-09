@@ -15,7 +15,7 @@
             </ion-row>
             <ng-container *ngFor="let stat of categoryStat">
                 <ion-row (tap)="showArchiveEvaluation(stat.id_category)">
-                    <ion-col [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + stat.score + '%, #bdd88c 0%)' }" class="input-statistic" col-8 offset-2>
+                    <ion-col [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + stat.score + '%, rgb(196, 196, 196) 0%)' }" class="input-statistic" col-8 offset-2>
                         <span class="subcategory-span">{{stat.category}}</span>
                         <span class="subcategory-score" ></span>
                     </ion-col>
@@ -24,12 +24,12 @@
                     </ion-col>
                 </ion-row>
             </ng-container>
-            <ion-row *ngIf="evaluation.comment != 'undefined'">
+            <ion-row *ngIf="evaluation.comment != ''">
                 <h1 class="title">COMMENTAIRE GÉNÉRAL</h1>
             </ion-row>
-            <ion-row *ngIf="evaluation.comment != 'undefined'">
+            <ion-row *ngIf="evaluation.comment != ''">
                 <ion-col col-8 offset-2>
-                    <p>{{ evaluation.comment }}</p>
+                    <p text-center>"{{ evaluation.comment }}"</p>
                 </ion-col>
             </ion-row>
         </ion-grid>

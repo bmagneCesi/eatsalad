@@ -2,7 +2,7 @@
     <ion-grid>
         <ion-row *ngIf="comment != ''">
             <h1 class="title">Commentaire :</h1>
-            <ion-col col-12>"{{ comment }}"</ion-col>
+            <ion-col col-12 text-center>"{{ comment }}"</ion-col>
         </ion-row>
         <ion-row *ngFor="let photo of photos">
             <img class="photo" src="{{photo}}" alt="">

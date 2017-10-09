@@ -12,8 +12,8 @@
                 </ion-list>
                 <ion-list text-center *ngIf="modaltitle == 'sous-categorie'">
                     <ion-item col-12 class="item-text" no-lines>
-                        <ion-label col-5 fixed text-wrap>Catégorie :</ion-label>
-                        <ion-select col-11 [(ngModel)]="categorySelected" interface="action-sheet">
+                        <ion-label col-6 fixed text-wrap>Catégorie :</ion-label>
+                        <ion-select col-9 [(ngModel)]="categorySelected" interface="action-sheet">
                             <ion-option *ngFor="let category of categories" [value]="category.id_question_category">{{category.name}}</ion-option>
                         </ion-select>
                     </ion-item>

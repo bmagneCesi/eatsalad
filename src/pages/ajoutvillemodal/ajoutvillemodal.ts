@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, ViewController, NavParams, Platform, ModalController } from 'ionic-angular';
+
+import { DatabaseProvider } from './../../providers/database/database';
 
 /**
  * Generated class for the AjoutvillemodalPage page.
@@ -8,18 +10,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-ajoutvillemodal',
   templateUrl: 'ajoutvillemodal.html',
 })
 export class AjoutvillemodalPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AjoutvillemodalPage');
-  }
-
+  ville = [];
+  
+    constructor(public viewCtrl: ViewController ,public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider, public modalController:ModalController) {
+      this.platform.ready().then(() => {
+        this.databaseprovider.getVilleById(this.navParams.get('id_ville')).then((data) => {
+          this.ville = data;
+        });
+      });
+    }
+  
+    saveVille(name, postcode){
+      if (name != "" && postcode) {
+          let data = {
+              'name': name.toUpperCase(),
+              'postcode': postcode,
+          };
+  
+          this.databaseprovider.addVille(data).then((data) => {
+              this.viewCtrl.dismiss(data);
+          });
+      }
+    }
+  
+    close(){
+      this.viewCtrl.dismiss();
+    }
 }
