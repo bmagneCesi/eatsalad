@@ -15,8 +15,8 @@
           <h3 class="title" id="ville-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VILLES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
       </ion-row>
 
-      <ion-row *ngIf="villes">
-          <ion-col *ngFor="let ville of villes" col-4>
+      <ion-row *ngIf="villes" text-center>
+          <ion-col *ngFor="let ville of villes" col-sm-4 col-xs-12>
               <button color="light" text-capitalize class="button-ville" (tap)="showRestaurantAction(ville.id_ville)">
                   {{ ville.name }}
               </button>

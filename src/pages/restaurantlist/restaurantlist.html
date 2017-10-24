@@ -15,8 +15,8 @@
             <h3 class="title" id="restaurant-title">RESTAURANTS</h3>
         </ion-row>
 
-        <ion-row *ngIf="restaurants">
-            <ion-col *ngFor="let restaurant of restaurants" col-4>
+        <ion-row *ngIf="restaurants" text-center>
+            <ion-col *ngFor="let restaurant of restaurants" col-sm-4 col-xs-12>
                 <button color="light" text-capitalize class="button-restaurants" (tap)="showRestaurantAction(restaurant.id_restaurant)">
                     {{ restaurant.name }}
                 </button>

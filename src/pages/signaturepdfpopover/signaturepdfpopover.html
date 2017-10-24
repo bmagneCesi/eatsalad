@@ -1,0 +1,81 @@
+<ion-content style="background-color:#89BD29!important;margin:0px;padding:0px 10px">
+  <ion-icon name="close" class="close-modal" (tap)="dismissModal()"></ion-icon>    
+  <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+    <tr>
+        <td align="center" valign="top">
+            <table style="padding:0px" width="100%" border="0" cellpadding="20" cellspacing="0" id="emailContainer">
+                <tr class="header">
+                    <td align="center" valign="top">
+                        <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                            <tr>
+                                <td align="center" valign="top">
+                                    <img class="logo-header" src="assets/img/logo-app.png" alt="">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                <td align="center" valign="top">
+                    <table border="0" cellpadding="20" cellspacing="0" width="100%">
+                        <tr>
+                            <td align="center" valign="top">
+                                <h1>SCORE TOTAL : {{ scoretotal }} %</h1>
+                            </td>
+                        </tr>
+                    </table>
+                    <table border="0" cellpadding="20" cellspacing="0" width="100%">
+                        <tr *ngFor="let category of categoryStat">
+                            <td align="center" valign="top">
+        
+                                <h1 style="font-family:Helvetica, sans-serif;color: #FFFFFF;text-align: center;font-weight: 500;font-size: 25px;margin: 40px auto;border:none;">{{ category.category }}</h1>
+                                
+                                <ng-container *ngFor="let subcategory of subCategoryStat">
+
+                                        <table *ngIf="subcategory.category == category.category" border="0" style="border:1px solid #fff;border-radius: 8px;margin: 10px auto;padding: 0px;overflow: hidden;" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                                            <tr>
+                                                <td colspan="2" [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + subcategory.score + '%, #bdd88c 0%)' }">
+                                                    <h3 style="padding: 0px;margin:0;padding: 10px;color:#6a962f;">{{ subcategory.subcategory }}<span style="float:right">{{ subcategory.score }}%</span></h3>
+                                                </td>
+                                            </tr>
+                                              <ng-container *ngFor="let response of responses">
+                                                <tr *ngIf="response.id_question_subcategory == subcategory.id_question_subcategory && subcategory.question_category_id == category.id_question_category" style="min-height: 40px;padding: 10px;40px;display: inline-flex;width: 100%;align-items: center;border-top:1px dashed #fff">
+                                                    <td style="width:70%;font-size: 17px;display: inline-flex;align-items: center;color:#fff">{{response.question}}</td>    
+                                                    <td style="width:30%;text-align:center;">
+
+                                                            <span *ngIf="response.score == 0" style="background-color:#c30004;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">{{response.response}}</span>        
+
+                                                            <span *ngIf="response.score == 1" style="background-color:#fc6308;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">{{response.response}}</span>     
+  
+                                                            <span *ngIf="response.score == 2" style="background-color:#fece09;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">{{response.response}}</span>     
+
+                                                            <span *ngIf="response.score == 3" style="background-color:#1cd304;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">{{response.response}}</span>     
+                                                    </td>    
+                                                </tr>  
+                                                <tr *ngIf="response.id_question_subcategory == subcategory.id_question_subcategory && subcategory.question_category_id == category.id_question_category && response.comment != ''">                                                                                            
+                                                    <td colspan="2" style="width:100%;">                                                                                            
+                                                        <p style="display:block;width:100%;text-align:center;color:#fff">"{{response.comment}}"</p>                                                                                   
+                                                    </td>                                                                                           
+                                                </tr>                                                                                            
+                                                <tr *ngIf="response.id_question_subcategory == subcategory.id_question_subcategory && subcategory.question_category_id == category.id_question_category">  
+                                                    <td colspan="2" style="text-align:center">
+                                                      <ng-container *ngFor="let photo of response.photos">
+                                                            <img style="padding:1px;width:24%;height:auto;margin:0 auto; text-align:center" src="{{photo}}"/>  
+                                                      </ng-container>
+                                                    </td>                                                            
+                                                </tr>    
+                                              </ng-container>
+                                          </table>
+
+                                      </ng-container>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+        </table>
+</ion-content>

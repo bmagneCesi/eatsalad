@@ -1,0 +1,20 @@
+page-signaturepdfpopover {
+
+    .logo-header{
+        width:150px;
+    }
+    .header{
+        height:100px;
+        background:#fff;
+        img{
+            margin-top:25px;
+        }
+    }
+    .close-modal{
+        position:absolute;
+        right: 20px;
+        top: 10px;
+        font-size:50px;
+        color:#000;
+    }
+}

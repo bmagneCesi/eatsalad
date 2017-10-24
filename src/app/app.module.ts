@@ -37,6 +37,7 @@ import { AjoutquestionmodalPage } from '../pages/ajoutquestionmodal/ajoutquestio
 import { AjoutrestaurantmodalPage } from '../pages/ajoutrestaurantmodal/ajoutrestaurantmodal';
 import { VillelistPage } from '../pages/villelist/villelist';
 import { AjoutvillemodalPage } from '../pages/ajoutvillemodal/ajoutvillemodal';
+import { SignaturepdfpopoverPage } from '../pages/signaturepdfpopover/signaturepdfpopover';
 
 
 // Providers
@@ -66,7 +67,8 @@ import { HttpModule } from '@angular/http'
     AjoutrestaurantmodalPage,
     StatisticSubCategoryPage,
     VillelistPage,
-    AjoutvillemodalPage
+    AjoutvillemodalPage,
+    SignaturepdfpopoverPage
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,8 @@ import { HttpModule } from '@angular/http'
     AjoutrestaurantmodalPage,
     StatisticSubCategoryPage,
     VillelistPage,
-    AjoutvillemodalPage
+    AjoutvillemodalPage,
+    SignaturepdfpopoverPage
   ],
   providers: [
     StatusBar,

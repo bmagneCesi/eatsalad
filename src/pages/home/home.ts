@@ -29,7 +29,7 @@ export class HomePage {
   }
   
   loginAction(): void {
-    // if (this.user == "admin" && this.password == "admin") {
+    // if (this.user == "BaratCorporate" && this.password == "Eatsalad33") {
     //   this.navCtrl.push(VillelistPage);
     // }
     // else

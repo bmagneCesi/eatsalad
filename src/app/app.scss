@@ -33,8 +33,49 @@
     top:65px;
 }
 
+.subcategory-button{
+    width: 160px;
+    padding:100px;
+    height: 160px;
+    border-radius: 8px;
+    background-color: transparent;
+    background-image: url('../assets/img/bouton.png');
+    background-size: contain;
+    color: #000;
+    white-space: normal;
+    margin: 10px;
+    text-align: center
+}
+
+.subcategory-button:active{
+    background-color: transparent;
+    background-image: url('../assets/img/bouton-on.png');
+}
+
+.subcategory-button:hover{
+    background-color: transparent;
+    // background-image: url('../assets/img/bouton-on.png');
+}
+
+.form-done{
+    background-color: transparent;
+    background-image: url('../assets/img/bouton-ok.png');
+    // background-size: contain;
+}
+
+.home-background{
+    background-image: url('../assets/img/home.png');
+    background-repeat:no-repeat;
+    background-size:cover;
+    width:100%;
+    height:100%;
+}
+
 .main-container{
     background-image: url('../assets/img/main-container-background.png');
+    background-repeat:no-repeat;
+    background-size:cover;
+    width:100%;
     min-height: calc(100vh - 150px);
 }
 

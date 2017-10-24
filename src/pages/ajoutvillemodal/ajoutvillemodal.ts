@@ -15,14 +15,10 @@ import { DatabaseProvider } from './../../providers/database/database';
   templateUrl: 'ajoutvillemodal.html',
 })
 export class AjoutvillemodalPage {
-
-  ville = [];
   
     constructor(public viewCtrl: ViewController ,public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider, public modalController:ModalController) {
       this.platform.ready().then(() => {
-        this.databaseprovider.getVilleById(this.navParams.get('id_ville')).then((data) => {
-          this.ville = data;
-        });
+
       });
     }
   

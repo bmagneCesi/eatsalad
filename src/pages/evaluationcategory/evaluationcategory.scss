@@ -10,10 +10,15 @@ page-evaluationcategory{
         background-image: url('../assets/img/background-title.png');
         background-size: contain;
         line-height: 150px;
+        height: 150px;
         background-repeat: no-repeat;
         font-family: 'alittlesunshine';
         background-position: center center;
         font-size: 50px;
+    }
+
+    @media (max-width:767px){
+        line-height: 20px;
     }
 
     .subcategory-button{
