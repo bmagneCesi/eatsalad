@@ -68,7 +68,7 @@ CREATE TABLE `question_has_response_image` (
 );
 
 INSERT OR IGNORE INTO `response` VALUES (1,"CONFORME",3), (2,"SATISFAIT / À AMÉLIORER",2), (3,"PEU SATISFAIT",1), (4,"TRÈS PEU SATISFAIT",0);
-INSERT OR IGNORE INTO `question_subcategory` VALUES (1,"Extérieur",1), (2,"Salle",1), (3,"Espace sanitaire",1), (4,"Sécurité",1), (5,"Cuisine",2), (6,"Chambre Froide",2), (7,"Gestion produits",2), (8,"Accueil clientelle",3), (9,"Départ clientelle",3), (10,"Prise de commande et encaissement",3), (11,"Emporter",3), (12,"Gestion produits",3);
+INSERT OR IGNORE INTO `question_subcategory` VALUES (1,"Extérieur",1), (2,"Salle",1), (3,"Espace sanitaire",1), (4,"Sécurité",1), (5,"Cuisine",2), (6,"Chambre Froide",2), (7,"Gestion produits",2), (8,"Accueil clientèle",3), (9,"Départ clientèle",3), (10,"Prise de commande et encaissement",3), (11,"Emporter",3), (12,"Gestion produits",3);
 INSERT OR IGNORE INTO `question_category` VALUES (1,"RESTAURANT"), (2,"CUISINE"), (3,"SERVICE CLIENT");
 INSERT OR IGNORE INTO `question` VALUES (1, "Propreté de la terrasse",1),
 (2, "Propreté de la vitrine/façade",1),
@@ -135,7 +135,7 @@ INSERT OR IGNORE INTO `question` VALUES (1, "Propreté de la terrasse",1),
 (63, "Produits : Fraicheur desserts",7),
 (64, "Boisson / Fusili / Riz / Dessert : Emballage",7),
 (65, "Boisson / Fusili / Riz / Dessert : Présence de la date limite de consommation",7),
-(66, "DLD (étiquetage ingrédients)",7),
+(66, "DLC (étiquetage ingrédients)",7),
 (67, "Taille des découpes",7),
 (68, "Grammage : Bases salades / fusili / riz",7),
 (69, "Grammage : Desserts ananas / fromages blancs",7),
@@ -160,7 +160,7 @@ INSERT OR IGNORE INTO `question` VALUES (1, "Propreté de la terrasse",1),
 (88, "Accessibilité, disponibilité et visibilité des produits en vente libre-service pour la clientèle : Café et thé",10),
 (89, "Accessibilité et visibilité des flyers concept EAT SALAD mis à disposition des clients",10),
 (90, "Libre-service clientèle : Propreté des plateaux",10),
-(91, "Libre-service clientèle : Présence de set de table",10),
+(91, "Libre-service clientèle : Présence de set de plateaux",10),
 (92, "Rangement de la commande dans le sac",11),
 (93, "Présence de produits : Sac kraft à l'intérieur pour boisson ou dessert",11),
 (94, "Présence de produits : Kit couverts",11),
@@ -169,7 +169,8 @@ INSERT OR IGNORE INTO `question` VALUES (1, "Propreté de la terrasse",1),
 (97, "Armoires réfrigérée : Facing armoire réfrigérée bases",12),
 (98, "Armoires réfrigérée : Makeline propre et garnie",12),
 (99, "Propreté des vitrines réfrigérées",12),
-(100, "Lors de la confection d'une salade sur mesure (Quantité des ingrédients et de la sauce)",12);
+(100, "Lors de la confection d'une salade sur mesure (Quantité des ingrédients et de la sauce)",12),
+(101, "Matériel non référencé par BARAT CORPORATE",2);
 
 INSERT OR IGNORE INTO `restaurant` VALUES (1,"BORDEAUX ALBRET","8 COURS D’ALBRET","abidine.daffe@eatsalad.fr",1),
 (2,"MÉRIGNAC","128 AVENUE DE LA SOMME","abidine.daffe@eatsalad.fr",2),

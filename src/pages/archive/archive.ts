@@ -31,7 +31,7 @@ export class ArchivePage {
   }
 
   showArchive(id_evaluation){
-    this.navCtrl.push(StatisticPage, {'id_evaluation': id_evaluation});
+    this.navCtrl.push(StatisticPage, {'id_evaluation': id_evaluation, 'id_restaurant': this.id_restaurant});
   }
   
 }

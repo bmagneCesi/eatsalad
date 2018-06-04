@@ -8,6 +8,7 @@ import { SQLite } from '@ionic-native/sqlite';
 import { SQLitePorter } from '@ionic-native/sqlite-porter';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { SignaturePadModule } from 'angular2-signaturepad';
@@ -116,7 +117,9 @@ import { HttpModule } from '@angular/http'
     File,
     Transfer,
     FilePath,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FileTransfer,
+    FileTransferObject,
   ]
 })
 export class AppModule {}

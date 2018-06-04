@@ -68,12 +68,12 @@ export class EvaluationPage {
   addPicture(){
     
     const options: CameraOptions = {
-      quality: 50,
+      quality: 70,
       sourceType: this.camera.PictureSourceType.CAMERA,
       saveToPhotoAlbum: false,
       correctOrientation: true,
-      targetHeight: 2000,
-      targetWidth: 1000
+      targetHeight: 1000,
+      targetWidth: 750
     }
     
     this.camera.getPicture(options).then((imagePath) => {
@@ -81,7 +81,7 @@ export class EvaluationPage {
       var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
       this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
     }, (err) => {
-     console.log('Error take picture: ' + JSON.stringify(err));
+     console.log('Error taking picture: ' + JSON.stringify(err));
     });
     
   }

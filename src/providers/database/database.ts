@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { SQLitePorter } from '@ionic-native/sqlite-porter';
-import { Http } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http ,Response } from '@angular/http';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import {Observable} from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
- 
+
 @Injectable()
 export class DatabaseProvider {
   database: SQLiteObject;
   private databaseReady: BehaviorSubject<boolean>;
+  apiRestUrl:String = '/rest/';
 
   constructor(public sqlitePorter: SQLitePorter, private storage: Storage, private sqlite: SQLite, private platform: Platform, private http: Http) {
     this.databaseReady = new BehaviorSubject(false);
@@ -32,7 +36,19 @@ export class DatabaseProvider {
         });
     });
   }
- 
+
+  private catchError(error : Response | any){
+    console.log(Observable.throw(error));
+  }
+
+  private logResponse(res : Response){
+    console.log(res);
+  }
+
+  private extractData(res : Response){
+    return res.json();
+  }
+
   fillDatabase() {
     this.http.get('assets/dump.sql')
       .map(res => res.text())
@@ -46,7 +62,7 @@ export class DatabaseProvider {
           .catch(e => console.error(e));
       });
   }
- 
+
   resetDatabase() {
     this.sqlite.deleteDatabase({name: 'data.db', location: 'default'}).then(data => {
       this.storage.set('database_filled', false);
@@ -130,30 +146,38 @@ export class DatabaseProvider {
     });
   }
 
-  getVilles() {
-    return this.database.executeSql("SELECT * FROM `ville`", []).then((data) => {
-      let villes = [];
-      if(data == null) 
-      {
-        return;
-      }
+    getVilles() {
+        return this.http.get('/rest/city')
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
 
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          for(var i = 0; i < data.rows.length; i++) {
-            villes.push(data.rows.item(i));
-          }
-        }
-      }
-
-      return villes;
-    }, err => {
-      console.log('Error getRestaurantName: ', JSON.stringify(err));
-      return [];
-    });
-  }
+  // getVilles() {
+  //   return this.database.executeSql("SELECT * FROM `ville`", []).then((data) => {
+  //     let villes = [];
+  //     if(data == null)
+  //     {
+  //       return;
+  //     }
+  //
+  //     if(data.rows)
+  //     {
+  //       if(data.rows.length > 0)
+  //       {
+  //         for(var i = 0; i < data.rows.length; i++) {
+  //           villes.push(data.rows.item(i));
+  //         }
+  //       }
+  //     }
+  //
+  //     return villes;
+  //   }, err => {
+  //     console.log('Error getRestaurantName: ', JSON.stringify(err));
+  //     return [];
+  //   });
+  // }
  
   getAllRestaurants() {
     return this.database.executeSql("SELECT * FROM `restaurant` ORDER BY id_restaurant DESC", {}).then((data) => {
@@ -792,7 +816,7 @@ export class DatabaseProvider {
   }
 
   getResponseByIdEvaluation(id_evaluation) {
-    return this.database.executeSql("SELECT question_has_response_image.path as photo, question_has_response.comment, response.response, response.score, question.question, question_subcategory.id_question_subcategory as id_question_subcategory, question_has_response.id_question_has_response FROM `question_has_response` LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category LEFT JOIN question_has_response_image ON question_has_response.id_question_has_response = question_has_response_image.question_has_response_id  WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
+    return this.database.executeSql("SELECT question_has_response_image.path as photo, question_has_response.comment, response.response, response.id_response, response.score, question.question, question.id_question, question_subcategory.id_question_subcategory as id_question_subcategory, question_has_response.id_question_has_response FROM `question_has_response` LEFT JOIN `response` ON question_has_response.response_id = response.id_response LEFT JOIN `question` ON question_has_response.question_id = question.id_question LEFT JOIN `question_subcategory` ON question.question_subcategory_id = question_subcategory.id_question_subcategory LEFT JOIN `question_category` ON question_subcategory.question_category_id = question_category.id_question_category LEFT JOIN question_has_response_image ON question_has_response.id_question_has_response = question_has_response_image.question_has_response_id  WHERE `question_has_response`.evaluation_id = " + id_evaluation, {}).then((data) => {
       let responses = [];
       let photos = [];
       let idAlreadyDone = [];
@@ -811,18 +835,18 @@ export class DatabaseProvider {
               responses[idAlreadyDone.indexOf(data.rows.item(i).id_question_has_response)].photos.push(data.rows.item(i).photo);
             }
             else{
-              responses.push({'photos': [data.rows.item(i).photo], 'id_question_subcategory': data.rows.item(i).id_question_subcategory, 'score': data.rows.item(i).score, 'question': data.rows.item(i).question, 'response': data.rows.item(i).response, 'comment': data.rows.item(i).comment, })
+              responses.push({ 'photos': [data.rows.item(i).photo], 'id_question_subcategory': data.rows.item(i).id_question_subcategory, 'score': data.rows.item(i).score, 'question': data.rows.item(i).question, 'id_question': data.rows.item(i).id_question, 'id_response': data.rows.item(i).id_response, 'response': data.rows.item(i).response, 'comment': data.rows.item(i).comment, })
               idAlreadyDone.push(data.rows.item(i).id_question_has_response);
             }
               
           }
         }
       }
-      console.log(JSON.stringify(responses));
+
       return responses;
 
     }, err => {
-      console.log('Error: ', JSON.stringify(err));
+
       return [];
     });
   }

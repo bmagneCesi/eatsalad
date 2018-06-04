@@ -25,7 +25,7 @@ export class VillelistPage {
   villes = [];
   constructor(public platform: Platform, public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, private databaseprovider: DatabaseProvider ) {
     this.platform.ready().then(() => {
-      this.databaseprovider.getVilles().then(data => {
+      this.databaseprovider.getVilles().subscribe(data => {
         this.villes = data;
         console.log(JSON.stringify(data));
       });

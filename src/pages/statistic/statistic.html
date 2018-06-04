@@ -24,13 +24,16 @@
                     </ion-col>
                 </ion-row>
             </ng-container>
-            <ion-row *ngIf="evaluation.comment != ''">
+            <ion-row *ngIf="evaluation.comment != '' && evaluation.comment != 'undefined'">
                 <h1 class="title">COMMENTAIRE GÉNÉRAL</h1>
             </ion-row>
-            <ion-row *ngIf="evaluation.comment != ''">
+            <ion-row *ngIf="evaluation.comment != '' && evaluation.comment != 'undefined'">
                 <ion-col col-8 offset-2>
                     <p text-center>"{{ evaluation.comment }}"</p>
                 </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12 text-center>Exporter &nbsp;<ion-icon class="ios-share-outline" name="ios-share-outline" (tap)="generatePdf()"></ion-icon></ion-col>
             </ion-row>
         </ion-grid>
 </ion-content>
