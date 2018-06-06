@@ -153,7 +153,7 @@ export class DatabaseProvider {
     addEvaluation(data) {
         return this.http.post('/rest/evaluation', data)
             // .do((res: any) => console.log(JSON.stringify(res)))
-            .map((res: any) => res)
+            .map((res: any) => res.json())
             .catch((error: any) => {
                 return Observable.throw(error);
         })
@@ -179,6 +179,19 @@ export class DatabaseProvider {
 
     getRestaurantEvaluations(id_restaurant){
         return this.http.get('/rest/evaluation-by-restaurant/'+id_restaurant)
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
+    addAnswers(id_evaluation, answers) {
+        var data = {
+            'id_evaluation': id_evaluation,
+            'answers': answers
+        };
+        return this.http.post('/rest/evaluation-answer', data)
             // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
             .catch((error:any) => {
@@ -239,6 +252,15 @@ export class DatabaseProvider {
 
     getSubCategories() {
         return this.http.get('/rest/question-sub-categories')
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
+    getSubCategory(id_subcategory) {
+        return this.http.get('/rest/question-sub-category/'+id_subcategory)
             // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
             .catch((error:any) => {
@@ -349,32 +371,14 @@ export class DatabaseProvider {
 
 
 
-  getAllResponses() {
-    
-    return this.database.executeSql("SELECT * FROM `response`", {}).then((data) => {
-      let responses = [];
-      if(data == null) 
-      {
-        return;
-      }
-
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          for(var i = 0; i < data.rows.length; i++) {
-            responses.push(data.rows.item(i));
-          }
-        }
-      }
-
-      return responses;
-
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });
-  }
+    getAnswers() {
+        return this.http.get('/rest/answers')
+        // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
 
   deleteEvaluationSubcategory(id_question_subcategory, id_evaluation){
     return this.database.executeSql('DELETE FROM question_has_response WHERE question_has_response.evaluation_id = ' + id_evaluation + ' AND question_has_response.question_id in (SELECT id_question FROM question WHERE question.question_subcategory_id = ' + id_question_subcategory +')', {}).then((data) => {;
@@ -734,42 +738,6 @@ export class DatabaseProvider {
       console.log('Error: ', JSON.stringify(err));
       return [];
     });
-  }
-
-
-  addResponses(id_evaluation, responses) {        
-    
-    responses.forEach(response => {
-      
-      
-      this.database.executeSql('INSERT INTO `question_has_response`(comment, question_id, response_id, evaluation_id) VALUES(\'' + response.data.comment + '\', \'' + response.data.question.id_question + '\', \'' + response.data.response.id_response + '\', \'' + id_evaluation + '\')', {}).then((id_qhr) => {
-        let last_id_question_has_response = id_qhr.insertId;
-                
-        if('images' in response.data)
-        {
-          let images = response.data.images;
-          images.forEach(image => {
-
-            this.database.executeSql('INSERT INTO `question_has_response_image`(path, question_has_response_id) VALUES(\'' + image.image + '\', ' + last_id_question_has_response + ')', {}).then((data) => {
-
-              return data;
-            }, err => {
-              console.log('Error insert image: ', JSON.stringify(err));
-              return [];
-            }); 
-
-          });
-        }        
-
-      }, err => {
-        console.log('Error: ', JSON.stringify(err));
-        return [];
-      });
-
-      
-
-    });
-    
   }
 
   getDatabaseState() {

@@ -45,8 +45,8 @@ export class RestaurantDetailPage {
             'id_restaurant' : this.id_restaurant,
             'subcategories_done' : []
         };
-        this.databaseprovider.addEvaluation(data).subscribe((data) => {
-            this.navCtrl.push(EvaluationCategoryPage, {'id_restaurant': this.id_restaurant, 'id_evaluation': data.id_evaluation});
+        this.databaseprovider.addEvaluation(data).subscribe((id_evaluation) => {
+            this.navCtrl.push(EvaluationCategoryPage, {'id_restaurant': this.id_restaurant, 'id_evaluation': id_evaluation});
         });
     }
 

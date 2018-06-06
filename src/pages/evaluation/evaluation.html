@@ -17,14 +17,14 @@
 
         <ion-row>
             <ion-slides>
-                <ion-slide *ngFor="let question of questions; let i=index">
+                <ion-slide *ngFor="let question of subcategory.questions; let i=index">
                     <ion-row><h1 class="subtitle">{{ question.question }}</h1></ion-row>
                     <ion-row col-md-10 offset-md-1 radio-group text-center>
-                        <ion-item text-wrap text-center class="response-button" [ngClass]="{checked : radioChecked == response.id_response}" *ngFor="let response of responses" no-lines>
-                            <ion-label class="response-bck response-{{response.score}}">
-                                <span>{{ response.response}}</span>
+                        <ion-item text-wrap text-center class="response-button" [ngClass]="{checked : radioChecked == answer.id}" *ngFor="let answer of answers" no-lines>
+                            <ion-label class="response-bck response-{{answer.score}}">
+                                <span>{{ answer.answer}}</span>
                             </ion-label>
-                            <ion-radio (ionSelect)="onSelectionChange(question, response, $event)" value="{{response.id_response}}"></ion-radio>
+                            <ion-radio (ionSelect)="onSelectionChange(question, answer, $event)" value="{{answer.id}}"></ion-radio>
                         </ion-item>
                     </ion-row>
                     <ion-row col-10 offset-1>
@@ -38,7 +38,7 @@
                         </ion-item>
                         <ion-col col-1></ion-col>
                         <ion-col col-1 nopadding>
-                            <button color="light" (tap)="addPicture()" *ngIf="imagesArray.length < 4" class="camera-button" ion-button icon-only>
+                            <button color="light" (tap)="addPhoto()" *ngIf="imagesArray.length < 4" class="camera-button" ion-button icon-only>
                                 <ion-icon name="ios-camera"></ion-icon>
                             </button>
                         </ion-col>

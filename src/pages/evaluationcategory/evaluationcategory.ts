@@ -68,7 +68,6 @@ export class EvaluationCategoryPage {
     ionViewDidEnter(){
         this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((evaluation) => {
             this.subcategoriesDone = evaluation.subcategories_done;
-            console.log(JSON.stringify(evaluation));
         });
     }
 
@@ -79,7 +78,7 @@ export class EvaluationCategoryPage {
     * __________________________
     *
     * */
-    evaluateAction(category, subcategory, eraseAlert):void {
+    evaluateAction(subcategory, eraseAlert):void {
         if(eraseAlert) {
             let alert = this.alertCtrl.create({
                 title: 'Évaluation déjà effectuée',
@@ -94,14 +93,14 @@ export class EvaluationCategoryPage {
                         cssClass: 'alertDanger',
                         handler: () => {
                             for (var i = 0; i <  this.subcategoriesDone.length; i++){
-                                if ( this.subcategoriesDone[i] === subcategory.id_question_subcategory) {
+                                if ( this.subcategoriesDone[i] === subcategory.id) {
                                     this.subcategoriesDone.splice(i, 1);
                                     break;
                                 }
                             }
                             this.nativeStorage.setItem('subcategories-done', this.subcategoriesDone);
-                            this.databaseprovider.deleteEvaluationSubcategory(subcategory.id_question_subcategory, this.id_evaluation).then(() => {
-                                this.navCtrl.push(EvaluationPage, {'category': category, 'subcategory':subcategory, 'id_restaurant': this.id_restaurant, 'id_evaluation': this.id_evaluation});
+                            this.databaseprovider.deleteEvaluationSubcategory(subcategory.id, this.id_evaluation).then(() => {
+                                this.navCtrl.push(EvaluationPage, {'subcategory':subcategory, 'id_restaurant': this.id_restaurant, 'id_evaluation': this.id_evaluation});
                             });
                         }
                     }
@@ -109,7 +108,7 @@ export class EvaluationCategoryPage {
             });
         alert.present();
         }else{
-            this.navCtrl.push(EvaluationPage, {'category': category, 'subcategory':subcategory, 'id_restaurant': this.id_restaurant, 'id_evaluation': this.id_evaluation});
+            this.navCtrl.push(EvaluationPage, {'subcategory':subcategory, 'id_restaurant': this.id_restaurant, 'id_evaluation': this.id_evaluation});
         }
     }
 
