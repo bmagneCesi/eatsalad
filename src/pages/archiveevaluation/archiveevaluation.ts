@@ -23,7 +23,7 @@ export class ArchiveEvaluationPage {
     this.platform.ready().then(() => {
         this.id_evaluation = this.navParams.get('id_evaluation');
         this.id_category = this.navParams.get('id_category');
-        this.databaseprovider.getEvaluationById(this.id_evaluation).then((data) => {
+        this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((data) => {
           this.evaluation = data;
         });
         this.databaseprovider.getResponseByIdEvaluationByCategory(this.id_evaluation, this.id_category).then((data) => {
@@ -32,7 +32,7 @@ export class ArchiveEvaluationPage {
           }
           this.responses = data;
           console.log(JSON.stringify(data));
-          this.databaseprovider.getCategoryById(this.id_category).then((category) => {
+          this.databaseprovider.getCategory(this.id_category).subscribe((category) => {
             this.category = category;
           });
 

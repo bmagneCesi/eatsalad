@@ -17,7 +17,7 @@
 
       <ion-row *ngIf="villes" text-center>
           <ion-col *ngFor="let ville of villes" col-sm-4 col-xs-12>
-              <button color="light" text-capitalize class="button-ville" (tap)="showRestaurantAction(ville.id_ville)">
+              <button color="light" text-capitalize class="button-ville" (tap)="showRestaurantAction(ville.id)">
                   {{ ville.name }}
               </button>
           </ion-col>
@@ -25,7 +25,7 @@
       
       <ion-row>
         <ion-col col-12 text-center>
-            <ion-icon class="bottom-button"  (tap)="addVilleAction()" name="ios-add-circle"></ion-icon>                    
+            <ion-icon class="bottom-button"  (tap)="addCityAction()" name="ios-add-circle"></ion-icon>
         </ion-col>
       </ion-row>
       

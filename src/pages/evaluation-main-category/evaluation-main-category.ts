@@ -27,47 +27,50 @@ export class EvaluationMainCategoryPage {
   id_restaurant:string[] = [];
   id_evaluation:number;  
 
-  constructor(public alertCtrl: AlertController, public nativeStorage: NativeStorage, private databaseprovider: DatabaseProvider, public navCtrl: NavController, public navParams: NavParams) {
-    this.databaseprovider.getCategories().then((data) => {
-      this.categories = data;
-    });
-    this.navCtrl.swipeBackEnabled = false;
-    this.id_restaurant = this.navParams.get('id_restaurant');
-    this.id_evaluation = this.navParams.get('id_evaluation');
-    
-  }
+    constructor(
+        public alertCtrl: AlertController,
+        public nativeStorage: NativeStorage,
+        private databaseprovider: DatabaseProvider,
+        public navCtrl: NavController,
+        public navParams: NavParams
+    ) {
+        this.databaseprovider.getCategories().subscribe((data) => {
+            this.categories = data;
+        });
+        this.navCtrl.swipeBackEnabled = false;
+        this.id_restaurant = this.navParams.get('id_restaurant');
+        this.id_evaluation = this.navParams.get('id_evaluation');
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EvaluationMainCategoryPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad EvaluationMainCategoryPage');
+    }
 
-  showSubcategories(id_category){
-    this.navCtrl.push(EvaluationCategoryPage, {'id_restaurant': this.id_restaurant, 'id_evaluation': this.id_evaluation, 'id_category': id_category});
-  }
+    showSubcategories(id_category){
+        this.navCtrl.push(EvaluationCategoryPage, {'id_restaurant': this.id_restaurant, 'id_evaluation': this.id_evaluation, 'id_category': id_category});
+    }
 
-  cancelEvaluation():void {
-    let alert = this.alertCtrl.create({
-      title: 'Annuler l\'évaluation ?',
-      message: 'En revenant au menu précédant, vous perdrez toutes les informations relative à l\'évaluation en cours.',
-      buttons: [
-        {
-          text: 'Annuler',
-          cssClass: 'alertDanger',
-          handler: () => {
-
-            this.databaseprovider.cancelEvaluation(this.id_evaluation);
-            this.nativeStorage.setItem('subcategories-done', []);
-            this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
-
-          }
-        },
-        {
-          text: 'Poursuivre',
-          role: 'cancel'
-        }
-      ]
-    });
-    alert.present();
-  }
+    cancelEvaluation():void {
+        let alert = this.alertCtrl.create({
+            title: 'Annuler l\'évaluation ?',
+            message: 'En revenant au menu précédant, vous perdrez toutes les informations relative à l\'évaluation en cours.',
+            buttons: [
+                {
+                    text: 'Annuler',
+                    cssClass: 'alertDanger',
+                    handler: () => {
+                        this.databaseprovider.cancelEvaluation(this.id_evaluation);
+                        this.nativeStorage.setItem('subcategories-done', []);
+                        this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
+                    }
+                },
+                {
+                    text: 'Poursuivre',
+                    role: 'cancel'
+                }
+            ]
+        });
+        alert.present();
+    }
 
 }

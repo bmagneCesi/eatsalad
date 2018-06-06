@@ -24,7 +24,7 @@ export class ArchivePage {
 
   ionViewWillEnter(){
     this.id_restaurant = this.navParams.get('id_restaurant');
-    this.databaseprovider.getEvaluationByRestaurant(this.id_restaurant).then((data) => {
+    this.databaseprovider.getRestaurantEvaluations(this.id_restaurant).subscribe((data) => {
       this.archives = data;
       console.log(JSON.stringify(data));
     });

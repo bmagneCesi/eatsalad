@@ -34,7 +34,7 @@ export class StatisticPage {
     this.platform.ready().then(() => {
         this.id_evaluation = this.navParams.get('id_evaluation');   
         this.id_restaurant = this.navParams.get('id_restaurant');   
-        this.databaseprovider.getEvaluationById(this.id_evaluation).then((data) => {
+        this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((data) => {
           this.evaluation = data;
         });        
         this.databaseprovider.getTotalResponseScoreByIdEvaluation(this.id_evaluation).then((data) => {
@@ -43,9 +43,9 @@ export class StatisticPage {
               this.categoryStat.push({'id_category': data[i].id_category, 'category': data[i].category, 'score': percent});
           }
         });
-      this.databaseprovider.getEvaluationById(this.id_evaluation).then((data) => {
+      this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((data) => {
         this.evaluation = data;
-        this.databaseprovider.getRestaurant(this.id_restaurant).then((res) => {
+        this.databaseprovider.getRestaurant(this.id_restaurant).subscribe((res) => {
           this.restaurant = res;
           console.log('res: ' + JSON.stringify(res));
           console.log('res2: ' + res);

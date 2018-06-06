@@ -13,7 +13,7 @@ export class AjoutrestaurantmodalPage {
 
   constructor(public viewCtrl: ViewController ,public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider, public modalController:ModalController) {
     this.platform.ready().then(() => {
-      this.databaseprovider.getVilleById(this.navParams.get('id_ville')).then((data) => {
+      this.databaseprovider.getCity(this.navParams.get('id_ville')).subscribe((data) => {
         this.ville = data;
       });
     });
@@ -22,13 +22,12 @@ export class AjoutrestaurantmodalPage {
   saveRestaurant(name, address, emails){
     if (name != "" && address != "" && emails != "") {
         let data = {
-            'name': name.toUpperCase(),
+            'name': name,
             'address': address,
             'emails': emails,
-            'ville': this.ville
+            'id_city': this.navParams.get('id_ville')
         };
-
-        this.databaseprovider.addRestaurant(data).then((data) => {
+        this.databaseprovider.addRestaurant(data).subscribe((data) => {
             this.viewCtrl.dismiss(data);
         });
     }

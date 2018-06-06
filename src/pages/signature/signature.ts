@@ -55,9 +55,9 @@ export class SignaturePage {
             var currentdate = new Date(); 
             this.hour = currentdate.getHours();
             this.minutes = currentdate.getMinutes();
-            this.databaseprovider.getEvaluationById(this.id_evaluation).then((data) => {
+            this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((data) => {
                 this.evaluation = data;
-                this.databaseprovider.getRestaurant(this.id_restaurant).then((res) => {
+                this.databaseprovider.getRestaurant(this.id_restaurant).subscribe((res) => {
                     this.restaurant = res;
                 });
             });

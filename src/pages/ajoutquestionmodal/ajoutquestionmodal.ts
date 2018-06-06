@@ -18,12 +18,12 @@ export class AjoutquestionmodalPage {
     this.platform.ready().then(() => {
         this.modaltitle = this.navParams.get('type');
         if (this.navParams.get('type') == 'sous-categorie') {
-            this.databaseprovider.getCategories().then((data) => {
+            this.databaseprovider.getCategories().subscribe((data) => {
                 this.categories = data;
             });
         }
         if (this.navParams.get('type') == 'question') {
-            this.databaseprovider.getCategories().then((data) => {
+            this.databaseprovider.getCategories().subscribe((data) => {
                 this.categories = data;
             });
         }

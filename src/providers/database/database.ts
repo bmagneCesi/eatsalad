@@ -2,7 +2,7 @@ import { Platform } from 'ionic-angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { SQLitePorter } from '@ionic-native/sqlite-porter';
 import { Injectable } from '@angular/core';
-import { Http ,Response } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -37,18 +37,6 @@ export class DatabaseProvider {
     });
   }
 
-  private catchError(error : Response | any){
-    console.log(Observable.throw(error));
-  }
-
-  private logResponse(res : Response){
-    console.log(res);
-  }
-
-  private extractData(res : Response){
-    return res.json();
-  }
-
   fillDatabase() {
     this.http.get('assets/dump.sql')
       .map(res => res.text())
@@ -68,142 +56,143 @@ export class DatabaseProvider {
       this.storage.set('database_filled', false);
     });
   }
- 
-  addRestaurant(data) {
-    console.log('LADATA ' + JSON.stringify(data));
-    return this.database.executeSql('INSERT INTO `restaurant`(name, address, emails, ville_id) VALUES(\'' + data.name + '\', \'' + data.address + '\', \'' + data.emails + '\', \'' + data.ville.id_ville + '\')', []).then(data => {
-      return data;
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return err;
-    });
-  }
- 
-  addVille(data) {
-    console.log('LADATA ' + JSON.stringify(data));
-    return this.database.executeSql('INSERT INTO `ville`(name, postcode) VALUES(\'' + data.name + '\', \'' + data.postcode + '\')', []).then(data => {
-      return data;
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return err;
-    });
-  }
 
-  deleteRestaurant(id_restaurant) {
-    return this.database.executeSql("DELETE FROM `restaurant` WHERE id_restaurant = " + id_restaurant, []).then(data => {
-      return data;
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return err;
-    });
-  }
+    /*
+    * __________________
+    *
+    * Restaurant Queries
+    * __________________
+    *
+    * */
+    getRestaurants() {
+      return this.http.get('/rest/restaurant')
+          // .do((res: any) => console.log(JSON.stringify(res)))
+          .map((res: any) => res.json())
+          .catch((error: any) => {
+              return Observable.throw(error);
+          })
+    }
 
-  getRestaurant(id_restaurant) {
-    return this.database.executeSql("SELECT * FROM `restaurant` WHERE id_restaurant = " + id_restaurant, []).then((data) => {
-      let restaurant;
-      if(data == null) 
-      {
-        return;
-      }
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          
-          restaurant = data.rows.item(0);
-          
-        }
-      }
-      return restaurant;
+    getRestaurant(id_restaurant) {
+      return this.http.get('/rest/restaurant/'+id_restaurant)
+          // .do((res: any) => console.log(JSON.stringify(res)))
+          .map((res: any) => res.json())
+          .catch((error: any) => {
+              return Observable.throw(error);
+          })
+    }
 
-    }, err => {
-      console.log('Error getRestaurantName: ', JSON.stringify(err));
-      return [];
-    });
-  }
+    addRestaurant(data) {
+      return this.http.post('/rest/restaurant', data)
+          // .do((res: any) => console.log(JSON.stringify(res)))
+          .map((res: any) => res.json())
+          .catch((error: any) => {
+              return Observable.throw(error);
+          })
+    }
 
-  getVilleById(id_ville) {
-    return this.database.executeSql("SELECT * FROM `ville` WHERE id_ville = " + id_ville, []).then((data) => {
-      let ville;
-      if(data == null) 
-      {
-        return;
-      }
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          
-          ville = data.rows.item(0);
-          
-        }
-      }
-      return ville;
+    getRestaurantsByCity(id_ville) {
+      return this.http.get('/rest/restaurants-by-city/'+id_ville)
+          // .do((res: any) => console.log(JSON.stringify(res)))
+          .map((res: any) => res.json())
+          .catch((error: any) => {
+              return Observable.throw(error);
+          })
+    }
 
-    }, err => {
-      console.log('Error getVille: ', JSON.stringify(err));
-      return [];
-    });
-  }
+    deleteRestaurant(id_restaurant) {
+        return this.database.executeSql("DELETE FROM `restaurant` WHERE id_restaurant = " + id_restaurant, []).then(data => {
+            return data;
+        }, err => {
+            console.log('Error: ', JSON.stringify(err));
+            return err;
+        });
+    }
 
-    getVilles() {
+    /*
+    * __________________
+    *
+    * Cities Queries
+    * __________________
+    *
+    * */
+    getCities() {
         return this.http.get('/rest/city')
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+              return Observable.throw(error);
+            })
+    }
+
+    getCity(id_ville) {
+        return this.http.get('/rest/city/'+id_ville)
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+              return Observable.throw(error);
+        })
+    }
+
+    addCity(data) {
+        return this.http.post('/rest/city', data)
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res: any) => res)
+            .catch((error: any) => {
+              return Observable.throw(error);
+        })
+    }
+
+    /*
+    * __________________
+    *
+    * Evaluation Queries
+    * __________________
+    *
+    * */
+    addEvaluation(data) {
+        return this.http.post('/rest/evaluation', data)
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res: any) => res)
+            .catch((error: any) => {
+                return Observable.throw(error);
+        })
+    }
+
+    addEvaluationComment(id_evaluation, comment){
+        return this.database.executeSql('UPDATE `evaluation` SET comment=\'' + comment + '\' WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
+            return data;
+        }, err => {
+            console.log('Error add evaluation comment: ', JSON.stringify(err));
+            return [];
+        });
+    }
+
+    getEvaluation(id_evaluation){
+        return this.http.get('/rest/evaluation/'+id_evaluation)
+            // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
             .catch((error:any) => {
                 return Observable.throw(error);
             })
     }
 
-  // getVilles() {
-  //   return this.database.executeSql("SELECT * FROM `ville`", []).then((data) => {
-  //     let villes = [];
-  //     if(data == null)
-  //     {
-  //       return;
-  //     }
-  //
-  //     if(data.rows)
-  //     {
-  //       if(data.rows.length > 0)
-  //       {
-  //         for(var i = 0; i < data.rows.length; i++) {
-  //           villes.push(data.rows.item(i));
-  //         }
-  //       }
-  //     }
-  //
-  //     return villes;
-  //   }, err => {
-  //     console.log('Error getRestaurantName: ', JSON.stringify(err));
-  //     return [];
-  //   });
-  // }
- 
-  getAllRestaurants() {
-    return this.database.executeSql("SELECT * FROM `restaurant` ORDER BY id_restaurant DESC", {}).then((data) => {
-      let restaurants = [];
-      if(data == null) 
-      {
-        return;
-      }
+    getRestaurantEvaluations(id_restaurant){
+        return this.http.get('/rest/evaluation-by-restaurant/'+id_restaurant)
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
 
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          for(var i = 0; i < data.rows.length; i++) {
-            restaurants.push(data.rows.item(i));
-          }
-        }
-      }
-
-      return restaurants;
-
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });
-  }
+    /*
+    * __________________
+    *
+    * Categories Queries
+    * __________________
+    *
+    * */
   getFullCategories() {
     return this.database.executeSql("SELECT question_category.id_question_category, question_category.name as question_category_name, question_subcategory.id_question_subcategory, question_subcategory.name as question_subcategory_name FROM `question_category`  LEFT JOIN `question_subcategory`  ON question_category.id_question_category = question_subcategory.question_category_id GROUP BY question_category.name, question_subcategory.name", {}).then((data) => {
       let categories = [];
@@ -230,81 +219,33 @@ export class DatabaseProvider {
     });
   }
 
-  getRestaurantByVille(id_ville) {
-    return this.database.executeSql("SELECT * FROM `restaurant` WHERE ville_id = " + id_ville, {}).then((data) => {
-      let restaurant = [];
-      if(data == null) 
-      {
-        return;
-      }
-
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          for(var i = 0; i < data.rows.length; i++) {
-            restaurant.push(data.rows.item(i));
-          }
-        }
-      }
-
-    return restaurant;
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });
-  }
-  getCategoryById(id_category) {
-    return this.database.executeSql("SELECT * FROM `question_category` WHERE id_question_category = " + id_category, {}).then((data) => {
-      let category;
-      if(data == null) 
-      {
-        return;
-      }
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          
-          category = data.rows.item(0);
-          
-        }
-      }
-    
-      return category;
-
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });
+  getCategory(id_category) {
+      return this.http.get('/rest/question-category/'+id_category)
+          // .do((res: any) => console.log(JSON.stringify(res)))
+          .map((res:any)=> res.json())
+          .catch((error:any) => {
+              return Observable.throw(error);
+          })
   }
 
   getCategories() {
-    return this.database.executeSql("SELECT * FROM `question_category`", {}).then((data) => {
-      let categories = [];
-      if(data == null) 
-      {
-        return;
-      }
-
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          for(var i = 0; i < data.rows.length; i++) {
-            categories.push(data.rows.item(i));
-          }
-        }
-      }
-
-    return categories;
-
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });
+      return this.http.get('/rest/question-categories')
+          // .do((res: any) => console.log(JSON.stringify(res)))
+          .map((res:any)=> res.json())
+          .catch((error:any) => {
+              return Observable.throw(error);
+          })
   }
-  
+
+    getSubCategories() {
+        return this.http.get('/rest/question-sub-categories')
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
   getSubcategoriesByCategory(id_question_category) {
     return this.database.executeSql("SELECT * FROM `question_subcategory` WHERE question_category_id = " + id_question_category, {}).then((data) => {
       let subcategories = [];
@@ -324,39 +265,6 @@ export class DatabaseProvider {
       }
 
     return subcategories;
-
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });
-  }
- 
-  getSubCategories() {
-    return this.database.executeSql("SELECT * FROM `question_subcategory`", {}).then((data) => {
-      let subcategories = [];
-      let id_subcategory_tmp;
-      let sub_category_tmp = [];
-
-      if(data == null) 
-      {
-        return;
-      }
-
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          for(var i = 0; i < data.rows.length; i++) {
-            id_subcategory_tmp = data.rows.item(i).id_question_subcategory;
-            sub_category_tmp = data.rows.item(i);
-
-            subcategories.push(data.rows.item(i));
-
-          }
-        }
-      }
-      
-      return subcategories;
 
     }, err => {
       console.log('Error: ', JSON.stringify(err));
@@ -439,66 +347,7 @@ export class DatabaseProvider {
     });
   }
 
-  addEvaluationComment(id_evaluation, comment){
-    return this.database.executeSql('UPDATE `evaluation` SET comment=\'' + comment + '\' WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
-      return data;
-    }, err => {
-      console.log('Error add evaluation comment: ', JSON.stringify(err));
-      return [];
-    });
-  }
 
-  getEvaluationById(id_evaluation){
-    return this.database.executeSql("SELECT * FROM `evaluation` WHERE id_evaluation = " + id_evaluation + " ORDER BY id_evaluation DESC", {}).then((data) => {
-      let evaluation;
-      if(data == null) 
-      {
-        return;
-      }
-
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          
-            evaluation = data.rows.item(0);
-          
-        }
-      }
-
-      return evaluation;
-
-    }, err => {
-      console.log('Error getEvaluationById: ', JSON.stringify(err));
-      return [];
-    });
-  }
-
-  getEvaluationByRestaurant(id_restaurant){
-    return this.database.executeSql("SELECT * FROM `evaluation` WHERE restaurant_id = " + id_restaurant + " ORDER BY id_evaluation DESC", {}).then((data) => {
-      let responses = [];
-      if(data == null) 
-      {
-        return;
-      }
-
-      if(data.rows) 
-      {
-        if(data.rows.length > 0) 
-        {
-          for(var i = 0; i < data.rows.length; i++) {
-            responses.push(data.rows.item(i));
-          }
-        }
-      }
-
-      return responses;
-
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });
-  }
 
   getAllResponses() {
     
@@ -534,20 +383,6 @@ export class DatabaseProvider {
       console.log('Error: ', JSON.stringify(err));
       return [];
     });
-  }
-
-  newEvaluation(id_restaurant) {
-
-    let date = this.getTodayDate();
-    
-    return this.database.executeSql('INSERT INTO `evaluation` (date, comment, restaurant_id) VALUES (\'' + date + '\', \'\', ' + id_restaurant + ')', {}).then((data) => {
-      console.log('after instert: ' + data);
-      return data.insertId;
-    }, err => {
-      console.log('Error insert: ', JSON.stringify(err));
-      return [];
-    });
-    
   }
 
   newCategory(name) {

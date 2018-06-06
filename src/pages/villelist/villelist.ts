@@ -1,6 +1,5 @@
-import { AjoutquestionPage } from './../ajoutquestion/ajoutquestion';
 import { Component } from '@angular/core';
-import { NavController, AlertController, ModalController, Platform } from 'ionic-angular';
+import { NavController, AlertController, ModalController, Platform, LoadingController } from 'ionic-angular';
 
 
 // Pages
@@ -10,6 +9,7 @@ import { AjoutvillemodalPage } from '../ajoutvillemodal/ajoutvillemodal';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
+
 /**
  * Generated class for the VillelistPage page.
  *
@@ -22,41 +22,77 @@ import { DatabaseProvider } from './../../providers/database/database';
   templateUrl: 'villelist.html',
 })
 export class VillelistPage {
+
   villes = [];
-  constructor(public platform: Platform, public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, private databaseprovider: DatabaseProvider ) {
-    this.platform.ready().then(() => {
-      this.databaseprovider.getVilles().subscribe(data => {
-        this.villes = data;
-        console.log(JSON.stringify(data));
-      });
-    });
-  }
 
-  // Return on homepage
-  logoutAction(): void {
-    this.navCtrl.popTo(HomePage);
-  }
+    constructor(
+      public platform: Platform,
+      public navCtrl: NavController,
+      public modalCtrl: ModalController,
+      public alertCtrl: AlertController,
+      private databaseprovider: DatabaseProvider,
+      public loadingCtrl: LoadingController){
 
-  showRestaurantAction(id_ville): void{
-    this.navCtrl.push(RestaurantlistPage, {'id_ville': id_ville});
-  }
+        this.platform.ready().then(() => {
+          this.getCities();
+        });
 
-  addVilleAction(): void {
+    }
 
-      let modal = this.modalCtrl.create(AjoutvillemodalPage);
-      modal.onDidDismiss(data => {
-        if(data)
-          this.getVilles();
-      });
-      modal.present();    
-  }
+    /*
+    * __________________
+    *
+    * Return homepage
+    * __________________
+    *
+    * */
+    logoutAction(): void {
+        this.navCtrl.popTo(HomePage);
+    }
 
+    /*
+    * __________________
+    *
+    * Go to restaurant list page
+    * __________________
+    *
+    * */
+    showRestaurantAction(id_ville): void{
+        this.navCtrl.push(RestaurantlistPage, {'id_ville': id_ville});
+    }
 
-  // Get restaurants
-  getVilles() {
-    this.databaseprovider.getVilles().then(data => {
-      this.villes = data;
-    })
-  }
+    /*
+    * __________________
+    *
+    * Add city
+    * __________________
+    *
+    * */
+    addCityAction(): void {
+        let modal = this.modalCtrl.create(AjoutvillemodalPage);
+        modal.onDidDismiss(data => {
+            if(data.status == 200)
+                this.getCities();
+        });
+        modal.present();
+    }
+
+    /*
+    * __________________
+    *
+    * Get cities
+    * __________________
+    *
+    * */
+    getCities() {
+        let loading = this.loadingCtrl.create({
+            content: 'Chargement...'
+        });
+        loading.present();
+        this.databaseprovider.getCities().subscribe(data => {
+            loading.dismiss();
+            this.villes = data;
+        })
+    }
 
 }

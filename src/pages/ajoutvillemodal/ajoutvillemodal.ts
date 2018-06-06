@@ -18,18 +18,20 @@ export class AjoutvillemodalPage {
   
     constructor(public viewCtrl: ViewController ,public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider, public modalController:ModalController) {
       this.platform.ready().then(() => {
-
+      //  Do something
       });
     }
-  
-    saveVille(name, postcode){
+
+    /*
+    * Add city to rest server
+    * */
+    addCity(name, postcode){
       if (name != "" && postcode) {
           let data = {
-              'name': name.toUpperCase(),
+              'name': name,
               'postcode': postcode,
           };
-  
-          this.databaseprovider.addVille(data).then((data) => {
+          this.databaseprovider.addCity(data).subscribe((data) => {
               this.viewCtrl.dismiss(data);
           });
       }

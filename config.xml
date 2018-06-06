@@ -3,7 +3,7 @@
     <name>EatSalad</name>
     <description>Comptes rendus de visites de franchises.</description>
     <author email="bmagne@me.com" href="http://benjaminmagne.com/">Benjamin Magne</author>
-    <content original-src="index.html" src="http://192.168.1.14:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -104,6 +104,7 @@
     <allow-navigation href="http://10.192.130.41:8100" />
     <allow-navigation href="http://192.168.1.53:8100" />
     <allow-navigation href="http://10.192.130.70:8100" />
+    <allow-navigation href="http://172.20.10.4:8100" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-pdf-generator" spec="file:node_modules/cordova-pdf-generator" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">

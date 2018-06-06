@@ -1,12 +1,12 @@
-import { AjoutquestionPage } from './../ajoutquestion/ajoutquestion';
 import { Component } from '@angular/core';
-import { NavController, AlertController, ModalController, NavParams, Platform } from 'ionic-angular';
+import { NavController, AlertController, ModalController, NavParams, Platform, LoadingController } from 'ionic-angular';
 
 
 // Pages
 import { HomePage } from '../home/home';
 import { RestaurantDetailPage } from '../restaurantdetail/restaurantdetail';
 import { AjoutrestaurantmodalPage } from '../ajoutrestaurantmodal/ajoutrestaurantmodal';
+import { AjoutquestionPage } from './../ajoutquestion/ajoutquestion';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
@@ -17,16 +17,23 @@ import { DatabaseProvider } from './../../providers/database/database';
 })
 export class RestaurantlistPage {
   
-  restaurants: string[] = [];
+  restaurants = [];
   id_ville:number;
 
-  constructor(public navParams: NavParams, public platform: Platform, public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, private databaseprovider: DatabaseProvider ) {
-    this.platform.ready().then(() => {
-      this.id_ville = this.navParams.get('id_ville');
-      this.databaseprovider.getRestaurantByVille(this.id_ville).then(data => {
-        this.restaurants = data;
-      });
-    });
+  constructor(
+      public navParams: NavParams,
+      public platform: Platform,
+      public navCtrl: NavController,
+      public modalCtrl: ModalController,
+      public alertCtrl: AlertController,
+      private databaseprovider: DatabaseProvider,
+      public loadingCtrl: LoadingController){
+
+          this.platform.ready().then(() => {
+            this.id_ville = this.navParams.get('id_ville');
+            this.getRestaurantsByCity(this.id_ville);
+          });
+
   }
 
 
@@ -44,24 +51,28 @@ export class RestaurantlistPage {
   }
 
   addRestaurantAction(): void {
-
       let modal = this.modalCtrl.create(AjoutrestaurantmodalPage, {'type': 'categorie', 'id_ville': this.id_ville});
       modal.onDidDismiss(data => {
         if(data)
-          this.getRestaurants(this.id_ville);
+          this.getRestaurantsByCity(this.id_ville);
       });
       modal.present();    
   }
 
   deleteRestaurantAction(restaurant):void {
     this.databaseprovider.deleteRestaurant(restaurant.id_restaurant).then(data => {
-      this.getRestaurants(this.id_ville);
+      this.getRestaurantsByCity(this.id_ville);
     });
   }
 
-  // Get restaurants
-  getRestaurants(id_ville) {
-    this.databaseprovider.getRestaurantByVille(id_ville).then(data => {
+  // Get restaurants by city
+  getRestaurantsByCity(id_ville) {
+      let loading = this.loadingCtrl.create({
+          content: 'Chargement...'
+      });
+      loading.present();
+    this.databaseprovider.getRestaurantsByCity(id_ville).subscribe(data => {
+      loading.dismiss();
       this.restaurants = data;
     })
   }
