@@ -16,7 +16,7 @@
             </ion-row>
             <ion-row>
                 <div class="subcategory-container">
-                    <ng-container *ngFor="let subcategory of category.question_sub_categories">
+                    <ng-container *ngFor="let subcategory of category.sub_categories">
                         <button [ngClass]="{'form-done': (subcategoriesDone.indexOf(subcategory.id) > -1)}" (tap)="evaluateAction(subcategory, (subcategoriesDone.indexOf(subcategory.id) > -1) ? 1 : 0)" class="subcategory-button button-done" ion-button color="light">
                             {{ subcategory.name }} 
                         </button>

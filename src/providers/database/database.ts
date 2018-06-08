@@ -65,7 +65,7 @@ export class DatabaseProvider {
     *
     * */
     getRestaurants() {
-      return this.http.get('/rest/restaurant')
+      return this.http.get('/rest/restaurants')
           // .do((res: any) => console.log(JSON.stringify(res)))
           .map((res: any) => res.json())
           .catch((error: any) => {
@@ -178,7 +178,7 @@ export class DatabaseProvider {
     }
 
     getRestaurantEvaluations(id_restaurant){
-        return this.http.get('/rest/evaluation-by-restaurant/'+id_restaurant)
+        return this.http.get('/rest/evaluations-by-restaurant/'+id_restaurant)
             // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
             .catch((error:any) => {
@@ -233,7 +233,7 @@ export class DatabaseProvider {
   }
 
   getCategory(id_category) {
-      return this.http.get('/rest/question-category/'+id_category)
+      return this.http.get('/rest/category/'+id_category)
           // .do((res: any) => console.log(JSON.stringify(res)))
           .map((res:any)=> res.json())
           .catch((error:any) => {
@@ -242,7 +242,7 @@ export class DatabaseProvider {
   }
 
   getCategories() {
-      return this.http.get('/rest/question-categories')
+      return this.http.get('/rest/categories')
           // .do((res: any) => console.log(JSON.stringify(res)))
           .map((res:any)=> res.json())
           .catch((error:any) => {
@@ -251,7 +251,7 @@ export class DatabaseProvider {
   }
 
     getSubCategories() {
-        return this.http.get('/rest/question-sub-categories')
+        return this.http.get('/rest/sub-categories')
             // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
             .catch((error:any) => {
@@ -260,8 +260,17 @@ export class DatabaseProvider {
     }
 
     getSubCategory(id_subcategory) {
-        return this.http.get('/rest/question-sub-category/'+id_subcategory)
+        return this.http.get('/rest/sub-category/'+id_subcategory)
             // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
+    cancelEvaluation(id_evaluation) {
+        return this.http.delete('/rest/evaluation/'+id_evaluation)
+        // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
             .catch((error:any) => {
                 return Observable.throw(error);
@@ -423,22 +432,7 @@ export class DatabaseProvider {
     
   }
 
-  cancelEvaluation(id_evaluation) {
 
-    this.database.executeSql('DELETE FROM `evaluation` WHERE id_evaluation = ' +  id_evaluation, {}).then((data) => {
-      return;
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });;
-    this.database.executeSql('DELETE FROM `question_has_response` WHERE evaluation_id = ' +  id_evaluation, {}).then((data) => {
-      return;
-    }, err => {
-      console.log('Error: ', JSON.stringify(err));
-      return [];
-    });
-    
-  }
 
   getAllEvaluations() {
     return this.database.executeSql("SELECT * FROM `evaluation`", {}).then((data) => {

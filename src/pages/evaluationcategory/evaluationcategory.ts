@@ -124,10 +124,10 @@ export class EvaluationCategoryPage {
     }
 
     /*
-    * __________________________
+    * ___________________________________________________________
     *
     * Cancel the evaluation and go back to RestaurantDetail page
-    * __________________________
+    * ___________________________________________________________
     *
     * */
     cancelEvaluation():void {
@@ -139,9 +139,10 @@ export class EvaluationCategoryPage {
                     text: 'Annuler',
                     cssClass: 'alertDanger',
                     handler: () => {
-                        this.databaseprovider.cancelEvaluation(this.id_evaluation);
-                        this.nativeStorage.setItem('subcategories-done', []);
-                        this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
+                        this.databaseprovider.cancelEvaluation(this.id_evaluation).subscribe((res) => {
+                            this.nativeStorage.setItem('subcategories-done', []);
+                            this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
+                        });
                     }
                 },
                 {

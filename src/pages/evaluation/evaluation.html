@@ -47,7 +47,7 @@
                     <br>
                     <br>
                     <ion-row col-10 offset-1>
-                        <ion-col col-6 *ngIf="!isBeginning() && question.id_question">
+                        <ion-col col-6 *ngIf="!isBeginning() && question.id">
                             <button (tap)="prevQuestion()" ion-button class="button-light" color="light">Précédent</button>
                         </ion-col>
                         <ion-col [attr.offset-6]="isBeginning()? true: null" col-6 *ngIf="!isEnd() && !isEmpty(questionHasResponse)">
@@ -62,7 +62,7 @@
                         <ion-col col-3 *ngFor="let image of imagesArray">
                             <div text-center class="photo-container">
                                 <ion-icon class="delete-photo" (tap)="deletePhoto(image.image)" color="light" name="ios-trash"></ion-icon>                                                    
-                                <img class="evaluation-photo" [src]="image.image" />
+                                <ion-img class="evaluation-photo" src="image.image"></ion-img>
                             </div>
                         </ion-col>                        
                     </ion-row>

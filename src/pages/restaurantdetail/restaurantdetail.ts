@@ -1,6 +1,6 @@
 import { RestaurantlistPage } from './../restaurantlist/restaurantlist';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 
 // Pages
 import  { EvaluationCategoryPage } from '../evaluationcategory/evaluationcategory';
@@ -22,15 +22,12 @@ export class RestaurantDetailPage {
         public navCtrl: NavController,
         public navParams: NavParams,
         public platform: Platform,
-        private databaseprovider: DatabaseProvider
-    ) {
+        private databaseprovider: DatabaseProvider,
+    public loadingCtrl: LoadingController
+) {
         this.platform.ready().then(() => {
             this.id_restaurant = this.navParams.get('id_restaurant');
-            this.databaseprovider.getRestaurantEvaluations(this.id_restaurant).subscribe((data) => {
-                if (data.length > 0) {
-                    this.hasEvaluation = true;
-                }
-            });
+            this.getRestaurantEvaluations(this.id_restaurant);
         });
     }
 
@@ -45,6 +42,7 @@ export class RestaurantDetailPage {
             'id_restaurant' : this.id_restaurant,
             'subcategories_done' : []
         };
+        console.log(JSON.stringify(data));
         this.databaseprovider.addEvaluation(data).subscribe((id_evaluation) => {
             this.navCtrl.push(EvaluationCategoryPage, {'id_restaurant': this.id_restaurant, 'id_evaluation': id_evaluation});
         });
@@ -68,6 +66,25 @@ export class RestaurantDetailPage {
     * */
     backToRestaurants(){
         this.navCtrl.popTo(RestaurantlistPage);
+    }
+
+    /*
+    * _______________________
+    *
+    * Get restaurants by city
+    * _______________________
+    * */
+    getRestaurantEvaluations(id_restaurant) {
+        let loading = this.loadingCtrl.create({
+            content: 'Chargement...'
+        });
+        loading.present();
+        this.databaseprovider.getRestaurantEvaluations(id_restaurant).subscribe((data) => {
+            if (data.length > 0) {
+                this.hasEvaluation = true;
+            }
+            loading.dismiss();
+        });
     }
 
 }

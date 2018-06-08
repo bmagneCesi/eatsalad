@@ -143,8 +143,9 @@ export class EvaluationPage {
     * */
     private copyFileToLocalDir(namePath, currentName, newFileName) {
         this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
-            // this.imagesArray.push({'image': this.pathForImage(newFileName)});
+            this.imagesArray.push({'image': this.pathForImage(newFileName)});
             this.imagesArray.push({'name': newFileName});
+            console.log(JSON.stringify(this.imagesArray));
         }, error => {
             this.presentToast('Erreur durant l\'enregistrement de l\'image.');
         });
@@ -290,13 +291,15 @@ export class EvaluationPage {
 
         this.databaseprovider.addAnswers(this.id_evaluation, this.responsesArray).subscribe((evaluationAnswers) => {
             console.log(JSON.stringify(evaluationAnswers));
-            for(let response of this.responsesArray){
-                for(let answer of evaluationAnswers){
+            for(let answer of evaluationAnswers){
+                for(let response of this.responsesArray){
                     if(response.data.question.id == answer.question.id){
-                        if(answer.photos.length > 0){
-                            for(let photo of answer.photos){
-                                this.uploadPhoto(this.file.dataDirectory+photo.name, photo.path, photo.name);
-                            }
+                        for(let photo of answer.photos){
+                            console.log(JSON.stringify(photo));
+                            console.log(JSON.stringify(photo.length));
+                            // if(photo.length > 0){
+                                this.uploadPhoto(this.file.dataDirectory + photo.name, photo.path, photo.name);
+                            // }
                         }
                     }
                 }
@@ -329,8 +332,7 @@ export class EvaluationPage {
             }
         };
 
-        fileTransfer.upload(imageURI, 'http://localhost:80/eatsaladBackoffice/web/app_dev.php/rest/evaluation-answer-upload-photos', options)
-        // fileTransfer.upload(imageURI, 'http://crazyabout.it/eatsalad/upload.php', options)
+        fileTransfer.upload(imageURI, 'http://bmagne.ovh/eatsaladBackoffice/web/app_dev.php/rest/evaluation-answer/upload', options)
             .then((data) => {
                 this.presentToast("Image uploaded successfully");
                 console.log(JSON.stringify(data));
