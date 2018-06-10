@@ -1,11 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Slides, NavController, NavParams, AlertController, Platform, ActionSheetController, ToastController } from 'ionic-angular';
+import { Slides, NavController, NavParams, AlertController, Platform, ActionSheetController, ToastController, LoadingController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
-// Native components
-import { NativeStorage } from '@ionic-native/native-storage';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
@@ -23,7 +20,7 @@ export class EvaluationPage {
     imageFileName:string;
     id_restaurant:number;
     id_evaluation:number;
-    subcategory:string[] = [];
+    subcategory;
     questions:string[] = [];
     answers:string[] = [];
     id_response:string;
@@ -47,7 +44,7 @@ export class EvaluationPage {
         public navParams: NavParams,
         private databaseprovider: DatabaseProvider,
         public alertCtrl: AlertController,
-        private nativeStorage: NativeStorage
+        public loadingCtrl: LoadingController
     ) {
         this.platform.ready().then(() => {
             this.navCtrl.swipeBackEnabled = false;
@@ -78,8 +75,13 @@ export class EvaluationPage {
     *
     * */
     getAnswers(){
+        let loading = this.loadingCtrl.create({
+            content: 'Chargement...'
+        });
+        loading.present();
         this.databaseprovider.getAnswers().subscribe(answers => {
           this.answers = answers;
+          loading.dismiss();
         });
     }
 
@@ -116,7 +118,7 @@ export class EvaluationPage {
             var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
             this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
         }, (err) => {
-            console.log('Error taking picture: ' + JSON.stringify(err));
+            this.presentToast('Erreur lors de la prise de photo, ' + err);
         });
     }
 
@@ -143,9 +145,7 @@ export class EvaluationPage {
     * */
     private copyFileToLocalDir(namePath, currentName, newFileName) {
         this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
-            this.imagesArray.push({'image': this.pathForImage(newFileName)});
-            this.imagesArray.push({'name': newFileName});
-            console.log(JSON.stringify(this.imagesArray));
+            this.imagesArray.push({'fullPath': this.pathForImage(newFileName), 'name': newFileName});
         }, error => {
             this.presentToast('Erreur durant l\'enregistrement de l\'image.');
         });
@@ -285,29 +285,25 @@ export class EvaluationPage {
         if (this.imagesArray.length > 0)
             this.questionHasResponse['photos'] = this.imagesArray;
         this.responsesArray.push({'slide':this.slides.getPreviousIndex(), 'data':this.questionHasResponse});
-        this.imagesArray = [];
-        this.comment = '';
-        this.questionHasResponse = {};
-
         this.databaseprovider.addAnswers(this.id_evaluation, this.responsesArray).subscribe((evaluationAnswers) => {
-            console.log(JSON.stringify(evaluationAnswers));
             for(let answer of evaluationAnswers){
                 for(let response of this.responsesArray){
-                    if(response.data.question.id == answer.question.id){
-                        for(let photo of answer.photos){
-                            console.log(JSON.stringify(photo));
-                            console.log(JSON.stringify(photo.length));
-                            // if(photo.length > 0){
+                    if(response.data.question.id == answer.question.id) {
+                        if (answer.photos.length !== 0){
+                            for (let photo of answer.photos) {
                                 this.uploadPhoto(this.file.dataDirectory + photo.name, photo.path, photo.name);
-                            // }
+                            }
                         }
                     }
                 }
             }
         });
-
-        this.subcategoriesDone.push(this.navParams.get('subcategory').id_question_subcategory);
-        this.nativeStorage.setItem('subcategories-done', this.subcategoriesDone);
+        this.imagesArray = [];
+        this.comment = '';
+        this.questionHasResponse = {};
+        this.databaseprovider.evaluationAddSubcategoryDone(this.id_evaluation, this.subcategory.id).subscribe((evaluation) => {
+            // console.log(JSON.stringify(evaluation));
+        });
         this.navCtrl.popTo(EvaluationCategoryPage);
     }
 
@@ -331,11 +327,9 @@ export class EvaluationPage {
                 'folder_path': photo_rest_path
             }
         };
-
         fileTransfer.upload(imageURI, 'http://bmagne.ovh/eatsaladBackoffice/web/app_dev.php/rest/evaluation-answer/upload', options)
             .then((data) => {
                 this.presentToast("Image uploaded successfully");
-                console.log(JSON.stringify(data));
             }, (err) => {
                 console.log(JSON.stringify(err));
                 this.presentToast('Upload failed.');

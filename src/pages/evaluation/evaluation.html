@@ -61,8 +61,8 @@
                     <ion-row *ngIf="imagesArray.length > 0">
                         <ion-col col-3 *ngFor="let image of imagesArray">
                             <div text-center class="photo-container">
-                                <ion-icon class="delete-photo" (tap)="deletePhoto(image.image)" color="light" name="ios-trash"></ion-icon>                                                    
-                                <ion-img class="evaluation-photo" src="image.image"></ion-img>
+                                <ion-icon class="delete-photo" (tap)="deletePhoto(image.fullPath)" color="light" name="ios-trash"></ion-icon>
+                                <img class="evaluation-photo" [src]="image.fullPath" />
                             </div>
                         </ion-col>                        
                     </ion-row>

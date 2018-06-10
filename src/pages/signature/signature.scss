@@ -26,6 +26,28 @@ page-signature{
         text-align: center
     }
 
+    .signature-button-refusal{
+        width: 120px;
+        border-radius: 8px;
+        background-color: #F03434;
+        color: #ffffff;
+        white-space: normal;
+        margin: 10px auto 0;
+        text-align: center
+    }
+
+    .signature-refused{
+        width: 120px;
+        height:120px;
+        line-height: 120px;
+        border-radius: 8px;
+        background-color: #F03434;
+        color: #ffffff;
+        white-space: normal;
+        margin: 10px auto 0;
+        text-align: center
+    }
+
     .signature-done{
         background-color: #89BD29!important;
         border: 1px solid #ffffff;

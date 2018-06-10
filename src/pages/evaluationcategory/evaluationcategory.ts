@@ -18,7 +18,7 @@ export class EvaluationCategoryPage {
 
     id_restaurant:string[] = [];
     categories:string[] = [];
-    subcategories = [];
+    subcategoriesNb:number;
     id_evaluation:number;
     subcategoriesDone = [];
     photo;
@@ -42,6 +42,7 @@ export class EvaluationCategoryPage {
 
     /*
     * _______________
+    *
     * Get Categories
     * _______________
     *
@@ -51,9 +52,14 @@ export class EvaluationCategoryPage {
             content: 'Chargement...'
         });
         loading.present();
-        this.databaseprovider.getCategories().subscribe(data => {
+        this.databaseprovider.getCategories().subscribe(categories => {
             loading.dismiss();
-            this.categories = data;
+            this.categories = categories;
+            let subcategoriesNb = 0;
+            for(let category of categories){
+                subcategoriesNb += category.sub_categories.length;
+            }
+            this.subcategoriesNb = subcategoriesNb;
         })
     }
 
@@ -66,6 +72,7 @@ export class EvaluationCategoryPage {
     *
     * */
     ionViewDidEnter(){
+        this.getCategories();
         this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((evaluation) => {
             this.subcategoriesDone = evaluation.subcategories_done;
         });
@@ -120,6 +127,9 @@ export class EvaluationCategoryPage {
     *
     * */
     validateEvaluation(){
+        this.databaseprovider.validateEvaluation(this.id_evaluation).subscribe((evaluation) => {
+            console.log(JSON.stringify(evaluation));
+        });
         this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation, 'id_restaurant': this.id_restaurant});
     }
 
@@ -140,7 +150,6 @@ export class EvaluationCategoryPage {
                     cssClass: 'alertDanger',
                     handler: () => {
                         this.databaseprovider.cancelEvaluation(this.id_evaluation).subscribe((res) => {
-                            this.nativeStorage.setItem('subcategories-done', []);
                             this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
                         });
                     }

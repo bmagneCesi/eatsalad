@@ -56,13 +56,24 @@
                 <ion-col col-6>
                     <h3>Signature du franchisé ou responsable du magasin</h3>
                     <p>(Mention "lu et approuvé")</p>
-                    <div text-center class="signature-container" *ngIf="signatureFranchised">
+
+                    <div text-center class="signature-container" *ngIf="signatureFranchised && !refusal">
                         <ion-icon class="delete-signature" (tap)="deleteSignature('franchised')" color="light" name="ios-trash"></ion-icon>                                                    
                         <img class="signature-image" [src]="signatureFranchised"/>   
                     </div>
+
+                    <div text-center class="signature-container" *ngIf="!signatureFranchised && refusal">
+                        <ion-icon class="delete-signature" (tap)="deleteSignature('franchised')" color="light" name="ios-trash"></ion-icon>
+                        <p class="signature-refused">
+                            REFUSÉ
+                        </p>
+                    </div>
                                         
-                    <button (tap)="signatureFranchisedAction()" *ngIf="!signatureFranchised" class="signature-button" ion-button color="light">
+                    <button (tap)="signatureFranchisedAction(false)" *ngIf="!signatureFranchised && !refusal" class="signature-button" ion-button color="light">
                     Signer
+                    </button>
+                    <button (tap)="signatureFranchisedAction(true)" *ngIf="!signatureFranchised && !refusal" class="signature-button-refusal" ion-button color="light">
+                        Refuser
                     </button>
                 </ion-col>
                 
@@ -71,7 +82,7 @@
         <br>
         <br>
 
-        <ion-row *ngIf="signatureFranchised && signatureController && controllerName">
+        <ion-row *ngIf="(signatureFranchised || refusal) && signatureController && controllerName">
             <ion-col text-center>
                 <button ion-button  (tap)="validateContrat(controllerName)" color="eatsalad" class="button-light">Valider</button>
             </ion-col>

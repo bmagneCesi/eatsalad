@@ -3,7 +3,7 @@
     <name>EatSalad</name>
     <description>Comptes rendus de visites de franchises.</description>
     <author email="bmagne@me.com" href="http://benjaminmagne.com/">Benjamin Magne</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.1.14:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -106,6 +106,7 @@
     <allow-navigation href="http://10.192.130.70:8100" />
     <allow-navigation href="http://172.20.10.4:8100" />
     <engine name="ios" spec="^4.4.0" />
+    <plugin name="com-badrit-base64" spec="^0.2.0" />
     <plugin name="cordova-pdf-generator" spec="file:node_modules/cordova-pdf-generator" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Take pictures to add information in a restaurant evaluation" />
@@ -116,6 +117,7 @@
     <plugin name="cordova-plugin-email-composer" spec="^0.8.7" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-opener2" spec="^2.0.19" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-filepath" spec="^1.0.2" />
     <plugin name="cordova-plugin-keyboard" spec="^1.1.5" />
     <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
@@ -125,5 +127,4 @@
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
     <plugin name="ionic-plugin-keyboard" spec="git+https://github.com/ionic-team/ionic-plugin-keyboard.git" />
     <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="^1.0.0" />
-    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
 </widget>

@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Base64 } from '@ionic-native/base64';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { SQLite } from '@ionic-native/sqlite';
 import { SQLitePorter } from '@ionic-native/sqlite-porter';
@@ -120,6 +121,7 @@ import { HttpModule } from '@angular/http'
     BrowserAnimationsModule,
     FileTransfer,
     FileTransferObject,
+    Base64
   ]
 })
 export class AppModule {}

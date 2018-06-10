@@ -187,12 +187,51 @@ export class DatabaseProvider {
     }
 
     addAnswers(id_evaluation, answers) {
-        var data = {
+        let data = {
             'id_evaluation': id_evaluation,
             'answers': answers
         };
+        console.log(JSON.stringify(data));
         return this.http.post('/rest/evaluation-answer', data)
             // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
+    evaluationAddSubcategoryDone(id_evaluation, subcategoryDone) {
+        let data = {
+            'id_evaluation': id_evaluation,
+            'subcategory_done': subcategoryDone
+        };
+        return this.http.post('/rest/evaluation/subcategory-done', data)
+            .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
+    validateEvaluation(id_evaluation) {
+        let data = {
+            'id_evaluation': id_evaluation
+        };
+        return this.http.post('/rest/evaluation/evaluation/validation', data)
+            .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
+    setRefusal(id_evaluation, refusal) {
+        let data = {
+            'id_evaluation': id_evaluation,
+            'refusal': refusal
+        };
+        return this.http.post('/rest/evaluation/evaluation/refusal', data)
+            .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
             .catch((error:any) => {
                 return Observable.throw(error);
