@@ -289,8 +289,8 @@ export class EvaluationPage {
             for(let answer of evaluationAnswers){
                 for(let response of this.responsesArray){
                     if(response.data.question.id == answer.question.id) {
-                        if (answer.photos.length !== 0){
-                            for (let photo of answer.photos) {
+                        if (answer.images.length !== 0){
+                            for (let photo of answer.images) {
                                 this.uploadPhoto(this.file.dataDirectory + photo.name, photo.path, photo.name);
                             }
                         }
@@ -301,9 +301,7 @@ export class EvaluationPage {
         this.imagesArray = [];
         this.comment = '';
         this.questionHasResponse = {};
-        this.databaseprovider.evaluationAddSubcategoryDone(this.id_evaluation, this.subcategory.id).subscribe((evaluation) => {
-            // console.log(JSON.stringify(evaluation));
-        });
+        this.databaseprovider.evaluationAddSubcategoryDone(this.id_evaluation, this.subcategory.id).subscribe();
         this.navCtrl.popTo(EvaluationCategoryPage);
     }
 
@@ -327,6 +325,7 @@ export class EvaluationPage {
                 'folder_path': photo_rest_path
             }
         };
+        console.log('toto');
         fileTransfer.upload(imageURI, 'http://bmagne.ovh/eatsaladBackoffice/web/app_dev.php/rest/evaluation-answer/upload', options)
             .then((data) => {
                 this.presentToast("Image uploaded successfully");

@@ -127,9 +127,6 @@ export class EvaluationCategoryPage {
     *
     * */
     validateEvaluation(){
-        this.databaseprovider.validateEvaluation(this.id_evaluation).subscribe((evaluation) => {
-            console.log(JSON.stringify(evaluation));
-        });
         this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation, 'id_restaurant': this.id_restaurant});
     }
 
