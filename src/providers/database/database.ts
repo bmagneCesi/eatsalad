@@ -217,14 +217,14 @@ export class DatabaseProvider {
     *  @var data, array
     *
     * */
-    createReport(id_evaluation, signatureController, controllerName, signatureFranchised) {
+    createReport(id_evaluation, controllerSignature, controllerName, franchisedSignature) {
         let data = {
             'id_evaluation' : id_evaluation,
             'controllerName' : controllerName,
-            'signatureController' : signatureController,
-            'signatureFranchised' : signatureFranchised
+            'controllerSignature' : controllerSignature,
+            'franchisedSignature' : franchisedSignature
         };
-        console.log(JSON.stringify(data));
+
         return this.http.post('/rest/evaluation/report', data)
             // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
