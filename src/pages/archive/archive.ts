@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 
 import { DatabaseProvider } from './../../providers/database/database';
 
@@ -16,7 +16,12 @@ export class ArchivePage {
   id_restaurant:string;
   archives = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, private databaseprovider: DatabaseProvider) {
+  constructor(
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public platform: Platform,
+      private databaseprovider: DatabaseProvider,
+      public loadingCtrl: LoadingController) {
     this.platform.ready().then(() => {
          
     });
@@ -24,9 +29,13 @@ export class ArchivePage {
 
   ionViewWillEnter(){
     this.id_restaurant = this.navParams.get('id_restaurant');
+      let loading = this.loadingCtrl.create({
+          content: 'Chargement des archives, veuillez patienter...'
+      });
+      loading.present();
     this.databaseprovider.getRestaurantEvaluations(this.id_restaurant).subscribe((data) => {
       this.archives = data;
-      console.log(JSON.stringify(data));
+      loading.dismiss();
     });
   }
 

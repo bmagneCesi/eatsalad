@@ -83,6 +83,7 @@ export class DatabaseProvider {
     }
 
     addRestaurant(data) {
+      console.log(JSON.stringify(data));
       return this.http.post('/rest/restaurant', data)
           // .do((res: any) => console.log(JSON.stringify(res)))
           .map((res: any) => res.json())
@@ -160,16 +161,38 @@ export class DatabaseProvider {
     }
 
     addEvaluationComment(id_evaluation, comment){
-        return this.database.executeSql('UPDATE `evaluation` SET comment=\'' + comment + '\' WHERE id_evaluation = ' + id_evaluation,[]).then((data) => {
-            return data;
-        }, err => {
-            console.log('Error add evaluation comment: ', JSON.stringify(err));
-            return [];
-        });
+        var data = {
+          'id_evaluation': id_evaluation,
+          'comment' : comment
+        };
+        return this.http.post('/rest/evaluation/comment', data)
+        // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res: any) => res.json())
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
     }
 
     getEvaluation(id_evaluation){
         return this.http.get('/rest/evaluation/'+id_evaluation)
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
+    getEvaluationAnswers(id_evaluation){
+        return this.http.get('/rest/evaluation-answer/'+id_evaluation)
+            // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res:any)=> res.json())
+            .catch((error:any) => {
+                return Observable.throw(error);
+            })
+    }
+
+    getEvaluationAnswersPreview(id_evaluation){
+        return this.http.get('/rest/evaluation-answer-preview/'+id_evaluation)
             // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())
             .catch((error:any) => {
@@ -224,7 +247,6 @@ export class DatabaseProvider {
             'controllerSignature' : controllerSignature,
             'franchisedSignature' : franchisedSignature
         };
-
         return this.http.post('/rest/evaluation/report', data)
             // .do((res: any) => console.log(JSON.stringify(res)))
             .map((res:any)=> res.json())

@@ -4,7 +4,7 @@
   "proxies": [
     {
       "path": "/rest",
-      "proxyUrl": "http://bmagne.ovh/eatsaladBackoffice/web/app_dev.php/rest"
+      "proxyUrl": "http://46.101.45.175/app_dev.php/rest"
     }
   ],
   "type": "ionic-angular",

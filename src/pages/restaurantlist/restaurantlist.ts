@@ -68,7 +68,7 @@ export class RestaurantlistPage {
   // Get restaurants by city
   getRestaurantsByCity(id_ville) {
       let loading = this.loadingCtrl.create({
-          content: 'Chargement...'
+          content: 'Chargement des restaurants, veuillez patienter...'
       });
       loading.present();
     this.databaseprovider.getRestaurantsByCity(id_ville).subscribe(data => {

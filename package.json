@@ -24,11 +24,13 @@
         "@ionic-native/base64": "^4.7.0",
         "@ionic-native/camera": "^4.2.0",
         "@ionic-native/core": "3.12.1",
+        "@ionic-native/document-viewer": "^4.8.0",
         "@ionic-native/email-composer": "^4.2.1",
         "@ionic-native/file": "^4.2.1",
         "@ionic-native/file-opener": "^4.2.1",
         "@ionic-native/file-path": "^4.2.1",
         "@ionic-native/file-transfer": "^4.5.2",
+        "@ionic-native/in-app-browser": "^4.8.0",
         "@ionic-native/keyboard": "^4.1.0",
         "@ionic-native/native-storage": "^4.1.0",
         "@ionic-native/splash-screen": "3.12.1",
@@ -47,11 +49,13 @@
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-document-viewer": "^0.9.10",
         "cordova-plugin-email-composer": "^0.8.7",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-file-opener2": "^2.0.19",
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-filepath": "^1.0.2",
+        "cordova-plugin-inappbrowser": "^3.0.0",
         "cordova-plugin-keyboard": "^1.1.5",
         "cordova-plugin-nativestorage": "^2.2.2",
         "cordova-plugin-splashscreen": "^4.0.3",
@@ -97,7 +101,9 @@
                 "PHOTOLIBRARY_USAGE_DESCRIPTION": "Take pictures to add information in a restaurant evaluation",
                 "CAMERA_USAGE_DESCRIPTION": " "
             },
-            "com-badrit-base64": {}
+            "com-badrit-base64": {},
+            "cordova-plugin-document-viewer": {},
+            "cordova-plugin-inappbrowser": {}
         },
         "platforms": [
             "ios"

@@ -147,6 +147,7 @@ export class EvaluationCategoryPage {
                     cssClass: 'alertDanger',
                     handler: () => {
                         this.databaseprovider.cancelEvaluation(this.id_evaluation).subscribe((res) => {
+                            console.log(res);
                             this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
                         });
                     }

@@ -6,6 +6,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
+import { GlobalProvider } from "../../providers/global/global";
 
 // Pages
 import { EvaluationCategoryPage } from '../evaluationcategory/evaluationcategory';
@@ -44,7 +45,8 @@ export class EvaluationPage {
         public navParams: NavParams,
         private databaseprovider: DatabaseProvider,
         public alertCtrl: AlertController,
-        public loadingCtrl: LoadingController
+        public loadingCtrl: LoadingController,
+        public global: GlobalProvider
     ) {
         this.platform.ready().then(() => {
             this.navCtrl.swipeBackEnabled = false;
@@ -326,7 +328,7 @@ export class EvaluationPage {
             }
         };
         console.log('toto');
-        fileTransfer.upload(imageURI, 'http://bmagne.ovh/eatsaladBackoffice/web/app_dev.php/rest/evaluation-answer/upload', options)
+        fileTransfer.upload(imageURI, this.global.serverUrl+'app_dev.php/rest/evaluation-answer/upload', options)
             .then((data) => {
                 this.presentToast("Image uploaded successfully");
             }, (err) => {

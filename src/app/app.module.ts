@@ -16,6 +16,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { MyApp } from './app.component';
 
@@ -47,6 +49,7 @@ import { DatabaseProvider } from '../providers/database/database';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http'
+import { GlobalProvider } from '../providers/global/global';
 
 @NgModule({
   declarations: [
@@ -121,7 +124,10 @@ import { HttpModule } from '@angular/http'
     BrowserAnimationsModule,
     FileTransfer,
     FileTransferObject,
-    Base64
+    Base64,
+    GlobalProvider,
+    DocumentViewer,
+    InAppBrowser
   ]
 })
 export class AppModule {}

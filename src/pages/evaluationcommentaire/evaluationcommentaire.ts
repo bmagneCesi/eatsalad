@@ -26,7 +26,7 @@ export class EvaluationCommentairePage {
   }
 
   validate(comment){
-      this.databaseprovider.addEvaluationComment(this.id_evaluation, comment).then(() => {
+      this.databaseprovider.addEvaluationComment(this.id_evaluation, comment).subscribe(() => {
         this.navCtrl.push(SignaturePage, {'id_evaluation': this.id_evaluation, 'id_restaurant': this.id_restaurant});
       });
   }

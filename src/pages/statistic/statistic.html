@@ -10,30 +10,11 @@
 
 <ion-content class="main-container">
     <ion-grid>
-            <ion-row>
-                <h1 class="title">RAPPORT DU {{ evaluation.date }}</h1>
-            </ion-row>
-            <ng-container *ngFor="let stat of categoryStat">
-                <ion-row (tap)="showArchiveEvaluation(stat.id_category)">
-                    <ion-col [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + stat.score + '%, rgb(196, 196, 196) 0%)' }" class="input-statistic" col-8 offset-2>
-                        <span class="subcategory-span">{{stat.category}}</span>
-                        <span class="subcategory-score" ></span>
-                    </ion-col>
-                    <ion-col col-2 class="percent-right">
-                        {{ stat.score }}%
-                    </ion-col>
-                </ion-row>
-            </ng-container>
-            <ion-row *ngIf="evaluation.comment != '' && evaluation.comment != 'undefined'">
-                <h1 class="title">COMMENTAIRE GÉNÉRAL</h1>
-            </ion-row>
-            <ion-row *ngIf="evaluation.comment != '' && evaluation.comment != 'undefined'">
-                <ion-col col-8 offset-2>
-                    <p text-center>"{{ evaluation.comment }}"</p>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col col-12 text-center>Exporter &nbsp;<ion-icon class="ios-share-outline" name="ios-share-outline" (tap)="generatePdf()"></ion-icon></ion-col>
-            </ion-row>
-        </ion-grid>
+        <ion-row>
+            <ion-col (click)="openStatistics()" col-sm-6 offset-sm-3 text-center>Ouvrir le rapport statistique</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col (click)="openReport()" col-sm-6 offset-sm-3 text-center>Ouvrir le rapport signé</ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

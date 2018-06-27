@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 
 // Pages
 import  { StatisticPage } from '../statistic/statistic';
@@ -13,9 +13,15 @@ export class ArchiveDetailPage {
 
   id_evaluation:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform,) {
+  constructor(
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      public platform: Platform,
+      public loadingCtrl: LoadingController
+  ) {
     this.platform.ready().then(() => {
       this.id_evaluation = this.navParams.get('id_evaluation');
+      console.log(this.id_evaluation);
     });
   }
 

@@ -86,7 +86,7 @@ export class VillelistPage {
     * */
     getCities() {
         let loading = this.loadingCtrl.create({
-            content: 'Chargement...'
+            content: 'Récupération des villes, veuillez patienter...'
         });
         loading.present();
         this.databaseprovider.getCities().subscribe(data => {

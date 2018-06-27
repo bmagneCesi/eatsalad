@@ -76,7 +76,7 @@ export class RestaurantDetailPage {
     * */
     getRestaurantEvaluations(id_restaurant) {
         let loading = this.loadingCtrl.create({
-            content: 'Chargement...'
+            content: 'Chargement des informations du restaurant...'
         });
         loading.present();
         this.databaseprovider.getRestaurantEvaluations(id_restaurant).subscribe((data) => {
