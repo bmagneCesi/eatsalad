@@ -913,6 +913,206 @@ export class DatabaseProvider {
     
   }
 
+    exportRestaurants(){
+        return this.database.executeSql('SELECT * FROM restaurant', {}).then((data) => {
+            let array = [];
+            if(data == null)
+            {
+                return;
+            }
+
+            if(data.rows)
+            {
+                if(data.rows.length > 0)
+                {
+                    for(var i = 0; i < data.rows.length; i++) {
+                        array.push(data.rows.item(i));
+                    }
+                }
+            }
+
+            return array;
+        }, err => {
+            console.log('Error insert image: ', JSON.stringify(err));
+            return [];
+        });
+    };
+
+    exportCities(){
+        return this.database.executeSql('SELECT * FROM ville', {}).then((data) => {
+            let array = [];
+            if(data == null)
+            {
+                return;
+            }
+
+            if(data.rows)
+            {
+                if(data.rows.length > 0)
+                {
+                    for(var i = 0; i < data.rows.length; i++) {
+                        array.push(data.rows.item(i));
+                    }
+                }
+            }
+
+            return array;
+        }, err => {
+            console.log('Error insert image: ', JSON.stringify(err));
+            return [];
+        });
+    };
+
+    exportQuestionCategory(){
+        return this.database.executeSql('SELECT * FROM question_category', {}).then((data) => {
+            let array = [];
+            if(data == null)
+            {
+                return;
+            }
+
+            if(data.rows)
+            {
+                if(data.rows.length > 0)
+                {
+                    for(var i = 0; i < data.rows.length; i++) {
+                        array.push(data.rows.item(i));
+                    }
+                }
+            }
+
+            return array;
+        }, err => {
+            console.log('Error insert image: ', JSON.stringify(err));
+            return [];
+        });
+    };
+
+    exportQuestionSubCategory(){
+        return this.database.executeSql('SELECT * FROM question_subcategory', {}).then((data) => {
+            let array = [];
+            if(data == null)
+            {
+                return;
+            }
+
+            if(data.rows)
+            {
+                if(data.rows.length > 0)
+                {
+                    for(var i = 0; i < data.rows.length; i++) {
+                        array.push(data.rows.item(i));
+                    }
+                }
+            }
+
+            return array;
+        }, err => {
+            console.log('Error insert image: ', JSON.stringify(err));
+            return [];
+        });
+    };
+
+    exportQuestion(){
+        return this.database.executeSql('SELECT * FROM question', {}).then((data) => {
+            let array = [];
+            if(data == null)
+            {
+                return;
+            }
+
+            if(data.rows)
+            {
+                if(data.rows.length > 0)
+                {
+                    for(var i = 0; i < data.rows.length; i++) {
+                        array.push(data.rows.item(i));
+                    }
+                }
+            }
+
+            return array;
+        }, err => {
+            console.log('Error insert image: ', JSON.stringify(err));
+            return [];
+        });
+    };
+
+    exportEvaluation(){
+        return this.database.executeSql('SELECT * FROM evaluation', {}).then((data) => {
+            let array = [];
+            if(data == null)
+            {
+                return;
+            }
+
+            if(data.rows)
+            {
+                if(data.rows.length > 0)
+                {
+                    for(var i = 0; i < data.rows.length; i++) {
+                        array.push(data.rows.item(i));
+                    }
+                }
+            }
+
+            return array;
+        }, err => {
+            console.log('Error insert image: ', JSON.stringify(err));
+            return [];
+        });
+    };
+
+    exportQuestionHasResponse(){
+        return this.database.executeSql('SELECT * FROM question_has_response', {}).then((data) => {
+            let array = [];
+            if(data == null)
+            {
+                return;
+            }
+
+            if(data.rows)
+            {
+                if(data.rows.length > 0)
+                {
+                    for(var i = 0; i < data.rows.length; i++) {
+                        array.push(data.rows.item(i));
+                    }
+                }
+            }
+
+            return array;
+        }, err => {
+            console.log('Error insert image: ', JSON.stringify(err));
+            return [];
+        });
+    };
+
+    exportQuestionHasResponseImages(){
+        return this.database.executeSql('SELECT * FROM question_has_response_image', {}).then((data) => {
+            let array = [];
+            if(data == null)
+            {
+                return;
+            }
+
+            if(data.rows)
+            {
+                if(data.rows.length > 0)
+                {
+                    for(var i = 0; i < data.rows.length; i++) {
+                        array.push(data.rows.item(i));
+                    }
+                }
+            }
+
+            return array;
+        }, err => {
+            console.log('Error insert image: ', JSON.stringify(err));
+            return [];
+        });
+    };
+
   getDatabaseState() {
     return this.databaseReady.asObservable();
   }

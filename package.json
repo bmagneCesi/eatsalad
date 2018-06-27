@@ -36,17 +36,21 @@
         "@ionic-native/transfer": "^3.14.0",
         "@ionic/storage": "2.0.1",
         "angular2-signaturepad": "^2.6.1",
+        "build": "^0.1.4",
+        "com-badrit-base64": "~0.2.0",
         "cordova-ios": "^4.4.0",
         "cordova-pdf-generator": "file:node_modules/cordova-pdf-generator",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-document-viewer": "~0.9.10",
         "cordova-plugin-email-composer": "^0.8.7",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-file-opener2": "^2.0.19",
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-filepath": "^1.0.2",
+        "cordova-plugin-inappbrowser": "~3.0.0",
         "cordova-plugin-keyboard": "^1.1.5",
         "cordova-plugin-nativestorage": "^2.2.2",
         "cordova-plugin-splashscreen": "^4.0.3",
@@ -89,7 +93,10 @@
             "cordova-plugin-camera": {
                 "PHOTOLIBRARY_USAGE_DESCRIPTION": "Take pictures to add information in a restaurant evaluation",
                 "CAMERA_USAGE_DESCRIPTION": " "
-            }
+            },
+            "com-badrit-base64": {},
+            "cordova-plugin-document-viewer": {},
+            "cordova-plugin-inappbrowser": {}
         },
         "platforms": [
             "ios"
