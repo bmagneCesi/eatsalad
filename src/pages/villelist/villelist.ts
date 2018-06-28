@@ -71,7 +71,7 @@ export class VillelistPage {
     addCityAction(): void {
         let modal = this.modalCtrl.create(AjoutvillemodalPage);
         modal.onDidDismiss(data => {
-            if(data.status == 200)
+            if(data)
                 this.getCities();
         });
         modal.present();
