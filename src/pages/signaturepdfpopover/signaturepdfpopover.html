@@ -30,16 +30,16 @@
         
                                 <h1 style="font-family:Helvetica, sans-serif;color: #FFFFFF;text-align: center;font-weight: 500;font-size: 25px;margin: 40px auto;border:none;">{{ category.name }}</h1>
                                 
-                                <ng-container *ngFor="let subcategory of category.subcategories">
+                                <ng-container *ngFor="let sub_category of category.sub_categories">
 
                                         <table border="0" style="border:1px solid #fff;border-radius: 8px;margin: 10px auto;padding: 0px;overflow: hidden;" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
                                             <tr>
-                                                <td colspan="2" [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + subcategory.score + '%, #bdd88c 0%)' }">
-                                                    <h3 style="padding: 0px;margin:0;padding: 10px;color:#6a962f;">{{ subcategory.name }}<span style="float:right">{{ subcategory.score }}%</span></h3>
+                                                <td colspan="2" [ngStyle]="{ 'background-image': 'linear-gradient(90deg, white ' + sub_category.score + '%, #bdd88c 0%)' }">
+                                                    <h3 style="padding: 0px;margin:0;padding: 10px;color:#6a962f;">{{ sub_category.name }}<span style="float:right">{{ sub_category.score }}%</span></h3>
                                                 </td>
                                             </tr>
                                               <ng-container *ngFor="let evaluationAnswer of evaluationAnswersPreview.evaluation.evaluation_answers">
-                                                <tr *ngIf="evaluationAnswer.question.subcategory.id == subcategory.id" style="min-height: 40px;padding: 10px 40px;display: inline-flex;width: 100%;align-items: center;border-top:1px dashed #fff">
+                                                <tr *ngIf="evaluationAnswer.question.sub_category.id == sub_category.id" style="min-height: 40px;padding: 10px 40px;display: inline-flex;width: 100%;align-items: center;border-top:1px dashed #fff">
                                                     <td style="width:70%;font-size: 17px;display: inline-flex;align-items: center;color:#fff">{{evaluationAnswer.question.question}}</td>
                                                     <td style="width:30%;text-align:center;">
 
@@ -52,15 +52,15 @@
                                                             <span *ngIf="evaluationAnswer.answer.score == 3" style="background-color:#1cd304;border-radius: 8px;color: #fff;padding: 10px 5px;margin: 0 auto;width:85%;display:block;font-weight: 600;text-align:center;">{{evaluationAnswer.answer.answer}}</span>
                                                     </td>    
                                                 </tr>  
-                                                <tr *ngIf="evaluationAnswer.comment != ''">
+                                                <tr *ngIf="evaluationAnswer.comment != '' && evaluationAnswer.question.sub_category.id == sub_category.id">
                                                     <td colspan="2" style="width:100%;">                                                                                            
                                                         <p style="display:block;width:100%;text-align:center;color:#fff">"{{evaluationAnswer.comment}}"</p>
                                                     </td>                                                                                           
                                                 </tr>                                                                                            
-                                                <tr *ngIf="evaluationAnswer.images">
+                                                <tr *ngIf="evaluationAnswer.images && evaluationAnswer.question.sub_category.id == sub_category.id">
                                                     <td colspan="2" style="text-align:center">
                                                       <ng-container *ngFor="let image of evaluationAnswer.images">
-                                                            <img style="padding:1px;width:24%;height:auto;margin:0 auto; text-align:center" src="{{ serverUrl }}{{image.path }}{{ image.name }}"/>
+                                                            <img style="padding:1px;width:24%;height:auto;margin:0 auto; text-align:center" [src]="serverUrl + image.path + image.name "/>
                                                       </ng-container>
                                                     </td>                                                            
                                                 </tr>    

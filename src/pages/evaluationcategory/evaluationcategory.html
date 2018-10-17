@@ -29,7 +29,8 @@
         <br>
         <ion-row>
             <ion-col text-center>
-                <button ion-button (tap)="validateEvaluation()" color="eatsalad" class="button-light">Valider l'évaluation</button>
+                <button ion-button *ngIf="subcategoriesDone.length != subcategoriesNb" (tap)="validateEvaluation(true)" color="eatsalad" class="button-light">Valider l'évaluation</button>
+                <button ion-button *ngIf="subcategoriesDone.length == subcategoriesNb" (tap)="validateEvaluation(false)" color="eatsalad" class="button-light">Valider l'évaluation</button>
             </ion-col>
         </ion-row>
     </ion-grid>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ModalController, Platform, LoadingController } from 'ionic-angular';
+import { NavController, AlertController, ModalController, Platform, LoadingController, ToastController } from 'ionic-angular';
+import { GlobalProvider } from "../../providers/global/global";
 
 
 // Pages
@@ -26,11 +27,13 @@ export class VillelistPage {
   villes = [];
 
     constructor(
+        public global:GlobalProvider,
       public platform: Platform,
       public navCtrl: NavController,
       public modalCtrl: ModalController,
       public alertCtrl: AlertController,
       private databaseprovider: DatabaseProvider,
+      public toastCtrl: ToastController,
       public loadingCtrl: LoadingController){
 
         this.platform.ready().then(() => {
@@ -77,6 +80,7 @@ export class VillelistPage {
         modal.present();
     }
 
+
     /*
     * __________________
     *
@@ -90,9 +94,12 @@ export class VillelistPage {
         });
         loading.present();
         this.databaseprovider.getCities().subscribe(data => {
-            loading.dismiss();
             this.villes = data;
-        })
+        }, err => {
+            this.global.presentToast(err);
+        }, () => {
+            loading.dismiss();
+        });
     }
 
 }

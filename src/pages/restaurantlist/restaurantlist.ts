@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, ModalController, NavParams, Platform, LoadingController } from 'ionic-angular';
+import { GlobalProvider } from "../../providers/global/global";
 
 
 // Pages
@@ -21,6 +22,7 @@ export class RestaurantlistPage {
   id_ville:number;
 
   constructor(
+      public global:GlobalProvider,
       public navParams: NavParams,
       public platform: Platform,
       public navCtrl: NavController,
@@ -60,9 +62,7 @@ export class RestaurantlistPage {
   }
 
   deleteRestaurantAction(restaurant):void {
-    this.databaseprovider.deleteRestaurant(restaurant.id_restaurant).then(data => {
-      this.getRestaurantsByCity(this.id_ville);
-    });
+
   }
 
   // Get restaurants by city
@@ -72,9 +72,12 @@ export class RestaurantlistPage {
       });
       loading.present();
     this.databaseprovider.getRestaurantsByCity(id_ville).subscribe(data => {
-      loading.dismiss();
       this.restaurants = data;
-    })
+    }, err => {
+        this.global.presentToast(err);
+    }, () => {
+        loading.dismiss();
+    });
   }
 
 }

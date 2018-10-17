@@ -18,6 +18,8 @@ import { FileOpener } from '@ionic-native/file-opener';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { HTTP } from '@ionic-native/http';
+
 
 import { MyApp } from './app.component';
 
@@ -118,6 +120,7 @@ import { GlobalProvider } from '../providers/global/global';
     DatabaseProvider,
     SQLitePorter,
     SQLite,
+    HTTP,
     File,
     Transfer,
     FilePath,

@@ -19,12 +19,6 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private databaseprovider: DatabaseProvider, public platform:Platform) {
     this.platform.ready().then(() => {
-      this.databaseprovider.getDatabaseState().subscribe(rdy => {
-        if (rdy) {
-          // this.databaseprovider.resetDatabase();
-          this.databaseprovider.getDatabaseState();
-        }
-      })
     });
   }
   

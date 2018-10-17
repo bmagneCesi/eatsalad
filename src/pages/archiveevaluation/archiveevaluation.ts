@@ -26,32 +26,6 @@ export class ArchiveEvaluationPage {
         this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((data) => {
           this.evaluation = data;
         });
-        this.databaseprovider.getResponseByIdEvaluationByCategory(this.id_evaluation, this.id_category).then((data) => {
-          for (var i = 0; i < data.length; i++) {
-            data[i].question = data[i].question.replace(/\(.*\)/, '');
-          }
-          this.responses = data;
-          console.log(JSON.stringify(data));
-          this.databaseprovider.getCategory(this.id_category).subscribe((category) => {
-            this.category = category;
-          });
-
-          this.databaseprovider.getResponseScoreByIdEvaluationByCategory(this.id_evaluation, this.id_category).then((responseScore) => {
-            let subcategories = [];
-
-            for (var i = 0; i < responseScore.length; i++) {
-                let percent = Math.round((responseScore[i].responseScore / (responseScore[i].nbResponse * 3)) * 100);
-                subcategories.push({'question_category_id': responseScore[i].question_category_id, 'score': percent, 'name': responseScore[i].name, 'id_question_subcategory': responseScore[i].id_question_subcategory});
-            }
-            this.subcategories = subcategories;
-          });
-
-          this.databaseprovider.getResponsePhotoByEvaluation(this.id_evaluation).then((photos) => {
-            for (var i = 0; i < photos.length; i++) {
-              this.photos.push(photos[i].question_has_response_id);              
-            }
-          });
-        });
     });
   }
 

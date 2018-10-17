@@ -7,6 +7,7 @@ import { EvaluationCommentairePage } from '../evaluationcommentaire/evaluationco
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
+import { GlobalProvider } from './../../providers/global/global';
 
 import { NativeStorage } from '@ionic-native/native-storage';
 
@@ -30,7 +31,8 @@ export class EvaluationCategoryPage {
         private databaseprovider: DatabaseProvider,
         public alertCtrl: AlertController,
         public platform: Platform,
-        public loadingCtrl: LoadingController
+        public loadingCtrl: LoadingController,
+        public global:GlobalProvider
     ){
         this.platform.ready().then(() => {
             this.navCtrl.swipeBackEnabled = false;
@@ -48,12 +50,7 @@ export class EvaluationCategoryPage {
     *
     * */
     getCategories() {
-        let loading = this.loadingCtrl.create({
-            content: 'Chargement...'
-        });
-        loading.present();
         this.databaseprovider.getCategories().subscribe(categories => {
-            loading.dismiss();
             this.categories = categories;
             let subcategoriesNb = 0;
             for(let category of categories){
@@ -72,9 +69,14 @@ export class EvaluationCategoryPage {
     *
     * */
     ionViewDidEnter(){
-        this.getCategories();
+        let loading = this.loadingCtrl.create();
+        loading.present();
         this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((evaluation) => {
             this.subcategoriesDone = evaluation.subcategories_done;
+            loading.dismiss();
+        }, (err) => {
+            console.log(JSON.stringify(err));
+            this.global.presentToast('Get evaluations failed');
         });
     }
 
@@ -99,15 +101,12 @@ export class EvaluationCategoryPage {
                         text: 'Recommencer',
                         cssClass: 'alertDanger',
                         handler: () => {
-                            for (var i = 0; i <  this.subcategoriesDone.length; i++){
-                                if ( this.subcategoriesDone[i] === subcategory.id) {
-                                    this.subcategoriesDone.splice(i, 1);
-                                    break;
-                                }
-                            }
-                            this.nativeStorage.setItem('subcategories-done', this.subcategoriesDone);
-                            this.databaseprovider.deleteEvaluationSubcategory(subcategory.id, this.id_evaluation).then(() => {
+                            this.databaseprovider.cancelEvaluationSubcategory(this.id_evaluation, subcategory.id).subscribe((res) => {
+                                console.log(res);
                                 this.navCtrl.push(EvaluationPage, {'subcategory':subcategory, 'id_restaurant': this.id_restaurant, 'id_evaluation': this.id_evaluation});
+                            }, (err) => {
+                                console.log(JSON.stringify(err));
+                                this.global.presentToast('Redo evaluations failed');
                             });
                         }
                     }
@@ -126,8 +125,29 @@ export class EvaluationCategoryPage {
     * __________________________
     *
     * */
-    validateEvaluation(){
-        this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation, 'id_restaurant': this.id_restaurant});
+    validateEvaluation(alert){
+        if(alert){
+            let alert = this.alertCtrl.create({
+                title: 'L\'évluation semble ne pas être complête',
+                message: 'Veuillez vérifier que toutes les rubriques ont bien été validées. Voulez vous quand même continuer ?',
+                buttons: [
+                    {
+                        text: 'Annuler',
+                        cssClass: 'alertDanger',
+                    },
+                    {
+                        text: 'Poursuivre',
+                        role: 'cancel',
+                        handler: () => {
+                            this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation, 'id_restaurant': this.id_restaurant});
+                        } 
+                    }
+                ]
+            });
+            alert.present();
+        }else{
+            this.navCtrl.push(EvaluationCommentairePage, {'id_evaluation': this.id_evaluation, 'id_restaurant': this.id_restaurant});
+        }
     }
 
     /*
@@ -149,6 +169,9 @@ export class EvaluationCategoryPage {
                         this.databaseprovider.cancelEvaluation(this.id_evaluation).subscribe((res) => {
                             console.log(res);
                             this.navCtrl.popTo(RestaurantDetailPage, {'id_restaurant': this.id_restaurant});
+                        }, (err) => {
+                            console.log(JSON.stringify(err));
+                            this.global.presentToast('Cancel evaluation failed');
                         });
                     }
                 },

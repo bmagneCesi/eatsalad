@@ -30,30 +30,6 @@ export class AjoutquestionmodalPage {
     });
   }
 
-  loadSubcategories(id_question_category){
-      this.databaseprovider.getSubcategoriesByCategory(id_question_category).then((data) => {
-        this.subcategories = data;
-      });
-  }
-
-  saveCategory(name){
-    this.databaseprovider.newCategory(name).then((data) => {
-        this.viewCtrl.dismiss();
-    });
-  }
-
-  saveSubcategory(name, category){
-    this.databaseprovider.newSubcategory(name, category).then((data) => {
-        this.viewCtrl.dismiss();
-    });
-  }
-
-  saveQuestion(name, subcategory){
-    this.databaseprovider.newQuestion(name, subcategory).then((data) => {
-        this.viewCtrl.dismiss();
-    });
-  }
-
   close(){
     this.viewCtrl.dismiss();
   }

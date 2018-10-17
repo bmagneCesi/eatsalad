@@ -60,13 +60,13 @@ export class StatisticPage {
 
     openStatistics(){
         let target = "_blank";
-        let browser = this.iab.create(this.global.serverUrl+'uploads/evaluations/'+this.id_evaluation+'/pdf/statistiques-'+this.id_evaluation+'.pdf',target,this.options);
+        let browser = this.iab.create(this.global.serverUrl+'/uploads/evaluations/'+this.id_evaluation+'/pdf/statistiques-'+this.id_evaluation+'.pdf',target,this.options);
         browser.show();
     }
 
     openReport(){
         let target = "_blank";
-        let browser = this.iab.create(this.global.serverUrl+'uploads/evaluations/'+this.id_evaluation+'/pdf/visite-de-conformité-'+this.id_evaluation+'.pdf',target,this.options);
+        let browser = this.iab.create(this.global.serverUrl+'/uploads/evaluations/'+this.id_evaluation+'/pdf/visite-de-conformité-'+this.id_evaluation+'.pdf',target,this.options);
         browser.show();
     }
 

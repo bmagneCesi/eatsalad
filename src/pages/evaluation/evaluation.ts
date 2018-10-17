@@ -327,10 +327,12 @@ export class EvaluationPage {
                 'folder_path': photo_rest_path
             }
         };
-        console.log('toto');
-        fileTransfer.upload(imageURI, this.global.serverUrl+'app_dev.php/rest/evaluation-answer/upload', options)
+        fileTransfer.upload(imageURI, this.global.serverUrl+'/rest/evaluation-answer/upload', options)
             .then((data) => {
                 this.presentToast("Image uploaded successfully");
+                this.file.removeFile(this.file.dataDirectory, photo_name)
+                    .then(_ => console.log('deleted'))
+                    .catch(err => console.log('cannot delete'));
             }, (err) => {
                 console.log(JSON.stringify(err));
                 this.presentToast('Upload failed.');

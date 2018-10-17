@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { NavController, AlertController, ModalController, Platform, LoadingController, ToastController } from 'ionic-angular';
 
 /*
   Generated class for the GlobalProvider provider.
@@ -11,10 +12,30 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class GlobalProvider {
 
-  public serverUrl: string = 'http://46.101.45.175/';
+  public serverUrl: string = 'http://46.101.45.175';
 
-  constructor(public http: Http) {
+  constructor(
+      public http: Http,
+      public toastCtrl: ToastController
+  ) {
 
   }
+
+    /*
+    * _______________
+    *
+    * Show msg notification
+    * _______________
+    *
+    * */
+    public presentToast(text) {
+        let toast = this.toastCtrl.create({
+            message: text,
+            duration: 5000,
+            position: 'top'
+        });
+        toast.present();
+    }
+
 
 }

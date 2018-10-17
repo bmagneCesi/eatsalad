@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, LoadingController } from 'ionic-angular';
 
 import { DatabaseProvider } from './../../providers/database/database';
+import { GlobalProvider } from "../../providers/global/global";
 
 // Pages
 import { StatisticPage } from '../statistic/statistic';
@@ -17,6 +18,7 @@ export class ArchivePage {
   archives = [];
 
   constructor(
+      public global:GlobalProvider,
       public navCtrl: NavController,
       public navParams: NavParams,
       public platform: Platform,
@@ -35,7 +37,10 @@ export class ArchivePage {
       loading.present();
     this.databaseprovider.getRestaurantEvaluations(this.id_restaurant).subscribe((data) => {
       this.archives = data;
-      loading.dismiss();
+    }, err => {
+        this.global.presentToast(err);
+    }, () => {
+        loading.dismiss();
     });
   }
 

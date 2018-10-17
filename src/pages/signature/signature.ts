@@ -77,10 +77,15 @@ export class SignaturePage {
                     this.restaurant = res;
                 });
             });
+            let loading = this.loadingController.create({ content: "Chargement de la prévisualisation..." });
+            loading.present();
             this.databaseprovider.getEvaluationAnswersPreview(this.id_evaluation).subscribe((evaluationAnswersPreview) => {
-                console.log(JSON.stringify(evaluationAnswersPreview));
                 let modal = this.modalController.create(SignaturepdfpopoverPage, {'evaluationAnswersPreview': evaluationAnswersPreview});
                 modal.present();
+            }, err => {
+                this.global.presentToast(err);
+            }, () => {
+                loading.dismiss();
             });
         });
     }
@@ -104,12 +109,11 @@ export class SignaturePage {
                 'folder_path': photo_rest_path
             }
         };
-        fileTransfer.upload(imageURI, this.global.serverUrl+'app_dev.php/rest/evaluation-signature/upload', options)
+        fileTransfer.upload(imageURI, this.global.serverUrl+'/rest/evaluation-signature/upload', options)
             .then((data) => {
-                this.presentToast("Image uploaded successfully");
+                this.global.presentToast("Image uploaded successfully");
             }, (err) => {
-                console.log(JSON.stringify(err));
-                this.presentToast('Upload failed.');
+                this.global.presentToast('Upload failed.');
             });
     }
 
@@ -122,8 +126,7 @@ export class SignaturePage {
         let signatureFranchised = (this.refusal ? null : this.signatureFranchised);
 
         this.databaseprovider.createReport(this.id_evaluation, this.signatureController, controllerName, signatureFranchised).subscribe((data) => {
-            loading.dismiss();
-            this.presentToast(data);
+            this.global.presentToast(data);
             this.navCtrl.push(RestaurantDetailPage, {'id_restaurant': this.id_restaurant}).then(() => {
                 // first we find the index of the current view controller:
                 const index = this.viewCtrl.index;
@@ -133,6 +136,10 @@ export class SignaturePage {
                 this.navCtrl.remove(index-2);
                 this.navCtrl.remove(index-3);
             });
+        }, err => {
+            this.global.presentToast(err);
+        }, () => {
+            loading.dismiss();
         });
 
     }

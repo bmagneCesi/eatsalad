@@ -1,12 +1,6 @@
 {
   "name": "eatsaladApp",
   "app_id": "7c9116cb",
-  "proxies": [
-    {
-      "path": "/rest",
-      "proxyUrl": "http://46.101.45.175/app_dev.php/rest"
-    }
-  ],
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

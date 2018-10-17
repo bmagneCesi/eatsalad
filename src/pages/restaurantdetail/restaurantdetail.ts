@@ -8,6 +8,7 @@ import  { ArchivePage } from '../archive/archive';
 
 // Providers
 import { DatabaseProvider } from './../../providers/database/database';
+import { GlobalProvider } from './../../providers/global/global';
 
 @Component({
   selector: 'page-restaurantdetail',
@@ -23,7 +24,8 @@ export class RestaurantDetailPage {
         public navParams: NavParams,
         public platform: Platform,
         private databaseprovider: DatabaseProvider,
-    public loadingCtrl: LoadingController
+        private global: GlobalProvider,
+        public loadingCtrl: LoadingController
 ) {
         this.platform.ready().then(() => {
             this.id_restaurant = this.navParams.get('id_restaurant');
@@ -38,13 +40,11 @@ export class RestaurantDetailPage {
     * _______________
     * */
     addEvaluationAction():void{
-        let data = {
-            'id_restaurant' : this.id_restaurant,
-            'subcategories_done' : []
-        };
-        console.log(JSON.stringify(data));
-        this.databaseprovider.addEvaluation(data).subscribe((id_evaluation) => {
+        this.databaseprovider.addEvaluation(this.id_restaurant).subscribe((id_evaluation) => {
             this.navCtrl.push(EvaluationCategoryPage, {'id_restaurant': this.id_restaurant, 'id_evaluation': id_evaluation});
+        }, (err) => {
+            console.log(JSON.stringify(err));
+            this.global.presentToast('Upload failed.');
         });
     }
 
@@ -83,6 +83,10 @@ export class RestaurantDetailPage {
             if (data.length > 0) {
                 this.hasEvaluation = true;
             }
+        }, (err) => {
+            console.log(JSON.stringify(err));
+            this.global.presentToast('Get evaluations failed');
+        },() => {
             loading.dismiss();
         });
     }
