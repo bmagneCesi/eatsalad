@@ -152,6 +152,16 @@ export class DatabaseProvider {
             })
     }
 
+
+    getEvaluationSubcategoriesDone(id_evaluation){
+        return this.http.get(this.global.serverUrl+'/rest/evaluation/'+id_evaluation+'/subcategoriesdone')
+        // .do((res: any) => console.log(JSON.stringify(res)))
+            .map((res: any) => res.json())
+            .catch((error: any) => {
+                return Observable.throw(error);
+            })
+    }
+
     getEvaluation(id_evaluation){
         return this.http.get(this.global.serverUrl+'/rest/evaluation/'+id_evaluation)
             // .do((res: any) => console.log(JSON.stringify(res)))

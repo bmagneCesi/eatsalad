@@ -85,7 +85,7 @@ export class RestaurantDetailPage {
             }
         }, (err) => {
             console.log(JSON.stringify(err));
-            this.global.presentToast('Get evaluations failed');
+            this.global.presentToast('Get evaluations failed' + 'restaurantdetails');
         },() => {
             loading.dismiss();
         });

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { EmailComposer } from '@ionic-native/email-composer';
 import { NavController, AlertController, ModalController, Platform, LoadingController, ToastController } from 'ionic-angular';
 
 /*
@@ -12,7 +13,8 @@ import { NavController, AlertController, ModalController, Platform, LoadingContr
 @Injectable()
 export class GlobalProvider {
 
-  public serverUrl: string = 'http://46.101.45.175';
+  public serverUrl: string = 'https://app.eatsalad.fr';
+  // public serverUrl: string = 'http://46.101.45.175';
 
   constructor(
       public http: Http,

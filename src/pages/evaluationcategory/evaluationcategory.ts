@@ -71,12 +71,14 @@ export class EvaluationCategoryPage {
     ionViewDidEnter(){
         let loading = this.loadingCtrl.create();
         loading.present();
-        this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((evaluation) => {
-            this.subcategoriesDone = evaluation.subcategories_done;
-            loading.dismiss();
+        this.databaseprovider.getEvaluation(this.id_evaluation).subscribe((data) => {
+            this.subcategoriesDone = data.subcategoriesDone;
         }, (err) => {
             console.log(JSON.stringify(err));
-            this.global.presentToast('Get evaluations failed');
+            this.global.presentToast('Get evaluations failed' + 'evaluationcategory');
+            loading.dismiss();
+        },() => {
+            loading.dismiss();
         });
     }
 
